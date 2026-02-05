@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
 import { StockProvider } from "@/context/StockContext";
-import Footer from "@/components/Footer";
+import FooterGate from "@/components/FooterGate";
 import OrganizationSchema from "@/components/OrganizationSchema";
 
 const inter = Inter({
@@ -85,7 +85,7 @@ export default function RootLayout({
             {children}
           </StockProvider>
         </CartProvider>
-        <Footer />
+        <FooterGate />
       </body>
     </html>
   );

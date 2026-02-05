@@ -21,24 +21,63 @@ type Slide = {
 
 const sections = [
   {
-    title: "The Mountain",
+    title: "Tarialan cup 2026",
     description:
-      "Scroll to explore the cinematic mountain journey and discover the story behind each chapter.",
+      "Тэмцээний үеэр зохион байгуулагдах арга хэмжээнүүд талаарх мэдээллийг эндээс авна уу",
   },
   {
-    title: "Geography",
+    title: "Зохион байгуулалт",
     description:
-      "Highlight the landscapes, terrain features, and the natural setting that shapes the region.",
+      "Тэмцээний зохион байгуулалтын талаарх мэдээллийг эндээс авна уу",
   },
   {
-    title: "Nature",
+    title: "Холбоо барих",
     description:
-      "Showcase the forests, wildlife, and seasonal beauty that make this place unique.",
+      "Асууж тодруулах зүйлс гарвал доорх холбоосоор холбогдоно уу",
   },
   {
-    title: "Adventure",
+    title: "Тест",
     description:
-      "Emphasize the experience, challenge, and spirit of the journey through the mountains.",
+      "Тест.",
+  },
+];
+
+const organizationCards = [
+  {
+    title: "Тэмцээний мэдээлэл",
+    icon: "📅",
+    items: [
+      "Зохион байгуулагч: 2014–2017 оны төгсөгчид",
+      "Тэмцээн болох хугацаа: 2025.05.16–17",
+      "Нээлтийн орой шоу: 2025.05.16",
+    ],
+  },
+  {
+    title: "Тэмцээний төрөл",
+    icon: "🏆",
+    items: [
+      "Сагсан бөмбөг",
+      "Дартс (эрэгтэй 2, эмэгтэй 2 – баг)",
+      "Теннис (ганцаарчилсан)",
+      "Бооцоо: 20,000₮",
+    ],
+  },
+];
+
+const contactCards = [
+  {
+    title: "Зохион байгуулагч 1",
+    name: "Г. Ариунболд",
+    phone: "89141818",
+    email: "example1@tarialancup.mn",
+    facebook: "https://www.facebook.com/ariukaazzz/",
+  },
+  {
+    title: "Зохион байгуулагч 2",
+    name: "Нэр Оруулна",
+    phone: "+976 0000 0001",
+    email: "example2@tarialancup.mn",
+    facebook: "https://facebook.com/organizer.two",
   },
 ];
 
@@ -46,9 +85,8 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const sectionRefs = useRef<HTMLElement[]>([]);
-  const scrollTrackRef = useRef<HTMLDivElement | null>(null);
-  const grainRef = useRef<HTMLDivElement | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [activeChapter, setActiveChapter] = useState(0);
 
   useEffect(() => {
     if (!canvasRef.current || !wrapperRef.current) return;
@@ -194,11 +232,12 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
       start: "top top",
       end: "bottom bottom",
       onUpdate: (self) => {
-        if (!scrollTrackRef.current || !grainRef.current) return;
-        const trackHeight = scrollTrackRef.current.clientHeight;
-        const iconHeight = grainRef.current.clientHeight;
-        const y = (trackHeight - iconHeight) * self.progress;
-        grainRef.current.style.transform = `translateY(${y}px)`;
+        const total = sections.length;
+        const index = Math.min(
+          total - 1,
+          Math.floor(self.progress * total + 0.0001)
+        );
+        setActiveChapter(index);
       },
     });
 
@@ -224,24 +263,11 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
     };
     window.addEventListener("resize", handleResize);
 
-    const updateGrain = () => {
-      if (!scrollTrackRef.current || !grainRef.current || !wrapperRef.current) return;
-      const start = wrapperRef.current.offsetTop;
-      const end = start + wrapperRef.current.offsetHeight - window.innerHeight;
-      const progress = Math.min(Math.max((window.scrollY - start) / (end - start), 0), 1);
-      const trackHeight = scrollTrackRef.current.clientHeight;
-      const iconHeight = grainRef.current.clientHeight;
-      const y = (trackHeight - iconHeight) * progress;
-      grainRef.current.style.transform = `translateY(${y}px)`;
-    };
-
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
-      updateGrain();
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll);
-    updateGrain();
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
@@ -278,9 +304,7 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
               index === 0 ? "max-w-5xl" : "max-w-xl"
             }`}
           >
-            <p className="text-sm uppercase tracking-[0.3em] text-white/70">
-              Chapter {index + 1}
-            </p>
+            
             <h1 className="text-3xl md:text-5xl font-semibold">
               {section.title}
             </h1>
@@ -294,24 +318,96 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
                 </div>
               </div>
             ) : null}
+            {section.title === "Зохион байгуулалт" ? (
+              <div className="mt-6 grid w-full gap-4 md:grid-cols-2">
+                {organizationCards.map((card) => (
+                  <div
+                    key={card.title}
+                    className="rounded-2xl border-2 border-[#1f632b]/70 bg-white/10 p-4 text-left shadow-lg backdrop-blur"
+                  >
+                    <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#1f632b]/20 px-3 py-1 text-sm font-semibold text-white">
+                      <span>{card.icon}</span>
+                      <span>{card.title}</span>
+                    </div>
+                    <ul className="space-y-1 text-sm text-white/90">
+                      {card.items.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <span className="mt-1 text-[10px]">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+            {section.title === "Холбоо барих" ? (
+              <div className="mt-6 grid w-full gap-4 md:grid-cols-2">
+                {contactCards.map((card) => (
+                  <div
+                    key={card.title}
+                    className="rounded-2xl border-2 border-[#1f632b]/70 bg-white/10 p-4 text-left shadow-lg backdrop-blur"
+                  >
+                    <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#1f632b]/20 px-3 py-1 text-sm font-semibold text-white">
+                      <span>👤</span>
+                      <span>{card.title}</span>
+                    </div>
+                    <div className="space-y-1 text-sm text-white/90">
+                      <div className="flex items-start gap-2">
+                        <span className="mt-1 text-xs">👤</span>
+                        <span>Нэр: {card.name}</span>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="mt-1 text-xs">📞</span>
+                        <a
+                          href={`tel:${card.phone.replace(/[^\d+]/g, "")}`}
+                          className="hover:underline"
+                        >
+                          Утас: {card.phone}
+                        </a>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="mt-1 text-xs">✉️</span>
+                        <a
+                          href={`mailto:${card.email}`}
+                          className="hover:underline"
+                        >
+                          Имэйл хаяг: {card.email}
+                        </a>
+                      </div>
+                      <div className="flex items-start gap-2">
+                        <span className="mt-1 text-xs">📘</span>
+                        <a
+                          href={card.facebook}
+                          className="hover:underline"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Facebook
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
         </section>
       ))}
-      <div className="fixed right-6 top-1/2 z-20 flex h-80 -translate-y-1/2 items-center">
-        <div
-          ref={scrollTrackRef}
-          className="relative h-full w-1.5 rounded-full bg-white/50"
-        >
-          <div className="absolute -top-3 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-white/80" />
-          <div className="absolute -bottom-3 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-white/80" />
-          <div ref={grainRef} className="absolute left-1/2 -translate-x-1/2">
-            <img
-              src="/images/grain-scroll.svg"
-              alt="Grain scroll indicator"
-              className="h-16 w-16 drop-shadow-xl"
+      <div className="fixed right-6 top-1/2 z-20 flex -translate-y-1/2 flex-col items-center gap-4">
+        {sections.map((_, idx) => {
+          const isActive = idx === activeChapter;
+          return (
+            <span
+              key={`dot-${idx}`}
+              className={`rounded-full border transition-all ${
+                isActive
+                  ? "h-4 w-4 border-white bg-white"
+                  : "h-2.5 w-2.5 border-white/60 bg-transparent"
+              }`}
             />
-          </div>
-        </div>
+          );
+        })}
       </div>
       {showScrollTop ? (
         <button

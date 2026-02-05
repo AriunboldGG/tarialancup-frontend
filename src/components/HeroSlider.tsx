@@ -107,16 +107,15 @@ export default function HeroSlider({ slides }: { slides?: Slide[] }) {
                 </div>
               )}
               
-              {/* More Button */}
-              {s.href && (
-                <div className="absolute bottom-4 left-4">
-                  <Link href={s.href}>
-                    <Button className="bg-[#1f632b] hover:bg-[#16451e] text-white cursor-pointer">
-                      {s.ctaLabel || "Дэлгэрэнгүй"}
-                    </Button>
-                  </Link>
-                </div>
-              )}
+              {/* Дэлгэрэнгүй унших Button */}
+              <div className="absolute bottom-4 right-4">
+                <Button
+                  className="bg-[#1f632b] hover:bg-[#16451e] text-white cursor-pointer text-[10px] sm:text-xs px-3 py-1 sm:px-4 sm:py-2 h-auto"
+                  type="button"
+                >
+                  {s.ctaLabel || "Дэлгэрэнгүй унших"}
+                </Button>
+              </div>
               </div>
             </CarouselItem>
           ))}

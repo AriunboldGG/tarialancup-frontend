@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import MountainScrollScene from "@/components/MountainScrollScene";
 
 export const metadata: Metadata = {
-  title: "Нүүр хуудас",
+  title: "Tarialan Cup - 2026",
   description: "Tarialan cup - 2026",
   openGraph: {
     title: "Tarialan cup - 2026 ",
@@ -17,7 +17,7 @@ export default function Home() {
     {
       id: "cover-1",
       image: "/images/cover-1.png",
-      title: "Tarialan Cup 2026",
+      title: "Tarialan Cup - 2026",
     },
     {
       id: "cover-2",
@@ -33,7 +33,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white">
-      <div className="relative z-20">
+      <div className="fixed left-0 top-0 z-50 w-full">
         <Header />
       </div>
       <div className="relative z-0">

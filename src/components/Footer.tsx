@@ -8,7 +8,7 @@ export default function Footer() {
   const { companyInfo } = useCompanyInfo();
   const mapSrc =
     companyInfo.mapEmbedUrl ||
-    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2675.1584418996117!2d106.88357267590312!3d47.89461856804502!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d96930010cf9007%3A0xc7910f0df8d73ee!2sM1%20Tower!5e0!3m2!1sen!2smn!4v1768798097551!5m2!1sen!2smn";
+    "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d913.9508061231882!2d101.9909059403952!3d49.61578926937764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5d0adb80bd0e3047%3A0x7e062189f1722b8!2sTarialan%20sports%20center!5e0!3m2!1sen!2smn!4v1770320781263!5m2!1sen!2smn";
   return (
     <footer className="w-full border-t mt-8 md:mt-12 bg-[#F5F5F5]">
       <div className="container mx-auto px-4 py-10">
@@ -16,24 +16,13 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h4 className="text-sm font-semibold text-gray-800 mb-4">ХОЛБОО БАРИХ</h4>
-            <div className="text-xs font-semibold text-gray-800 mb-1">БОРЛУУЛАЛТЫН АЛБА</div>
             <a
-              href={`tel:${companyInfo.phone}`}
+              href={`tel:99999999`}
               className="text-2xl font-bold text-[#1D75B7] mb-4 inline-block hover:underline"
             >
-              {companyInfo.phone}
+              99999999
             </a>
-            {companyInfo.mobilePhone ? (
-              <>
-                <div className="text-xs font-semibold text-gray-800 mb-1">ГАР УТАС</div>
-                <a
-                  href={`tel:${companyInfo.mobilePhone}`}
-                  className="text-lg font-semibold text-[#1D75B7] mb-4 inline-block hover:underline"
-                >
-                  {companyInfo.mobilePhone}
-                </a>
-              </>
-            ) : null}
+          
             <div className="text-xs font-semibold text-gray-800 mb-1">Имэйл хаяг</div>
             <a
               href={`mailto:${companyInfo.email}`}
@@ -86,7 +75,7 @@ export default function Footer() {
 
           {/* Customer */}
           <div>
-            <h4 className="text-sm font-semibold text-gray-800 mb-4">ХАРИЛЦАГЧДАД ЗОРИУЛСАН</h4>
+            <h4 className="text-sm font-semibold text-gray-800 mb-4">Тэмцээнд оролцогчдод зориулсан</h4>
             <ul className="space-y-2 text-sm text-gray-600">
               <li><Link href="#">Policy</Link></li>
               <li><Link href="#">Terms & Conditions</Link></li>
@@ -94,11 +83,21 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t pt-6 flex items-center justify-between text-xs text-gray-500">
-          <div>© 2026 Tarialan cup - 2026 ХХК. Бүх эрх хуулиар хамгаалагдсан</div>
-          <div className="flex items-center gap-4">
-            {/* <Image src="/svg/mastercard.svg" alt="Mastercard" width={36} height={22} />
-            <Image src="/svg/visa.svg" alt="Visa" width={36} height={22} /> */}
+        <div className="mt-10 border-t pt-6 flex flex-col gap-2 text-xs text-gray-500 md:flex-row md:items-center md:justify-between">
+          <div>© 2026 Tarialan cup - 2026 . Бүх эрх хуулиар хамгаалагдсан</div>
+          <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
+            <a
+              href="https://ariunbold-portfolio.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-gray-600 hover:text-gray-800 hover:underline"
+            >
+              Developed by: Ariunbold Ganbat
+            </a>
+            <div className="flex items-center gap-4">
+              {/* <Image src="/svg/mastercard.svg" alt="Mastercard" width={36} height={22} />
+              <Image src="/svg/visa.svg" alt="Visa" width={36} height={22} /> */}
+            </div>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { companyInfo } = useCompanyInfo();
   return (
-    <header className="fixed left-0 top-0 z-50 w-full glass-header">
+    <header className="w-full glass-header">
       {/* Top Header Bar */}
    
 
@@ -38,7 +38,7 @@ export default function Header() {
             <NavLink href="/#chapter-1">МЭДЭЭ</NavLink>
             <NavLink href="/#chapter-2">Тэмцээний тухай</NavLink>
             <NavLink href="/#chapter-3">ХОЛБОО БАРИХ</NavLink>
-            <NavLink href="/special-order">Бүртгүүлэх</NavLink>
+            <NavLink href="/register">Бүртгүүлэх</NavLink>
           </nav>
 
           {/* Right: Burger Menu */}
@@ -74,7 +74,7 @@ export default function Header() {
               <NavLink href="/#chapter-3" onClick={() => setIsMenuOpen(false)}>
                 ХОЛБОО БАРИХ
               </NavLink>
-              <NavLink href="/special-order" onClick={() => setIsMenuOpen(false)}>
+              <NavLink href="/register" onClick={() => setIsMenuOpen(false)}>
                 Бүртгүүлэх
               </NavLink>
             </nav>
