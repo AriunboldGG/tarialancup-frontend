@@ -419,13 +419,23 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
         })}
       </div>
       {showScrollTop ? (
-        <button
-          type="button"
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 z-30 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-black shadow-lg backdrop-blur hover:bg-white"
-        >
-          Дээш буцах
-        </button>
+        <div className="fixed bottom-6 right-6 z-30 flex flex-col items-end gap-2">
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-black shadow-lg backdrop-blur hover:bg-white"
+          >
+            Дээш буцах
+          </button>
+          <a
+            href="https://ariunbold-portfolio.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-white/80 hover:text-white"
+          >
+            Developed by: Ariunbold Ganbat
+          </a>
+        </div>
       ) : null}
     </div>
   );

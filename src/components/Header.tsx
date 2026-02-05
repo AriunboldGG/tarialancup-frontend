@@ -60,8 +60,8 @@ export default function Header() {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="lg:hidden border-t border-gray-200 bg-white">
-            <nav className="container mx-auto px-4 py-4 flex flex-col gap-4">
+          <div className="lg:hidden border-t border-white/20 bg-white/40 backdrop-blur-2xl shadow-[0_20px_50px_rgba(15,23,42,0.25)]">
+            <nav className="container mx-auto px-4 py-5 flex flex-col gap-4 text-gray-900">
               <NavLink href="/" onClick={() => setIsMenuOpen(false)}>
                 НҮҮР
               </NavLink>
