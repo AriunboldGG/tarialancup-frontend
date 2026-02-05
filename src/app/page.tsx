@@ -18,16 +18,29 @@ export default function Home() {
       id: "cover-1",
       image: "/images/cover-1.png",
       title: "Tarialan Cup - 2026",
+      ctaLabel: "Дэлгэрэнгүй",
+      href: "/news",
     },
     {
       id: "cover-2",
       image: "/images/cover-2.png",
       title: "Tarialan Cup 2026",
+      ctaLabel: "Дэлгэрэнгүй",
+      href: "/news",
     },
     {
       id: "cover-111",
       image: "/images/cover-111.png",
       title: "Tarialan Cup 2026",
+      ctaLabel: "Дэлгэрэнгүй",
+      href: "/news",
+    },
+    {
+      id: "cover-4",
+      image: "/images/cover-4.png",
+      title: "Tarialan Cup 2026",
+      ctaLabel: "Дэлгэрэнгүй",
+      href: "/speakers",
     },
   ];
 

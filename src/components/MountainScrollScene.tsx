@@ -124,7 +124,7 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
     scene.add(fillLight);
 
     const mountainGroup = new THREE.Group();
-    const startRotationY = -Math.PI * 0.45;
+    const startRotationY = -Math.PI * 0.9;
     const endRotationY = Math.PI * 0.35;
     mountainGroup.rotation.y = startRotationY;
     scene.add(mountainGroup);
@@ -162,7 +162,16 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
       },
       undefined,
       () => {
-        // Keep scene alive even if the model fails to load.
+        // Fallback geometry so the scene is visible if the GLB is missing.
+        const fallbackGeometry = new THREE.ConeGeometry(1.8, 3.6, 6);
+        const fallbackMaterial = new THREE.MeshStandardMaterial({
+          color: 0x8899aa,
+          roughness: 0.7,
+          metalness: 0.1,
+        });
+        const fallbackMesh = new THREE.Mesh(fallbackGeometry, fallbackMaterial);
+        fallbackMesh.position.y = 0.2;
+        mountainGroup.add(fallbackMesh);
       }
     );
 
