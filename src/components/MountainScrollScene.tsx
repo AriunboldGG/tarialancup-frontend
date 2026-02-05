@@ -6,15 +6,48 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import HeroSlider from "@/components/HeroSlider";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const sectionTitles = ["The Mountain", "Geography", "Nature", "Adventure"];
+type Slide = {
+  id: string;
+  image: string;
+  title: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  href?: string;
+};
 
-export default function MountainScrollScene() {
+const sections = [
+  {
+    title: "The Mountain",
+    description:
+      "Scroll to explore the cinematic mountain journey and discover the story behind each chapter.",
+  },
+  {
+    title: "Geography",
+    description:
+      "Highlight the landscapes, terrain features, and the natural setting that shapes the region.",
+  },
+  {
+    title: "Nature",
+    description:
+      "Showcase the forests, wildlife, and seasonal beauty that make this place unique.",
+  },
+  {
+    title: "Adventure",
+    description:
+      "Emphasize the experience, challenge, and spirit of the journey through the mountains.",
+  },
+];
+
+export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const sectionRefs = useRef<HTMLElement[]>([]);
+  const scrollTrackRef = useRef<HTMLDivElement | null>(null);
+  const grainRef = useRef<HTMLDivElement | null>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
@@ -28,7 +61,7 @@ export default function MountainScrollScene() {
 
     const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 100);
     // Start closer to the mountain for the initial view.
-    camera.position.set(0, 1.2, 5.6);
+    camera.position.set(-1.2, 1.2, 5.6);
 
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -53,6 +86,9 @@ export default function MountainScrollScene() {
     scene.add(fillLight);
 
     const mountainGroup = new THREE.Group();
+    const startRotationY = -Math.PI * 0.45;
+    const endRotationY = Math.PI * 0.35;
+    mountainGroup.rotation.y = startRotationY;
     scene.add(mountainGroup);
 
     const loader = new GLTFLoader();
@@ -108,10 +144,11 @@ export default function MountainScrollScene() {
       },
     });
 
-    timeline.to(
+    timeline.fromTo(
       mountainGroup.rotation,
+      { y: startRotationY },
       {
-        y: -Math.PI * 0.6,
+        y: endRotationY,
         ease: "none",
       },
       0
@@ -130,24 +167,40 @@ export default function MountainScrollScene() {
       .filter(Boolean)
       .forEach((section, index) => {
         if (index === 0) {
-          gsap.set(section, { opacity: 1, y: 0 });
+          gsap.set(section, { autoAlpha: 1, y: 0 });
           return;
         }
+
         gsap.fromTo(
           section,
-          { opacity: 0, y: 24 },
+          { autoAlpha: 0, y: 30 },
           {
-            opacity: 1,
+            autoAlpha: 1,
             y: 0,
+            duration: 0.6,
+            ease: "power2.out",
             scrollTrigger: {
               trigger: section,
               start: "top 70%",
-              end: "bottom 40%",
-              scrub: true,
+              end: "bottom 30%",
+              toggleActions: "play reverse play reverse",
             },
           }
         );
       });
+
+    const scrollIndicator = ScrollTrigger.create({
+      trigger: wrapper,
+      start: "top top",
+      end: "bottom bottom",
+      onUpdate: (self) => {
+        if (!scrollTrackRef.current || !grainRef.current) return;
+        const trackHeight = scrollTrackRef.current.clientHeight;
+        const iconHeight = grainRef.current.clientHeight;
+        const y = (trackHeight - iconHeight) * self.progress;
+        grainRef.current.style.transform = `translateY(${y}px)`;
+      },
+    });
 
     let animationId = 0;
     const animate = () => {
@@ -171,11 +224,24 @@ export default function MountainScrollScene() {
     };
     window.addEventListener("resize", handleResize);
 
+    const updateGrain = () => {
+      if (!scrollTrackRef.current || !grainRef.current || !wrapperRef.current) return;
+      const start = wrapperRef.current.offsetTop;
+      const end = start + wrapperRef.current.offsetHeight - window.innerHeight;
+      const progress = Math.min(Math.max((window.scrollY - start) / (end - start), 0), 1);
+      const trackHeight = scrollTrackRef.current.clientHeight;
+      const iconHeight = grainRef.current.clientHeight;
+      const y = (trackHeight - iconHeight) * progress;
+      grainRef.current.style.transform = `translateY(${y}px)`;
+    };
+
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 300);
+      updateGrain();
     };
     handleScroll();
     window.addEventListener("scroll", handleScroll);
+    updateGrain();
 
     return () => {
       window.removeEventListener("mousemove", onMouseMove);
@@ -183,6 +249,7 @@ export default function MountainScrollScene() {
       window.removeEventListener("scroll", handleScroll);
       cancelAnimationFrame(animationId);
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      scrollIndicator.kill();
       timeline.kill();
       renderer.dispose();
     };
@@ -197,33 +264,62 @@ export default function MountainScrollScene() {
         <canvas ref={canvasRef} className="h-full w-full" />
       </div>
 
-      {sectionTitles.map((title, index) => (
+      {sections.map((section, index) => (
         <section
-          key={title}
+          key={section.title}
           ref={(el) => {
             if (el) sectionRefs.current[index] = el;
           }}
+          id={`chapter-${index + 1}`}
           className="relative z-10 h-screen flex items-center justify-center px-6"
         >
-          <div className="max-w-xl text-center space-y-4 rounded-2xl bg-black/35 px-6 py-8 backdrop-blur-md">
+          <div
+            className={`text-center space-y-4 rounded-2xl bg-black/35 px-6 py-8 backdrop-blur-md ${
+              index === 0 ? "max-w-5xl" : "max-w-xl"
+            }`}
+          >
             <p className="text-sm uppercase tracking-[0.3em] text-white/70">
               Chapter {index + 1}
             </p>
-            <h1 className="text-3xl md:text-5xl font-semibold">{title}</h1>
+            <h1 className="text-3xl md:text-5xl font-semibold">
+              {section.title}
+            </h1>
             <p className="text-sm md:text-base text-white/80">
-              Scroll to explore the cinematic mountain journey and discover the story
-              behind each chapter.
+              {section.description}
             </p>
+            {index === 0 ? (
+              <div className="pt-4">
+                <div className="overflow-hidden rounded-xl border border-white/10 bg-white/5">
+                  <HeroSlider slides={slides} />
+                </div>
+              </div>
+            ) : null}
           </div>
         </section>
       ))}
+      <div className="fixed right-6 top-1/2 z-20 flex h-80 -translate-y-1/2 items-center">
+        <div
+          ref={scrollTrackRef}
+          className="relative h-full w-1.5 rounded-full bg-white/50"
+        >
+          <div className="absolute -top-3 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-white/80" />
+          <div className="absolute -bottom-3 left-1/2 h-3 w-3 -translate-x-1/2 rounded-full bg-white/80" />
+          <div ref={grainRef} className="absolute left-1/2 -translate-x-1/2">
+            <img
+              src="/images/grain-scroll.svg"
+              alt="Grain scroll indicator"
+              className="h-16 w-16 drop-shadow-xl"
+            />
+          </div>
+        </div>
+      </div>
       {showScrollTop ? (
         <button
           type="button"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-6 right-6 z-30 rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-black shadow-lg backdrop-blur hover:bg-white"
         >
-          Scroll Up
+          Дээш буцах
         </button>
       ) : null}
     </div>

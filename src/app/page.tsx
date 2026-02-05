@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
-import HeroSlider from "@/components/HeroSlider";
 import MountainScrollScene from "@/components/MountainScrollScene";
 
 export const metadata: Metadata = {
@@ -36,12 +35,9 @@ export default function Home() {
     <main className="min-h-screen bg-white">
       <div className="relative z-20">
         <Header />
-        <section className="container mx-auto px-4 mt-10 md:mt-14">
-          <HeroSlider slides={heroSlides} />
-        </section>
       </div>
       <div className="relative z-0">
-        <MountainScrollScene />
+        <MountainScrollScene slides={heroSlides} />
       </div>
     </main>
   );

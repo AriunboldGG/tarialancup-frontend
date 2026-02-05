@@ -77,9 +77,9 @@ export default function Footer() {
 
           {/* About */}
           <div>
-            <h4 className="text-sm font-semibold text-gray-800 mb-4">БИДНИЙ ТУХАЙ</h4>
+            <h4 className="text-sm font-semibold text-gray-800 mb-4">Тэмцээний тухай</h4>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li><Link href="/about" className="hover:underline">Бидний тухай</Link></li>
+              <li><Link href="/about" className="hover:underline">Тэмцээний тухай</Link></li>
 
             </ul>
           </div>

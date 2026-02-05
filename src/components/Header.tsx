@@ -11,89 +11,18 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { companyInfo } = useCompanyInfo();
   return (
-    <header className="w-full bg-white">
+    <header className="fixed left-0 top-0 z-50 w-full glass-header">
       {/* Top Header Bar */}
-      <div className="w-full bg-white border-b border-white">
-        <div className="container mx-auto px-4 py-2 flex items-center justify-between gap-2 text-[11px] sm:text-xs">
-          {/* Left: Social Media Icons */}
-          <div className="flex items-center gap-2">
-            <a
-              href={companyInfo.facebookUrl || "#"}
-              className="flex items-center justify-center"
-              target={companyInfo.facebookUrl ? "_blank" : undefined}
-              rel={companyInfo.facebookUrl ? "noopener noreferrer" : undefined}
-            >
-              <Image 
-                src="/svg/fb-logo.svg" 
-                alt="Facebook" 
-                width={20} 
-                height={20}
-                className="w-5 h-5"
-              />
-            </a>
-          </div>
-
-         
-
-          {/* Right: Contact Info */}
-          <div className="flex items-center gap-2 justify-end whitespace-nowrap">
-            <a
-              href={`mailto:${companyInfo.email}`}
-              className="flex items-center gap-1 text-gray-700 hover:underline"
-            >
-              <Image 
-                src="/svg/email-logo.svg" 
-                alt="Email" 
-                width={16} 
-                height={16}
-                className="w-4 h-4"
-              />
-              <span className="max-sm:text-[10px]">{companyInfo.email}</span>
-            </a>
-            <span className="text-gray-300 px-1">|</span>
-            <a
-              href={`tel:${companyInfo.phone}`}
-              className="flex items-center gap-1 text-gray-700 hover:underline"
-            >
-              <Image 
-                src="/svg/phone-logo.svg" 
-                alt="Phone" 
-                width={16} 
-                height={16}
-                className="w-4 h-4"
-              />
-              <span className="max-sm:text-[10px]">{companyInfo.phone}</span>
-            </a>
-            {companyInfo.mobilePhone ? (
-              <>
-                <span className="text-gray-300 px-1">|</span>
-                <a
-                  href={`tel:${companyInfo.mobilePhone}`}
-                  className="flex items-center gap-1 text-gray-700 hover:underline"
-                >
-                  <Image 
-                    src="/svg/phone-logo.svg" 
-                    alt="Mobile phone" 
-                    width={16} 
-                    height={16}
-                    className="w-4 h-4"
-                  />
-                  <span className="max-sm:text-[10px]">{companyInfo.mobilePhone}</span>
-                </a>
-              </>
-            ) : null}
-          </div>
-        </div>
-      </div>
+   
 
       {/* Main Navigation Bar */}
-      <div className="w-full bg-white border-b border-white">
+      <div className="w-full">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           {/* Left: Logo */}
           <Link href="/" className="flex items-center gap-3">
             <div className="relative h-10 w-[180px] sm:h-12 sm:w-[220px]">
               <Image
-                src="/images/main-logo.png"
+                src="/images/logo.png"
                 alt="Tarialan cup - 2026"
                 fill
                 sizes="(max-width: 640px) 180px, 220px"
@@ -106,9 +35,9 @@ export default function Header() {
           {/* Middle: Navigation Links - Desktop */}
           <nav className="hidden lg:flex items-center gap-8">
             <NavLink href="/">НҮҮР</NavLink>
-            <NavLink href="/news">МЭДЭЭ</NavLink>
-            <NavLink href="/about">БИДНИЙ ТУХАЙ</NavLink>
-            <NavLink href="/contact">ХОЛБОО БАРИХ</NavLink>
+            <NavLink href="/#chapter-1">МЭДЭЭ</NavLink>
+            <NavLink href="/#chapter-2">Тэмцээний тухай</NavLink>
+            <NavLink href="/#chapter-3">ХОЛБОО БАРИХ</NavLink>
             <NavLink href="/special-order">Бүртгүүлэх</NavLink>
           </nav>
 
@@ -136,13 +65,13 @@ export default function Header() {
               <NavLink href="/" onClick={() => setIsMenuOpen(false)}>
                 НҮҮР
               </NavLink>
-              <NavLink href="/news" onClick={() => setIsMenuOpen(false)}>
+              <NavLink href="/#chapter-1" onClick={() => setIsMenuOpen(false)}>
                 МЭДЭЭ
               </NavLink>
-              <NavLink href="/about" onClick={() => setIsMenuOpen(false)}>
-                БИДНИЙ ТУХАЙ
+              <NavLink href="/#chapter-2" onClick={() => setIsMenuOpen(false)}>
+                Тэмцээний тухай
               </NavLink>
-              <NavLink href="/contact" onClick={() => setIsMenuOpen(false)}>
+              <NavLink href="/#chapter-3" onClick={() => setIsMenuOpen(false)}>
                 ХОЛБОО БАРИХ
               </NavLink>
               <NavLink href="/special-order" onClick={() => setIsMenuOpen(false)}>

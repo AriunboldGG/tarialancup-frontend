@@ -121,8 +121,8 @@ export default function HeroSlider({ slides }: { slides?: Slide[] }) {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-2 cursor-pointer" />
-        <CarouselNext className="right-2 cursor-pointer" />
+        <CarouselPrevious className="left-2 cursor-pointer border-[#1f632b] text-[#1f632b] hover:bg-[#1f632b] hover:text-white" />
+        <CarouselNext className="right-2 cursor-pointer border-[#1f632b] text-[#1f632b] hover:bg-[#1f632b] hover:text-white" />
         {displaySlides.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2">
             {Array.from({ length: snapCount }).map((_, index) => (
