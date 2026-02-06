@@ -7,9 +7,10 @@ interface NavLinkProps {
   href: string;
   children: React.ReactNode;
   onClick?: () => void;
+  className?: string;
 }
 
-export default function NavLink({ href, children, onClick }: NavLinkProps) {
+export default function NavLink({ href, children, onClick, className }: NavLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === href;
 
@@ -21,7 +22,7 @@ export default function NavLink({ href, children, onClick }: NavLinkProps) {
         isActive
           ? "text-[#1f632b] hover:text-[#1f632b]"
           : "text-gray-800 hover:text-[#1f632b]"
-      }`}
+      } ${className ?? ""}`}
     >
       {children}
       <span

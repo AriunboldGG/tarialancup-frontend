@@ -99,7 +99,7 @@ export default function HeroSlider({ slides }: { slides?: Slide[] }) {
                   alt={s.title}
                   fill
                   priority
-                  className="object-contain bg-white"
+                  className="object-contain"
                 />
               ) : (
                 <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
