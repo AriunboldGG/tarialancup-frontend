@@ -16,7 +16,7 @@ export const defaultCompanyInfo: CompanyInfo = {
   facebookUrl: "",
   wechatUrl: "",
   whatsappUrl: "",
-  address: "Улаанбаатар хот, M1 Tower",
+  address: "Хөвсгөл аймаг, Тариалан сум. Спорт зал",
   mapEmbedUrl: "",
 };
 

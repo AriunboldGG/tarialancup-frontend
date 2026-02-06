@@ -13,6 +13,7 @@ interface NavLinkProps {
 export default function NavLink({ href, children, onClick, className }: NavLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === href;
+  const hideActiveUnderline = href === "/register";
 
   return (
     <Link
@@ -27,7 +28,7 @@ export default function NavLink({ href, children, onClick, className }: NavLinkP
       {children}
       <span
         className={`absolute left-1/2 -translate-x-1/2 -bottom-2 h-[3px] rounded-full bg-[#1f632b] shadow-[0_2px_6px_rgba(31,99,43,0.35)] transition-all duration-200 ${
-          isActive ? "w-full" : "w-0 group-hover:w-full"
+          hideActiveUnderline ? "w-0 group-hover:w-0" : isActive ? "w-full" : "w-0 group-hover:w-full"
         }`}
       />
     </Link>
