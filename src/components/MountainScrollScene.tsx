@@ -66,14 +66,14 @@ const organizationCards = [
 
 const contactCards = [
   {
-    title: "Зохион байгуулагч 1",
+    title: "Холбоо барих  1",
     name: "Г. Ариунболд",
     phone: "89141818",
     email: "example1@tarialancup.mn",
     facebook: "https://www.facebook.com/ariukaazzz/",
   },
   {
-    title: "Зохион байгуулагч 2",
+    title: "Холбоо барих  2",
     name: "Нэр Оруулна",
     phone: "+976 0000 0001",
     email: "example2@tarialancup.mn",

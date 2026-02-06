@@ -13,7 +13,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tarialan cup - 2026 - Хамгаалах хувцас хэрэгсэл, багаж хэрэгсэл",
+    default: "Tarialan cup - 2026",
     template: "%s | Tarialan cup - 2026",
   },
   description: "images description, аврах багаж хэрэгсэл, ажлын байрны тохилог орчны бүтээгдэхүүнийг чанартай, найдвартай байдлаар нийлүүлнэ.",
@@ -23,18 +23,13 @@ export const metadata: Metadata = {
     apple: "/images/main-logo.png",
   },
   keywords: [
-    "ХАБЭА",
-    "хамгаалах хувцас хэрэгсэл",
-    "PPE",
-    "аврах багаж хэрэгсэл",
-    "ажлын байрны тохилог орчин",
-    "аюулгүй байдал",
+    
     "Tarialan cup - 2026",
   ],
   authors: [{ name: "Tarialan cup - 2026" }],
   creator: "Tarialan cup - 2026",
   publisher: "Tarialan cup - 2026",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://bayan-undur.mn"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://tarialancup.vercel.app"),
   alternates: {
     canonical: "/",
   },
@@ -43,13 +38,13 @@ export const metadata: Metadata = {
     locale: "mn_MN",
     url: "/",
     siteName: "Tarialan cup - 2026",
-    title: "Tarialan cup - 2026 - Хамгаалах хувцас хэрэгсэл, багаж хэрэгсэл",
-    description: "images description, аврах багаж хэрэгсэл, ажлын байрны тохилог орчны бүтээгдэхүнийг чанартай, найдвартай байдлаар нийлүүлнэ.",
+    title: "Tarialan cup - 2026",
+    description: "Tarialan cup - 2026",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tarialan cup - 2026 - Хамгаалах хувцас хэрэгсэл",
-    description: "images description, аврах багаж хэрэгсэл нийлүүлнэ",
+    title: "Tarialan cup - 2026",
+    description: "Tarialan cup - 2026",
   },
   robots: {
     index: true,

@@ -5,17 +5,17 @@ import StructuredData from "./StructuredData";
  * Add this to your root layout or main pages
  */
 export default function OrganizationSchema() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://bayan-undur.mn";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tarialancup.vercel.app";
 
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Tarialan cup - 2026",
     url: baseUrl,
-    logo: `${baseUrl}/images/main-logo.png`,
+    logo: `${baseUrl}/images/logo.png`,
     contactPoint: {
       "@type": "ContactPoint",
-      telephone: "+976-70118585",
+      telephone: "+976-*",
       contactType: "customer service",
       email: "info@tarialancup.mn",
       areaServed: "MN",
