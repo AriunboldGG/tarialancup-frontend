@@ -76,7 +76,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-gray-800 mb-4">Тэмцээнд оролцогчдод зориулсан</h4>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li><Link href="/speakers">Илтгэгчид</Link></li>
+              <li><Link href="/speakers">Мэргэжил сонголтын талаар</Link></li>
             </ul>
           </div>
         </div>

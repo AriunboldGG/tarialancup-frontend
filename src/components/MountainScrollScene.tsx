@@ -23,7 +23,7 @@ const sections = [
   {
     title: "Tarialan cup 2026",
     description:
-      "Тэмцээний үеэр зохион байгуулагдах арга хэмжээнүүд талаарх мэдээллийг эндээс авна уу",
+      "Tarialan cup - 2026 тэмцээний мэдээлэл хүргэх албан ёсны вэбсайт ",
   },
   {
     title: "Зохион байгуулалт",
@@ -36,9 +36,9 @@ const sections = [
       "Асууж тодруулах зүйлс гарвал доорх холбоосоор холбогдоно уу",
   },
   {
-    title: "Тест",
+    title: "Бүртгэлийн мэдээлэл",
     description:
-      "Тест.",
+      "Бүртгэлийн хүсэлт илгээх заавар, шаардлагатай мэдээллүүд.",
   },
 ];
 
@@ -78,6 +78,29 @@ const contactCards = [
     phone: "+976 0000 0001",
     email: "example2@tarialancup.mn",
     facebook: "https://facebook.com/organizer.two",
+  },
+];
+
+const registrationCards = [
+  {
+    title: "Бүртгэл илгээх",
+    icon: "📝",
+    items: [
+      "Бүртгүүлэх цэсээр дамжин спортын оролцох төрлөө сонгон хүсэлт илгээнэ",
+      "Бүртгэл нь вэбсайтаар нэг удаа илгээгдэнэ",
+      "Шаардлагатай талбаруудыг бүрэн бөглөнө",
+      "Багийн гишүүдийн мэдээллээ оруулна",
+    ],
+  },
+  {
+    title: "Төлбөрийн мэдээлэл",
+    icon: "💳",
+    items: [
+      "Хураамж: Спортын төрөлөөс хамаарна",
+      "Хүлээн авах дансны дугаарт хураамжийг шилжүүлснээр бүртгэл баталгаажна",
+      "Гүйлгээний кодыг ашиглан шилжүүлнэ",
+      "Бүртгэгдсэн багуудын мэдээллийг БҮРТГЭГДСЭН БАГУУД цэсээр нэвтэрч харах боломжтой",
+    ],
   },
 ];
 
@@ -400,6 +423,29 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
                 ))}
               </div>
             ) : null}
+            {section.title === "Бүртгэлийн мэдээлэл" ? (
+              <div className="mt-6 grid w-full gap-4 md:grid-cols-2">
+                {registrationCards.map((card) => (
+                  <div
+                    key={card.title}
+                    className="rounded-2xl border-2 border-[#1f632b]/70 bg-white/10 p-4 text-left shadow-lg backdrop-blur"
+                  >
+                    <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#1f632b]/20 px-3 py-1 text-sm font-semibold text-white">
+                      <span>{card.icon}</span>
+                      <span>{card.title}</span>
+                    </div>
+                    <ul className="space-y-1 text-sm text-white/90">
+                      {card.items.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <span className="mt-1 text-[10px]">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ) : null}
           </div>
         </section>
       ))}
@@ -423,8 +469,9 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
           <button
             type="button"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-black shadow-lg backdrop-blur hover:bg-white"
+            className="rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-black shadow-lg backdrop-blur hover:bg-white cursor-pointer"
           >
+            <span className="mr-2">⬆</span>
             Дээш буцах
           </button>
           <a
@@ -435,6 +482,16 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
           >
             Developed by: Ariunbold Ganbat
           </a>
+        </div>
+      ) : null}
+
+      {!showScrollTop ? (
+        <div className="fixed bottom-6 left-1/2 z-20 -translate-x-1/2 text-center text-white/90">
+          <div className="text-xs uppercase tracking-[0.3em]">Scroll</div>
+          <div className="mt-2 flex flex-col items-center gap-1">
+            <span className="h-6 w-4 rounded-full border border-white/60" />
+            <span className="text-lg animate-bounce">⬇</span>
+          </div>
         </div>
       ) : null}
     </div>

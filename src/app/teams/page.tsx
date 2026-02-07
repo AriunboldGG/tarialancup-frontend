@@ -2,6 +2,8 @@
 
 import { useMemo, useState } from "react";
 import Header from "@/components/Header";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
 
 type TeamMember = {
   raw: string;
@@ -42,6 +44,46 @@ const MOCK_TEAMS: TeamRegistration[] = [
       {
         name: "Тэмүүлэн Баярсайхан",
         raw: "2) Тэмүүлэн Баярсайхан, 178см, Спортын зэрэггүй, Хамгаалагч, 654321",
+      },
+      {
+        name: "Анхбаяр Мөнх",
+        raw: "3) Анхбаяр Мөнх, 181см, Спортын зэрэггүй, Төв, 778899",
+      },
+      {
+        name: "Эрдэнэ-Очир Ням",
+        raw: "4) Эрдэнэ-Очир Ням, 176см, Спортын зэрэггүй, Довтлогч, 334455",
+      },
+      {
+        name: "Гантулга Болд",
+        raw: "5) Гантулга Болд, 183см, Спортын зэрэггүй, Хамгаалагч, 998877",
+      },
+      {
+        name: "Билгүүн Энх",
+        raw: "6) Билгүүн Энх, 174см, Спортын зэрэггүй, Довтлогч, 556677",
+      },
+      {
+        name: "Тэнгис Ариун",
+        raw: "7) Тэнгис Ариун, 180см, Спортын зэрэггүй, Төв, 112233",
+      },
+      {
+        name: "Хүсэл Бат",
+        raw: "8) Хүсэл Бат, 169см, Спортын зэрэггүй, Довтлогч, 445566",
+      },
+      {
+        name: "Мөнх-Эрдэнэ Ганаа",
+        raw: "9) Мөнх-Эрдэнэ Ганаа, 186см, Дэд мастер, Төв, 223344",
+      },
+      {
+        name: "Жавхлан Отгон",
+        raw: "10) Жавхлан Отгон, 177см, Спортын зэрэггүй, Хамгаалагч, 667788",
+      },
+      {
+        name: "Цэлмэг Алдар",
+        raw: "11) Цэлмэг Алдар, 170см, Спортын зэрэггүй, Довтлогч, 889900",
+      },
+      {
+        name: "Содон Төгс",
+        raw: "12) Содон Төгс, 173см, Спортын зэрэггүй, Хамгаалагч, 101010",
       },
     ],
   },
@@ -111,6 +153,7 @@ export default function TeamsPage() {
   const [gradYears, setGradYears] = useState<string[]>([]);
   const [genders, setGenders] = useState<string[]>([]);
   const [activeTeam, setActiveTeam] = useState<TeamRegistration | null>(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const rangeTabs = useMemo(() => {
     const ranges = Array.from(
@@ -160,15 +203,19 @@ export default function TeamsPage() {
       prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value]
     );
   };
+  const clearFilters = () => {
+    setSportTypes([]);
+    setClassGroups([]);
+    setGradYears([]);
+    setGenders([]);
+  };
 
   return (
     <main className="min-h-screen bg-[#f8fafc]">
       <Header />
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-semibold text-gray-900">Бүртгэгдсэн багууд</h1>
-        <p className="mt-1 text-sm text-gray-600">
-          Бүртгүүлсэн багуудын мэдээлэл болон шүүлтүүрүүд.
-        </p>
+       
 
         <div className="mt-6 flex flex-wrap gap-3 rounded-2xl border border-gray-200 bg-white px-4 py-3">
           {rangeTabs.map((range) => {
@@ -200,9 +247,18 @@ export default function TeamsPage() {
             );
           })}
         </div>
+        <div className="mt-4 flex justify-end lg:hidden">
+          <button
+            type="button"
+            onClick={() => setIsFilterOpen(true)}
+            className="rounded-full border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-black shadow-sm transition hover:border-[#1f632b] cursor-pointer"
+          >
+            Шүүлт
+          </button>
+        </div>
 
         <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-[280px_1fr]">
-          <aside className="space-y-4">
+          <aside className="hidden space-y-4 lg:block">
             <div className="rounded-2xl border border-gray-200 bg-white p-4">
               <h3 className="text-sm font-semibold text-gray-900 mb-3">Спортын төрөл</h3>
               <div className="space-y-2 text-sm text-gray-700">
@@ -300,20 +356,41 @@ export default function TeamsPage() {
                     key={team.id}
                     className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
                   >
-                    <div className="text-lg font-semibold text-gray-900">
-                      {team.teamName || "Багийн нэр оруулаагүй"}
+                    <div className="text-lg text-black">
+                      Багийн нэр:{" "}
+                      <span className="font-semibold">
+                        {team.teamName || "Багийн нэр оруулаагүй"}
+                      </span>
                     </div>
-                    <div className="mt-2 space-y-1 text-sm text-gray-600">
-                      <div>Спортын төрөл: {team.sportType || "-"}</div>
-                      <div>Багийн тоглох үе: {team.gradRange || "-"}</div>
-                      <div>Анги: {team.classGroup || "-"}</div>
-                      <div>Төгссөн жил: {team.gradYear || "-"}</div>
+                    <div className="mt-2 space-y-1 text-sm text-black">
                       <div>
-                        Хүйс: {team.gender ? normalizeGenderLabel(team.gender) : "-"}
+                        Спортын төрөл:{" "}
+                        <span className="font-semibold">{team.sportType || "-"}</span>
                       </div>
-                      <div>Багийн нэр: {team.teamName || "-"}</div>
-                      <div>Холбоо барих хүн: {team.contactName || "-"}</div>
-                      <div>Утас: {team.contactPhone || "-"}</div>
+                      <div>
+                        Багийн тоглох үе:{" "}
+                        <span className="font-semibold">{team.gradRange || "-"}</span>
+                      </div>
+                      <div>
+                        Анги: <span className="font-semibold">{team.classGroup || "-"}</span>
+                      </div>
+                      <div>
+                        Төгссөн жил:{" "}
+                        <span className="font-semibold">{team.gradYear || "-"}</span>
+                      </div>
+                      <div>
+                        Хүйс:{" "}
+                        <span className="font-semibold">
+                          {team.gender ? normalizeGenderLabel(team.gender) : "-"}
+                        </span>
+                      </div>
+                      <div>
+                        Холбоо барих хүн:{" "}
+                        <span className="font-semibold">{team.contactName || "-"}</span>
+                      </div>
+                      <div>
+                        Утас: <span className="font-semibold">{team.contactPhone || "-"}</span>
+                      </div>
                     </div>
                     {team.members.length ? (
                       <div className="mt-3 text-xs text-gray-500">
@@ -337,7 +414,13 @@ export default function TeamsPage() {
 
       {activeTeam ? (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6">
-          <div className="w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl">
+          <button
+            type="button"
+            onClick={() => setActiveTeam(null)}
+            className="absolute inset-0 h-full w-full cursor-pointer"
+            aria-label="Close modal"
+          />
+          <div className="relative w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl max-h-[90vh] overflow-auto">
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">
@@ -356,7 +439,7 @@ export default function TeamsPage() {
               </button>
             </div>
 
-            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 text-sm text-gray-700">
+            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 text-sm text-gray-700 md:[&>div:nth-child(2n)]:font-semibold">
               <div>Багийн нэр: {activeTeam.teamName || "-"}</div>
               <div>Спортын төрөл: {activeTeam.sportType || "-"}</div>
               <div>Багийн тоглох үе: {activeTeam.gradRange || "-"}</div>
@@ -374,33 +457,161 @@ export default function TeamsPage() {
               {activeTeam.members.length === 0 ? (
                 <div className="text-sm text-gray-500">Мэдээлэл алга</div>
               ) : (
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <Swiper
+                  spaceBetween={16}
+                  slidesPerView={1.1}
+                  breakpoints={{
+                    480: { slidesPerView: 1.4 },
+                    640: { slidesPerView: 2.1 },
+                    1024: { slidesPerView: 3 },
+                  }}
+                >
                   {activeTeam.members.map((member, index) => (
-                    <div
-                      key={`${member.raw}-${index}`}
-                      className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm"
-                    >
-                      <div className="aspect-square w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
-                        <img
-                          src="/images/cover-2.png"
-                          alt="Багийн гишүүний зураг"
-                          className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
-                        />
+                    <SwiperSlide key={`${member.raw}-${index}`}>
+                      <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+                        <div className="aspect-square w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+                          <img
+                            src="/images/cover-2.png"
+                            alt="Багийн гишүүний зураг"
+                            className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+                          />
+                        </div>
+                        <div className="mt-3 text-base font-semibold text-gray-900">
+                          {member.name || "-"}
+                        </div>
+                        <div className="mt-2 space-y-1 text-xs text-gray-500">
+                          {formatMemberDetails(member.raw).map((item) => (
+                            <div key={`${item.label}-${item.value}`}>
+                              {item.label}: {item.value}
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                      <div className="mt-3 text-base font-semibold text-gray-900">
-                        {member.name || "-"}
-                      </div>
-                      <div className="mt-2 space-y-1 text-xs text-gray-500">
-                        {formatMemberDetails(member.raw).map((item) => (
-                          <div key={`${item.label}-${item.value}`}>
-                            {item.label}: {item.value}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+                    </SwiperSlide>
                   ))}
-                </div>
+                </Swiper>
               )}
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {isFilterOpen ? (
+        <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 px-4 pb-6 lg:hidden">
+          <div className="w-full max-w-md rounded-2xl bg-white p-5 shadow-xl text-black">
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-semibold text-gray-900">Шүүлт</h3>
+              
+            </div>
+
+            <div className="mt-4 space-y-4 max-h-[60vh] overflow-auto pr-1">
+              <div className="rounded-xl border border-gray-200 p-4">
+                <h4 className="text-sm font-semibold text-gray-900 mb-3">Спортын төрөл</h4>
+                <div className="space-y-2 text-sm text-gray-700">
+                  {filterOptions.sportTypes.length === 0 ? (
+                    <div className="text-gray-400">Мэдээлэл алга</div>
+                  ) : (
+                    filterOptions.sportTypes.map((option) => (
+                      <label key={option} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={sportTypes.includes(option)}
+                          onChange={() => toggleSelection(option, sportTypes, setSportTypes)}
+                          className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+                        />
+                        <span>{option}</span>
+                      </label>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-gray-200 p-4">
+                <h4 className="text-sm font-semibold text-gray-900 mb-3">Анги</h4>
+                <div className="space-y-2 text-sm text-gray-700">
+                  {filterOptions.classGroups.length === 0 ? (
+                    <div className="text-gray-400">Мэдээлэл алга</div>
+                  ) : (
+                    filterOptions.classGroups.map((option) => (
+                      <label key={option} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={classGroups.includes(option)}
+                          onChange={() => toggleSelection(option, classGroups, setClassGroups)}
+                          className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+                        />
+                        <span>{option}</span>
+                      </label>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-gray-200 p-4">
+                <h4 className="text-sm font-semibold text-gray-900 mb-3">Төгссөн жил</h4>
+                <div className="space-y-2 text-sm text-gray-700">
+                  {filterOptions.gradYears.length === 0 ? (
+                    <div className="text-gray-400">Мэдээлэл алга</div>
+                  ) : (
+                    filterOptions.gradYears.map((option) => (
+                      <label key={option} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={gradYears.includes(option)}
+                          onChange={() => toggleSelection(option, gradYears, setGradYears)}
+                          className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+                        />
+                        <span>{option}</span>
+                      </label>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-gray-200 p-4">
+                <h4 className="text-sm font-semibold text-gray-900 mb-3">Хүйс</h4>
+                <div className="space-y-2 text-sm text-gray-700">
+                  {filterOptions.genders.length === 0 ? (
+                    <div className="text-gray-400">Мэдээлэл алга</div>
+                  ) : (
+                    filterOptions.genders.map((option, index) => (
+                      <label key={`${option}-${index}`} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={genders.includes(option)}
+                          onChange={() => toggleSelection(option, genders, setGenders)}
+                          className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+                        />
+                        <span>{option}</span>
+                      </label>
+                    ))
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-5 flex items-center justify-between gap-3">
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="w-full rounded-lg border border-gray-200 px-4 py-2 text-sm text-black hover:border-gray-300 cursor-pointer"
+              >
+                Цэвэрлэх
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsFilterOpen(false)}
+                className="w-full rounded-lg border border-gray-200 px-4 py-2 text-sm text-black hover:border-gray-300 cursor-pointer"
+              >
+                Хаах
+              </button>
+              <button
+                type="button"
+                onClick={() => setIsFilterOpen(false)}
+                className="w-full rounded-lg bg-[#1f632b] px-4 py-2 text-sm font-medium text-black hover:bg-[#16451e] cursor-pointer"
+              >
+                Хайх
+              </button>
             </div>
           </div>
         </div>

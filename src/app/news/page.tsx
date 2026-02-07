@@ -57,17 +57,17 @@ export default function NewsPage() {
             {pageItems.map((post) => (
             <Card key={post.id} className="overflow-hidden hover:border-[#8DC63F] transition-colors">
               {post.img && post.img.trim() !== '' ? (
-                <div className="relative h-40 w-full bg-gray-100">
+                <div className="relative h-[200px] w-full bg-gray-100">
                   <Image
                     src={post.img}
                     alt={post.title}
                     fill
-                    className="object-cover"
+                    className="object-cover w-full h-full"
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                 </div>
               ) : (
-                <div className="relative h-40 w-full bg-gray-100 flex items-center justify-center">
+                <div className="relative h-[200px] w-full bg-gray-100 flex items-center justify-center">
                   <span className="text-gray-400 text-sm">Зураг байхгүй</span>
                 </div>
               )}

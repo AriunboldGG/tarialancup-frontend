@@ -93,13 +93,20 @@ export default function HeroSlider({ slides }: { slides?: Slide[] }) {
           {displaySlides.map((s) => (
             <CarouselItem key={s.id}>
               <div className="relative h-[400px] md:h-[500px] overflow-hidden rounded-xl border border-gray-200 group">
+              {s.href ? (
+                <Link
+                  href={s.href}
+                  className="absolute inset-0 z-10"
+                  aria-label={s.title}
+                />
+              ) : null}
               {s.image && s.image.trim() !== "" ? (
                 <Image
                   src={s.image}
                   alt={s.title}
                   fill
                   priority
-                  className="object-contain"
+                  className={`object-contain${s.href ? " cursor-pointer" : ""}`}
                 />
               ) : (
                 <div className="absolute inset-0 bg-gray-100 flex items-center justify-center">
@@ -108,7 +115,7 @@ export default function HeroSlider({ slides }: { slides?: Slide[] }) {
               )}
               
               {/* Дэлгэрэнгүй унших Button */}
-              <div className="absolute bottom-4 right-4">
+              <div className="absolute bottom-4 right-4 z-20">
                 {s.href ? (
                   <Link href={s.href}>
                     <Button
