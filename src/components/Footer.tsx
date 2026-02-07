@@ -64,12 +64,11 @@ export default function Footer() {
             ) : null}
           </div>
 
-          {/* About */}
+          {/* News */}
           <div>
             <h4 className="text-sm font-semibold text-gray-800 mb-4">Тэмцээний тухай</h4>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li><Link href="/about" className="hover:underline">Тэмцээний тухай</Link></li>
-
+              <li><Link href="/news" className="hover:underline">Мэдээ мэдээлэл</Link></li>
             </ul>
           </div>
 
@@ -77,8 +76,7 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-gray-800 mb-4">Тэмцээнд оролцогчдод зориулсан</h4>
             <ul className="space-y-2 text-sm text-gray-600">
-              <li><Link href="#">Policy</Link></li>
-              <li><Link href="#">Terms & Conditions</Link></li>
+              <li><Link href="/speakers">Илтгэгчид</Link></li>
             </ul>
           </div>
         </div>
