@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import NavLink from "./NavLink";
 import { useCompanyInfo } from "@/hooks/useCompanyInfo";
@@ -10,6 +11,8 @@ import { useCompanyInfo } from "@/hooks/useCompanyInfo";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { companyInfo } = useCompanyInfo();
+  const pathname = usePathname();
+  const isHome = pathname === "/";
   return (
     <header className="w-full glass-header">
       {/* Top Header Bar */}
@@ -38,6 +41,7 @@ export default function Header() {
             <NavLink href="/#chapter-1">МЭДЭЭ</NavLink>
             <NavLink href="/#chapter-2">Тэмцээний тухай</NavLink>
             <NavLink href="/#chapter-3">ХОЛБОО БАРИХ</NavLink>
+            <NavLink href="/teams">Бүртгэгдсэн багууд</NavLink>
             <NavLink href="/register" className="register-highlight">
               Бүртгүүлэх
             </NavLink>
@@ -48,13 +52,15 @@ export default function Header() {
             {/* Burger Menu Button - Mobile Only */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden p-2 text-gray-800 hover:text-[#8DC63F] transition-colors"
+              className={`lg:hidden p-2 transition-colors hover:text-[#8DC63F] ${
+                isHome ? "text-white" : "text-gray-800"
+              }`}
               aria-label="Toggle menu"
             >
               {isMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className={`w-6 h-6 ${isHome ? "text-white" : "text-gray-800"}`} />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className={`w-6 h-6 ${isHome ? "text-white" : "text-gray-800"}`} />
               )}
             </button>
           </div>
@@ -75,6 +81,9 @@ export default function Header() {
               </NavLink>
               <NavLink href="/#chapter-3" onClick={() => setIsMenuOpen(false)}>
                 ХОЛБОО БАРИХ
+              </NavLink>
+              <NavLink href="/teams" onClick={() => setIsMenuOpen(false)}>
+                Бүртгэгдсэн багууд
               </NavLink>
               <NavLink
                 href="/register"

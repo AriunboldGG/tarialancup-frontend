@@ -20,6 +20,8 @@ export default function SpecialOrderPage() {
     gradYear: "",
     gender: "",
     teamName: "",
+    contactName: "",
+    contactPhone: "",
     name: "",
     email: "",
     phone: "",
@@ -182,6 +184,8 @@ export default function SpecialOrderPage() {
         formData.gradYear ? `Төгссөн жил: ${formData.gradYear}` : null,
         formData.gender ? `Хүйс: ${formData.gender}` : null,
         formData.teamName ? `Багийн нэр: ${formData.teamName}` : null,
+        formData.contactName ? `Холбоо барих хүний нэр: ${formData.contactName}` : null,
+        formData.contactPhone ? `Холбоо барих утас: ${formData.contactPhone}` : null,
         "Тамирчид:",
         ...members.map(
           (member, idx) =>
@@ -228,6 +232,8 @@ export default function SpecialOrderPage() {
         gradYear: "",
         gender: "",
         teamName: "",
+        contactName: "",
+        contactPhone: "",
         name: "",
         email: "",
         phone: "",
@@ -417,7 +423,6 @@ export default function SpecialOrderPage() {
                       <option value="Сагсан бөмбөг">Сагсан бөмбөг</option>
                       <option value="Дартс">Дартс</option>
                       <option value="Теннис">Теннис</option>
-                      <option value="Бусад">Бусад</option>
                     </select>
                   </div>
                   <div className="md:col-span-2">
@@ -528,6 +533,36 @@ export default function SpecialOrderPage() {
                       required={formData.sportType !== "Сагсан бөмбөг"}
                       className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f632b]"
                       placeholder="Багийн нэр"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Холбоо барих хүний нэр
+                      <span className="text-red-500"> *</span>
+                    </label>
+                    <input
+                      name="contactName"
+                      value={formData.contactName}
+                      onChange={handleChange}
+                      required
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f632b]"
+                      placeholder="Нэр"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Холбоо барих утас
+                      <span className="text-red-500"> *</span>
+                    </label>
+                    <input
+                      name="contactPhone"
+                      value={formData.contactPhone}
+                      onChange={handleChange}
+                      required
+                      type="tel"
+                      inputMode="numeric"
+                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f632b]"
+                      placeholder="Утасны дугаар"
                     />
                   </div>
                 </div>
