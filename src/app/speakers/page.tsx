@@ -24,8 +24,8 @@ type Speaker = {
 const speakers: Speaker[] = [
   {
     id: "speaker-1",
-    firstName: "Ариунболд",
-    lastName: "Ганбатын",
+    firstName: "Test",
+    lastName: "Tester",
     workplace: "Хаан банк",
     profession: "Програм хангамжийн инженер",
     graduateUniversity: "ОХУ, Томскийн Политехникийн Их Сургууль",
