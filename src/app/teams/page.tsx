@@ -213,7 +213,7 @@ export default function TeamsPage() {
   return (
     <main className="min-h-screen bg-[#f8fafc]">
       <Header />
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 border border-green-500">
         <h1 className="text-2xl font-semibold text-gray-900">Бүртгэгдсэн багууд</h1>
        
 
