@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Header from "@/components/Header";
+import IntroSplash from "@/components/IntroSplash";
 
 export const metadata: Metadata = {
   title: "Tarialan Cup - 2026",
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <main className="min-h-screen bg-white">
+      <IntroSplash />
       <div className="fixed left-0 top-0 z-50 w-full">
         <Header />
       </div>

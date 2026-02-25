@@ -85,6 +85,80 @@ html {
   scroll-behavior: smooth;
 }
 
+.intro-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, rgba(15, 23, 42, 0.92), rgba(2, 6, 23, 0.98));
+  animation: intro-splash-fade 2.2s ease forwards;
+}
+
+.intro-splash__content {
+  text-align: center;
+  color: #f8fafc;
+}
+
+.intro-splash__title {
+  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  letter-spacing: 0.2em;
+  font-weight: 600;
+  text-transform: uppercase;
+  animation: intro-splash-title 1.6s ease forwards;
+}
+
+.intro-splash__subtitle {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  animation: intro-splash-subtitle 1.8s ease forwards;
+}
+
+@keyframes intro-splash-title {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  40% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes intro-splash-subtitle {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  55% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes intro-splash-fade {
+  0% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
 .glass-header {
   background: rgba(255, 255, 255, 0.35);
   border-bottom: none;
