@@ -1,6 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { IconType } from "react-icons";
+import {
+  FaArrowDown,
+  FaArrowUp,
+  FaCalendarAlt,
+  FaCreditCard,
+  FaEnvelope,
+  FaFacebookF,
+  FaMouse,
+  FaPen,
+  FaPhoneAlt,
+  FaTrophy,
+  FaUser,
+} from "react-icons/fa";
 import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import type { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
@@ -42,63 +56,85 @@ const sections = [
   },
 ];
 
-const organizationCards = [
+const organizationCards: { title: string; icon: IconType; items: string[] }[] = [
   {
     title: "Тэмцээний мэдээлэл",
-    icon: "📅",
+    icon: FaCalendarAlt,
     items: [
       "Зохион байгуулагч: 2014–2017 оны төгсөгчид",
       "Тэмцээн болох хугацаа: 2025.05.16–17",
-      "Нээлтийн орой шоу: 2025.05.16",
+      "Тэмцээн болох байршил: Тариалан сумын спорт заал",
+      "Нээлтийн оройн шоу: 2025.05.16",
     ],
   },
   {
     title: "Тэмцээний төрөл",
-    icon: "🏆",
+    icon: FaTrophy,
     items: [
       "Сагсан бөмбөг",
       "Дартс (эрэгтэй 2, эмэгтэй 2 – баг)",
       "Теннис (ганцаарчилсан)",
-      "Бооцоо: 20,000₮",
     ],
   },
 ];
 
 const contactCards = [
   {
-    title: "Холбоо барих  1",
-    name: "Г. Ариунболд",
-    phone: "89141818",
+    title: "Холбоо барих - Ерөнхий зохион байгуулагч",
+    name: "Э. Өсөхбаяр",
+    phone: "-",
     email: "example1@tarialancup.mn",
     facebook: "https://www.facebook.com/ariukaazzz/",
   },
   {
-    title: "Холбоо барих  2",
-    name: "Нэр Оруулна",
+    title: "Холбоо барих - Бүртгэл хариуцсан ЗБ",
+    name: "Г. Ариунболд",
+    phone: "89141818",
+    email: "ganbatariunbold8@gmail.com",
+    facebook: "https://www.facebook.com/ariukaazzz/",
+  },
+  {
+    title: "Холбоо барих - Сагсан бөмбөг ЗБ",
+    name: "Э.Чинбат",
+    phone: "+976 0000 0001",
+    email: "example2@tarialancup.mn",
+    facebook: "https://facebook.com/organizer.two",
+  },
+  {
+    title: "Холбоо барих - Дартс ЗБ",
+    name: "Нэр",
+    phone: "+976 0000 0001",
+    email: "example2@tarialancup.mn",
+    facebook: "https://facebook.com/organizer.two",
+  },
+  {
+    title: "Холбоо барих - Теннис ЗБ",
+    name: "Нэр",
     phone: "+976 0000 0001",
     email: "example2@tarialancup.mn",
     facebook: "https://facebook.com/organizer.two",
   },
 ];
 
-const registrationCards = [
+const registrationCards: { title: string; icon: IconType; items: string[] }[] = [
   {
     title: "Бүртгэл илгээх",
-    icon: "📝",
+    icon: FaPen,
     items: [
       "Бүртгүүлэх цэсээр дамжин спортын оролцох төрлөө сонгон хүсэлт илгээнэ",
-      "Бүртгэл нь вэбсайтаар нэг удаа илгээгдэнэ",
+      "Нэг багийн бүртгэл нь вэбсайтаар нэг удаа илгээгдэнэ",
       "Шаардлагатай талбаруудыг бүрэн бөглөнө",
       "Багийн гишүүдийн мэдээллээ оруулна",
+      "Багийн мэдээллээ шинэчлэх бол бүртгэл хариуцсан ЗБ-д холбогдоно уу",
     ],
   },
   {
-    title: "Төлбөрийн мэдээлэл",
-    icon: "💳",
+    title: "Тэмцээний хураамжийн мэдээлэл",
+    icon: FaCreditCard,
     items: [
       "Хураамж: Спортын төрөлөөс хамаарна",
       "Хүлээн авах дансны дугаарт хураамжийг шилжүүлснээр бүртгэл баталгаажна",
-      "Гүйлгээний кодыг ашиглан шилжүүлнэ",
+      "Гүйлгээний кодыг ашиглан хураамжийг шилжүүлнэ",
       "Бүртгэгдсэн багуудын мэдээллийг БҮРТГЭГДСЭН БАГУУД цэсээр нэвтэрч харах боломжтой",
     ],
   },
@@ -358,7 +394,7 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
                     className="rounded-2xl border-2 border-[#1f632b]/70 bg-white/10 p-4 text-left shadow-lg backdrop-blur"
                   >
                     <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#1f632b]/20 px-3 py-1 text-sm font-semibold text-white">
-                      <span>{card.icon}</span>
+                      <card.icon className="h-4 w-4" aria-hidden="true" />
                       <span>{card.title}</span>
                     </div>
                     <ul className="space-y-1 text-sm text-white/90">
@@ -381,16 +417,16 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
                     className="rounded-2xl border-2 border-[#1f632b]/70 bg-white/10 p-4 text-left shadow-lg backdrop-blur"
                   >
                     <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#1f632b]/20 px-3 py-1 text-sm font-semibold text-white">
-                      <span>👤</span>
+                      <FaUser className="h-4 w-4" aria-hidden="true" />
                       <span>{card.title}</span>
                     </div>
                     <div className="space-y-1 text-sm text-white/90">
                       <div className="flex items-start gap-2">
-                        <span className="mt-1 text-xs">👤</span>
+                        <FaUser className="mt-1 h-3.5 w-3.5" aria-hidden="true" />
                         <span>Нэр: {card.name}</span>
                       </div>
                       <div className="flex items-start gap-2">
-                        <span className="mt-1 text-xs">📞</span>
+                        <FaPhoneAlt className="mt-1 h-3.5 w-3.5" aria-hidden="true" />
                         <a
                           href={`tel:${card.phone.replace(/[^\d+]/g, "")}`}
                           className="hover:underline"
@@ -399,7 +435,7 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
                         </a>
                       </div>
                       <div className="flex items-start gap-2">
-                        <span className="mt-1 text-xs">✉️</span>
+                        <FaEnvelope className="mt-1 h-3.5 w-3.5" aria-hidden="true" />
                         <a
                           href={`mailto:${card.email}`}
                           className="hover:underline"
@@ -408,7 +444,7 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
                         </a>
                       </div>
                       <div className="flex items-start gap-2">
-                        <span className="mt-1 text-xs">📘</span>
+                        <FaFacebookF className="mt-1 h-3.5 w-3.5" aria-hidden="true" />
                         <a
                           href={card.facebook}
                           className="hover:underline"
@@ -431,7 +467,7 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
                     className="rounded-2xl border-2 border-[#1f632b]/70 bg-white/10 p-4 text-left shadow-lg backdrop-blur"
                   >
                     <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[#1f632b]/20 px-3 py-1 text-sm font-semibold text-white">
-                      <span>{card.icon}</span>
+                      <card.icon className="h-4 w-4" aria-hidden="true" />
                       <span>{card.title}</span>
                     </div>
                     <ul className="space-y-1 text-sm text-white/90">
@@ -471,7 +507,7 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             className="rounded-full bg-white/90 px-4 py-2 text-sm font-semibold text-black shadow-lg backdrop-blur hover:bg-white cursor-pointer"
           >
-            <span className="mr-2">⬆</span>
+            <FaArrowUp className="mr-2 inline-block h-3.5 w-3.5" aria-hidden="true" />
             Дээш буцах
           </button>
           <a
@@ -489,8 +525,10 @@ export default function MountainScrollScene({ slides }: { slides: Slide[] }) {
         <div className="fixed bottom-6 left-1/2 z-20 -translate-x-1/2 text-center text-white/90">
           <div className="text-xs uppercase tracking-[0.3em]">Scroll</div>
           <div className="mt-2 flex flex-col items-center gap-1">
-            <span className="h-6 w-4 rounded-full border border-white/60" />
-            <span className="text-lg animate-bounce">⬇</span>
+            <span className="h-6 w-4 rounded-full border border-white/60 flex items-center justify-center">
+              <FaMouse className="h-3 w-3" aria-hidden="true" />
+            </span>
+            <FaArrowDown className="text-lg animate-bounce" aria-hidden="true" />
           </div>
         </div>
       ) : null}

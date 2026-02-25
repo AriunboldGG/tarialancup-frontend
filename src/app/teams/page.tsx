@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Header from "@/components/Header";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
 type TeamMember = {
@@ -153,6 +154,7 @@ export default function TeamsPage() {
   const [gradYears, setGradYears] = useState<string[]>([]);
   const [genders, setGenders] = useState<string[]>([]);
   const [activeTeam, setActiveTeam] = useState<TeamRegistration | null>(null);
+  const [activeMember, setActiveMember] = useState<TeamMember | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   const rangeTabs = useMemo(() => {
@@ -213,7 +215,7 @@ export default function TeamsPage() {
   return (
     <main className="min-h-screen bg-[#f8fafc]">
       <Header />
-      <div className="container mx-auto px-4 py-8 border border-green-500">
+      <div className="container mx-auto px-4 py-8">
         <h1 className="text-2xl font-semibold text-gray-900">Бүртгэгдсэн багууд</h1>
        
 
@@ -460,6 +462,13 @@ export default function TeamsPage() {
                 <Swiper
                   spaceBetween={16}
                   slidesPerView={1.1}
+                  modules={[Autoplay]}
+                  autoplay={
+                    activeTeam.members.length > 3
+                      ? { delay: 1500, disableOnInteraction: false }
+                      : false
+                  }
+                  loop={activeTeam.members.length > 3}
                   breakpoints={{
                     480: { slidesPerView: 1.4 },
                     640: { slidesPerView: 2.1 },
@@ -468,12 +477,13 @@ export default function TeamsPage() {
                 >
                   {activeTeam.members.map((member, index) => (
                     <SwiperSlide key={`${member.raw}-${index}`}>
-                      <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
+                      <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm cursor-pointer">
                         <div className="aspect-square w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
                           <img
                             src="/images/cover-2.png"
                             alt="Багийн гишүүний зураг"
-                            className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
+                            className="h-full w-full object-cover transition-transform duration-300 hover:scale-110 cursor-pointer"
+                            onClick={() => setActiveMember(member)}
                           />
                         </div>
                         <div className="mt-3 text-base font-semibold text-gray-900">
@@ -491,6 +501,38 @@ export default function TeamsPage() {
                   ))}
                 </Swiper>
               )}
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {activeMember ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-6">
+          <button
+            type="button"
+            onClick={() => setActiveMember(null)}
+            className="absolute inset-0 h-full w-full cursor-pointer"
+            aria-label="Close member photo"
+          />
+          <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl bg-white p-4 shadow-xl">
+            <div className="flex items-center justify-between gap-4 pb-3">
+              <div className="text-base font-semibold text-gray-900">
+                {activeMember.name || "Багийн гишүүн"}
+              </div>
+              <button
+                type="button"
+                onClick={() => setActiveMember(null)}
+                className="rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer"
+              >
+                Хаах
+              </button>
+            </div>
+            <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+              <img
+                src="/images/cover-2.png"
+                alt={`${activeMember.name || "Багийн гишүүн"} зураг`}
+                className="h-full w-full object-contain"
+              />
             </div>
           </div>
         </div>
