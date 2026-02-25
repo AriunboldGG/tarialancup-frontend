@@ -13,8 +13,34 @@ export default function Header() {
   const { companyInfo } = useCompanyInfo();
   const pathname = usePathname();
   const isHome = pathname === "/";
+  const panoramaTargets: Record<
+    string,
+    { yaw: number; pitch: number; fov?: number; openHotspotTitle?: string }
+  > = {
+    news: { yaw: -1.6, pitch: 0.25, openHotspotTitle: "Бүртгэлийн мэдээлэл" },
+    about: { yaw: 1.25, pitch: 0.2, openHotspotTitle: "Тэмцээний мэдээлэл" },
+    contact: { yaw: 2.4, pitch: 0.1, openHotspotTitle: "Холбоо барих" },
+  };
+  const handlePanoramaNav =
+    (targetKey: keyof typeof panoramaTargets) =>
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      if (!isHome || typeof window === "undefined") return;
+      const iframe = document.getElementById("panorama-frame") as HTMLIFrameElement | null;
+      if (!iframe?.contentWindow) return;
+      event.preventDefault();
+      iframe.contentWindow.postMessage(
+        { type: "panorama:lookAt", ...panoramaTargets[targetKey] },
+        "*"
+      );
+    };
+  const handlePanoramaNavAndClose =
+    (targetKey: keyof typeof panoramaTargets) =>
+    (event: React.MouseEvent<HTMLAnchorElement>) => {
+      handlePanoramaNav(targetKey)(event);
+      setIsMenuOpen(false);
+    };
   return (
-    <header className="w-full glass-header">
+    <header className={`w-full glass-header ${isHome ? "glass-header--home" : ""}`}>
       {/* Top Header Bar */}
    
 
@@ -39,7 +65,9 @@ export default function Header() {
           <nav className="hidden lg:flex items-center gap-8">
             <NavLink href="/">НҮҮР</NavLink>
             <div className="relative group">
-              <NavLink href="/#chapter-1">МЭДЭЭ</NavLink>
+              <NavLink href="/#chapter-1" onClick={handlePanoramaNav("news")}>
+                МЭДЭЭ
+              </NavLink>
               <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-all duration-200 absolute left-0 top-full z-20 mt-2 w-64 translate-x-0 rounded-xl border border-white/20 bg-white/90 backdrop-blur-xl shadow-[0_20px_40px_rgba(15,23,42,0.18)]">
                 <Link
                   href="/speakers"
@@ -55,8 +83,12 @@ export default function Header() {
                 </Link>
               </div>
             </div>
-            <NavLink href="/#chapter-2">Тэмцээний тухай</NavLink>
-            <NavLink href="/#chapter-3">ХОЛБОО БАРИХ</NavLink>
+            <NavLink href="/#chapter-2" onClick={handlePanoramaNav("about")}>
+              Тэмцээний тухай
+            </NavLink>
+            <NavLink href="/#chapter-3" onClick={handlePanoramaNav("contact")}>
+              ХОЛБОО БАРИХ
+            </NavLink>
             <NavLink href="/teams">Бүртгэгдсэн багууд</NavLink>
             <NavLink href="/register" className="register-highlight">
               Бүртгүүлэх
@@ -89,7 +121,7 @@ export default function Header() {
               <NavLink href="/" onClick={() => setIsMenuOpen(false)}>
                 НҮҮР
               </NavLink>
-              <NavLink href="/#chapter-1" onClick={() => setIsMenuOpen(false)}>
+              <NavLink href="/#chapter-1" onClick={handlePanoramaNavAndClose("news")}>
                 МЭДЭЭ
               </NavLink>
               <div className="ml-4 flex flex-col gap-2 text-sm">
@@ -100,10 +132,10 @@ export default function Header() {
                   Мэргэжил сонголтын талаар
                 </NavLink>
               </div>
-              <NavLink href="/#chapter-2" onClick={() => setIsMenuOpen(false)}>
+              <NavLink href="/#chapter-2" onClick={handlePanoramaNavAndClose("about")}>
                 Тэмцээний тухай
               </NavLink>
-              <NavLink href="/#chapter-3" onClick={() => setIsMenuOpen(false)}>
+              <NavLink href="/#chapter-3" onClick={handlePanoramaNavAndClose("contact")}>
                 ХОЛБОО БАРИХ
               </NavLink>
               <NavLink href="/teams" onClick={() => setIsMenuOpen(false)}>
