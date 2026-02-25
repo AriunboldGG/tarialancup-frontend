@@ -38,7 +38,23 @@ export default function Header() {
           {/* Middle: Navigation Links - Desktop */}
           <nav className="hidden lg:flex items-center gap-8">
             <NavLink href="/">НҮҮР</NavLink>
-            <NavLink href="/#chapter-1">МЭДЭЭ</NavLink>
+            <div className="relative group">
+              <NavLink href="/#chapter-1">МЭДЭЭ</NavLink>
+              <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-all duration-200 absolute left-0 top-full z-20 mt-2 w-64 translate-x-0 rounded-xl border border-white/20 bg-white/90 backdrop-blur-xl shadow-[0_20px_40px_rgba(15,23,42,0.18)]">
+                <Link
+                  href="/speakers"
+                  className="block px-4 py-3 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
+                >
+                  Сурагчдад зориулсан арга хэмжээ
+                </Link>
+                <Link
+                  href="/news"
+                  className="block px-4 pb-4 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
+                >
+                  Мэдээ мэдээлэл
+                </Link>
+              </div>
+            </div>
             <NavLink href="/#chapter-2">Тэмцээний тухай</NavLink>
             <NavLink href="/#chapter-3">ХОЛБОО БАРИХ</NavLink>
             <NavLink href="/teams">Бүртгэгдсэн багууд</NavLink>
@@ -76,6 +92,14 @@ export default function Header() {
               <NavLink href="/#chapter-1" onClick={() => setIsMenuOpen(false)}>
                 МЭДЭЭ
               </NavLink>
+              <div className="ml-4 flex flex-col gap-2 text-sm">
+                <NavLink href="/news" onClick={() => setIsMenuOpen(false)}>
+                  Мэдээ мэдээлэл
+                </NavLink>
+                <NavLink href="/speakers" onClick={() => setIsMenuOpen(false)}>
+                  Мэргэжил сонголтын талаар
+                </NavLink>
+              </div>
               <NavLink href="/#chapter-2" onClick={() => setIsMenuOpen(false)}>
                 Тэмцээний тухай
               </NavLink>

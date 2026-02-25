@@ -74,7 +74,7 @@ export default function Footer() {
 
           {/* Customer */}
           <div>
-            <h4 className="text-sm font-semibold text-gray-800 mb-4">Тэмцээнд оролцогчдод зориулсан</h4>
+            <h4 className="text-sm font-semibold text-gray-800 mb-4">Сурагчдад зориулсан арга хэмжээнүүд</h4>
             <ul className="space-y-2 text-sm text-gray-600">
               <li><Link href="/speakers">Мэргэжил сонголтын талаар</Link></li>
             </ul>
@@ -82,7 +82,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t pt-6 flex flex-col gap-2 text-xs text-gray-500 md:flex-row md:items-center md:justify-between">
-          <div>© 2026 Tarialan cup - 2026 . Бүх эрх хуулиар хамгаалагдсан</div>
+          <div>© 2026 Tarialan cup - 2026 . Зохиогчийн эрх хуулиар хамгаалагдсан</div>
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
             <a
               href="https://ariunbold-portfolio.vercel.app/"
