@@ -81,6 +81,12 @@ export default function Header() {
                 >
                   Мэдээ мэдээлэл
                 </Link>
+                <Link
+                  href="/sponsors"
+                  className="block px-4 pb-4 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
+                >
+                  Ивээн тэтгэгчид
+                </Link>
               </div>
             </div>
             <NavLink href="/#chapter-2" onClick={handlePanoramaNav("about")}>
@@ -130,6 +136,9 @@ export default function Header() {
                 </NavLink>
                 <NavLink href="/speakers" onClick={() => setIsMenuOpen(false)}>
                   Мэргэжил сонголтын талаар
+                </NavLink>
+                <NavLink href="/sponsors" onClick={() => setIsMenuOpen(false)}>
+                  Ивээн тэтгэгчид
                 </NavLink>
               </div>
               <NavLink href="/#chapter-2" onClick={handlePanoramaNavAndClose("about")}>

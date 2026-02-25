@@ -5,6 +5,8 @@ import { CartProvider } from "@/context/CartContext";
 import { StockProvider } from "@/context/StockContext";
 import FooterGate from "@/components/FooterGate";
 import OrganizationSchema from "@/components/OrganizationSchema";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -81,6 +83,8 @@ export default function RootLayout({
           </StockProvider>
         </CartProvider>
         <FooterGate />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

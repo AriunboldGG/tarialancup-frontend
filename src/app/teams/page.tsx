@@ -5,6 +5,14 @@ import Header from "@/components/Header";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 type TeamMember = {
   raw: string;
@@ -216,6 +224,17 @@ export default function TeamsPage() {
     <main className="min-h-screen bg-[#f8fafc]">
       <Header />
       <div className="container mx-auto px-4 py-8">
+        <Breadcrumb className="mb-4">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">НҮҮР</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Бүртгэгдсэн багууд</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <h1 className="text-2xl font-semibold text-gray-900">Бүртгэгдсэн багууд</h1>
        
 

@@ -5,6 +5,14 @@ import Link from "next/link";
 import { useMemo, useState, useEffect } from "react";
 import Image from "next/image";
 import { getAllNews, type NewsPost } from "@/lib/newsData";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function NewsPage() {
   const [allNews, setAllNews] = useState<NewsPost[]>([]);
@@ -39,6 +47,17 @@ export default function NewsPage() {
     <main className="min-h-screen bg-white">
       <Header />
       <div className="container mx-auto px-4 py-12">
+        <Breadcrumb className="mb-6">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">НҮҮР</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>МЭДЭЭ</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <div className="mb-6 flex items-end justify-between gap-3">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800">МЭДЭЭ</h1>
          

@@ -6,6 +6,14 @@ import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { CheckCircle } from "lucide-react";
 import { saveSpecialOrderToFirestore } from "@/lib/quotes";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function SpecialOrderPage() {
   const { clear } = useCart();
@@ -278,6 +286,17 @@ export default function SpecialOrderPage() {
       <Header />
       <div className="container mx-auto px-3 sm:px-4 py-6 sm:py-8 md:py-12">
         <div className="max-w-4xl mx-auto">
+          <Breadcrumb className="mb-4">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">НҮҮР</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Бүртгүүлэх</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 mb-2">
             Бүртгүүлэх
           </h1>

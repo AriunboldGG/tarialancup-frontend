@@ -34,13 +34,13 @@ var APP_DATA = {
           "yaw": 1.25,
           "pitch": 0.2,
           "title": "Тэмцээний мэдээлэл",
-          "text": "Зохион байгуулагч: 2014–2017 оны төгсөгчид.<br>Тэмцээн болох хугацаа: 2025.05.16–17.<br>Тэмцээн болох байршил: Тариалан сумын спорт заал."
+          "text": "• Зохион байгуулагч: 2014–2017 оны төгсөгчид<br>• Тэмцээн болох хугацаа: 2025.05.16–17<br>• Тэмцээн болох байршил: Тариалан сумын спорт заал"
         },
         {
           "yaw": 2.4,
           "pitch": 0.1,
           "title": "Холбоо барих",
-          "text": "Холбоо барих - Ерөнхий зохион байгуулагч<br>Нэр: Э. Өсөхбаяр<br>Утас: -<br>Имэйл хаяг: example1@tarialancup.mn<br>Facebook: https://www.facebook.com/ariukaazzz/<br><br>Холбоо барих - Бүртгэл хариуцсан ЗБ<br>Нэр: Г. Ариунболд<br>Утас: 89141818<br>Имэйл хаяг: ganbatariunbold8@gmail.com<br>Facebook: https://www.facebook.com/ariukaazzz/<br><br>Холбоо барих - Сагсан бөмбөг ЗБ<br>Нэр: Э.Чинбат<br>Утас: +976 0000 0001<br>Имэйл хаяг: example2@tarialancup.mn<br>Facebook: https://facebook.com/organizer.two<br><br>Холбоо барих - Дартс ЗБ<br>Нэр: Нэр<br>Утас: +976 0000 0001<br>Имэйл хаяг: example2@tarialancup.mn<br>Facebook: https://facebook.com/organizer.two<br><br>Холбоо барих - Теннис ЗБ<br>Нэр: Нэр<br>Утас: +976 0000 0001<br>Имэйл хаяг: example2@tarialancup.mn<br>Facebook: https://facebook.com/organizer.two"
+          "text": "• Ерөнхий зохион байгуулагч — Э. Өсөхбаяр<br>&nbsp;&nbsp;Утас: -<br>&nbsp;&nbsp;Имэйл: example1@tarialancup.mn<br>&nbsp;&nbsp;Facebook: https://www.facebook.com/ariukaazzz/<br><br>• Бүртгэл хариуцсан ЗБ — Г. Ариунболд<br>&nbsp;&nbsp;Утас: 89141818<br>&nbsp;&nbsp;Имэйл: ganbatariunbold8@gmail.com<br>&nbsp;&nbsp;Facebook: https://www.facebook.com/ariukaazzz/<br><br>• Сагсан бөмбөг ЗБ — Э.Чинбат<br>&nbsp;&nbsp;Утас: +976 0000 0001<br>&nbsp;&nbsp;Имэйл: example2@tarialancup.mn<br>&nbsp;&nbsp;Facebook: https://facebook.com/organizer.two<br><br>• Дартс ЗБ — Нэр<br>&nbsp;&nbsp;Утас: +976 0000 0001<br>&nbsp;&nbsp;Имэйл: example2@tarialancup.mn<br>&nbsp;&nbsp;Facebook: https://facebook.com/organizer.two<br><br>• Теннис ЗБ — Нэр<br>&nbsp;&nbsp;Утас: +976 0000 0001<br>&nbsp;&nbsp;Имэйл: example2@tarialancup.mn<br>&nbsp;&nbsp;Facebook: https://facebook.com/organizer.two"
         },
         {
           "yaw": -0.35,

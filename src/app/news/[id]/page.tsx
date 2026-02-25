@@ -7,6 +7,14 @@ import { getNewsById, type NewsPost } from "@/lib/newsData";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 export default function NewsDetailPage() {
   const params = useParams();
@@ -41,6 +49,21 @@ export default function NewsDetailPage() {
       <main className="min-h-screen bg-white">
         <Header />
         <div className="container mx-auto px-4 py-12">
+          <Breadcrumb className="mb-6">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">НҮҮР</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/news">МЭДЭЭ</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Дэлгэрэнгүй</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           <div className="text-center py-8">
             <div className="text-gray-500">Ачаалж байна...</div>
           </div>
@@ -54,6 +77,21 @@ export default function NewsDetailPage() {
       <main className="min-h-screen bg-white">
         <Header />
         <div className="container mx-auto px-4 py-12">
+          <Breadcrumb className="mb-6">
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/">НҮҮР</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink href="/news">МЭДЭЭ</BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Дэлгэрэнгүй</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
           <div className="text-center py-8">
             <h1 className="text-2xl font-bold text-gray-800 mb-4">Мэдээ олдсонгүй</h1>
             <Link href="/news" className="text-[#8DC63F] hover:underline inline-flex items-center gap-2">
@@ -70,6 +108,21 @@ export default function NewsDetailPage() {
     <main className="min-h-screen bg-white">
       <Header />
       <div className="container mx-auto px-4 py-8 md:py-12">
+        <Breadcrumb className="mb-6">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">НҮҮР</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/news">МЭДЭЭ</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>{news.title}</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         {/* Back button */}
         <Button
           variant="ghost"

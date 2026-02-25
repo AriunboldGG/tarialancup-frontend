@@ -5,6 +5,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 
 type Speaker = {
   id: string;
@@ -182,6 +190,17 @@ export default function SpeakersPage() {
     <main className="min-h-screen bg-white">
       <Header />
       <div className="container mx-auto px-4 py-12">
+        <Breadcrumb className="mb-6">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">НҮҮР</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Мэргэжил сонголтын талаар</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
         <div className="mb-6 w-full">
           <div className="space-y-2 w-full">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
@@ -193,12 +212,17 @@ export default function SpeakersPage() {
               ажлын туршлага, ажлын байрны өрсөлдөөн, өөрсдийн мэргэжлийн давуу болон сул тал, ажлын байран дээрх цалингийн мэдээлэл гэх мэт сонирхолтой мэргэжлүүдийн талаар, ирээдүйд мэргэжлээ сонгохоор бэлтгэж байгаа сурагч дүү нартаа өөрсдийн туршлагаас хуваалцах болно.
               Мөн хүрэлцэн ирж сонсохыг хүссэн хүн бүрт нээлттэй.<br />Уулзалтын үеэр онцлох үйл явдал нь 12-р ангийн сурагчдаас <strong>&quot;Миний хүссэн мэргэжил&quot;</strong> сэдвээр Эссэ бичлэгийн уралдаан зарлаж шалгарсан нэг сурагчид ирэх жилийн сургалтын төлбөрт тус болох үүднээс 5 сая төгрөгийн шагнал тэмцээний хаалтын үеэр гардуулах болно.
             </p>
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
-              Илтгэгчид
-            </h1>
+            
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+            Илтгэгчид
+          </h1>
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          
           {speakers.map((speaker) => (
             <Card
               key={speaker.id}
@@ -251,7 +275,7 @@ export default function SpeakersPage() {
                   <Button
                     type="button"
                     onClick={() => setActiveSpeaker(speaker)}
-                    className="bg-[#1f632b] hover:bg-[#16451e] text-white"
+                    className="bg-[#1f632b] hover:bg-[#16451e] text-white cursor-pointer"
                   >
                     Дэлгэрэнгүй
                   </Button>
@@ -340,7 +364,7 @@ export default function SpeakersPage() {
               <Button
                 type="button"
                 onClick={() => setActiveSpeaker(null)}
-                className="bg-[#1f632b] hover:bg-[#16451e] text-white"
+                className="bg-[#1f632b] hover:bg-[#16451e] text-white cursor-pointer"
               >
                 Хаах
               </Button>
