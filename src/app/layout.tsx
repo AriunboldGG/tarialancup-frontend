@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Tarialan cup - 2026" }],
   creator: "Tarialan cup - 2026",
   publisher: "Tarialan cup - 2026",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://tarialancup.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://tarialancup.com"),
   alternates: {
     canonical: "/",
   },
@@ -42,11 +42,20 @@ export const metadata: Metadata = {
     siteName: "Tarialan cup - 2026",
     title: "Tarialan cup - 2026",
     description: "Tarialan cup - 2026",
+    images: [
+      {
+        url: "/images/main-logo.png",
+        alt: "Tarialan cup - 2026",
+        width: 1200,
+        height: 630,
+      },
+    ],
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "Tarialan cup - 2026",
     description: "Tarialan cup - 2026",
+    images: ["/images/main-logo.png"],
   },
   robots: {
     index: true,

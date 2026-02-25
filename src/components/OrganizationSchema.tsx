@@ -5,7 +5,7 @@ import StructuredData from "./StructuredData";
  * Add this to your root layout or main pages
  */
 export default function OrganizationSchema() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tarialancup.vercel.app";
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://tarialancup.com";
 
   const organizationSchema = {
     "@context": "https://schema.org",
