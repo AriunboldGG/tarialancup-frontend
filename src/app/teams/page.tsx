@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import Header from "@/components/Header";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -38,7 +38,7 @@ const MOCK_TEAMS: TeamRegistration[] = [
   {
     id: "team-1",
     sportType: "Сагсан бөмбөг",
-    gradRange: "2016-2025",
+    gradRange: "2015-2025",
     classGroup: "12 А анги",
     gradYear: "2024",
     gender: "эр",
@@ -99,7 +99,7 @@ const MOCK_TEAMS: TeamRegistration[] = [
   {
     id: "team-2",
     sportType: "Дартс",
-    gradRange: "2001-2010",
+    gradRange: "2004-2014",
     classGroup: "10 Б анги",
     gradYear: "2009",
     gender: "эм",
@@ -116,7 +116,7 @@ const MOCK_TEAMS: TeamRegistration[] = [
   {
     id: "team-3",
     sportType: "Теннис",
-    gradRange: "2011-2015",
+    gradRange: "2003-с өмнөх",
     classGroup: "11 В анги",
     gradYear: "2013",
     gender: "эр",
@@ -164,6 +164,19 @@ export default function TeamsPage() {
   const [activeTeam, setActiveTeam] = useState<TeamRegistration | null>(null);
   const [activeMember, setActiveMember] = useState<TeamMember | null>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+  // Prevent body scroll when modals are open
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (activeTeam || activeMember || isFilterOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [activeTeam, activeMember, isFilterOpen]);
 
   const rangeTabs = useMemo(() => {
     const ranges = Array.from(
@@ -434,14 +447,37 @@ export default function TeamsPage() {
       </div>
 
       {activeTeam ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 py-6"
+          style={{ 
+            overflow: 'hidden',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0
+          }}
+        >
           <button
             type="button"
             onClick={() => setActiveTeam(null)}
             className="absolute inset-0 h-full w-full cursor-pointer"
             aria-label="Close modal"
           />
-          <div className="relative w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl max-h-[90vh] overflow-auto">
+          <div 
+            className="relative w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl"
+            style={{
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              overflowX: 'hidden',
+              overscrollBehavior: 'contain',
+              WebkitOverflowScrolling: 'touch',
+              transform: 'translateZ(0)',
+              backfaceVisibility: 'hidden',
+              perspective: '1000px'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">
@@ -478,22 +514,60 @@ export default function TeamsPage() {
               {activeTeam.members.length === 0 ? (
                 <div className="text-sm text-gray-500">Мэдээлэл алга</div>
               ) : (
-                <Swiper
-                  spaceBetween={16}
-                  slidesPerView={1.1}
-                  modules={[Autoplay]}
-                  autoplay={
-                    activeTeam.members.length > 3
-                      ? { delay: 1500, disableOnInteraction: false }
-                      : false
-                  }
-                  loop={activeTeam.members.length > 3}
-                  breakpoints={{
-                    480: { slidesPerView: 1.4 },
-                    640: { slidesPerView: 2.1 },
-                    1024: { slidesPerView: 3 },
+                <div 
+                  className="swiper-container" 
+                  style={{ 
+                    width: '100%', 
+                    position: 'relative',
+                    transform: 'translateZ(0)',
+                    willChange: 'transform'
                   }}
                 >
+                  <Swiper
+                    spaceBetween={16}
+                    slidesPerView={1.1}
+                    modules={[Autoplay]}
+                    autoplay={
+                      activeTeam.members.length > 3
+                        ? { 
+                            delay: 800, 
+                            disableOnInteraction: false, 
+                            pauseOnMouseEnter: true,
+                            stopOnLastSlide: false,
+                            waitForTransition: true
+                          }
+                        : false
+                    }
+                    loop={activeTeam.members.length > 6}
+                    loopAdditionalSlides={activeTeam.members.length > 6 ? Math.max(3, Math.ceil(activeTeam.members.length / 2)) : 0}
+                    watchOverflow={true}
+                    preventInteractionOnTransition={true}
+                    speed={600}
+                    allowTouchMove={true}
+                    resistance={true}
+                    resistanceRatio={0.85}
+                    updateOnWindowResize={false}
+                    observer={true}
+                    observeParents={true}
+                    normalizeSlideIndex={true}
+                    breakpoints={{
+                      480: { 
+                        slidesPerView: 1.4,
+                        loop: activeTeam.members.length > 6,
+                        spaceBetween: 16
+                      },
+                      640: { 
+                        slidesPerView: 2.1,
+                        loop: activeTeam.members.length > 6,
+                        spaceBetween: 16
+                      },
+                      1024: { 
+                        slidesPerView: 3,
+                        loop: activeTeam.members.length > 6,
+                        spaceBetween: 16
+                      },
+                    }}
+                  >
                   {activeTeam.members.map((member, index) => (
                     <SwiperSlide key={`${member.raw}-${index}`}>
                       <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm cursor-pointer">
@@ -518,7 +592,8 @@ export default function TeamsPage() {
                       </div>
                     </SwiperSlide>
                   ))}
-                </Swiper>
+                  </Swiper>
+                </div>
               )}
             </div>
           </div>

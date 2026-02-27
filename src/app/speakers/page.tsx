@@ -210,7 +210,7 @@ export default function SpeakersPage() {
               &quot;Мэргэжил сонголт&quot; арга хэмжээнд 2014–2017 оны өөрсдийн мэргэжлээрээ салбар салбартаа манлайлж яваа 
               төгсөгчид өөрсдийн түүх,
               ажлын туршлага, ажлын байрны өрсөлдөөн, өөрсдийн мэргэжлийн давуу болон сул тал, ажлын байран дээрх цалингийн мэдээлэл гэх мэт сонирхолтой мэргэжлүүдийн талаар, ирээдүйд мэргэжлээ сонгохоор бэлтгэж байгаа сурагч дүү нартаа өөрсдийн туршлагаас хуваалцах болно.
-              Мөн хүрэлцэн ирж сонсохыг хүссэн хүн бүрт нээлттэй.<br />Уулзалтын үеэр онцлох үйл явдал нь 12-р ангийн сурагчдаас <strong>&quot;Миний хүссэн мэргэжил&quot;</strong> сэдвээр Эссэ бичлэгийн уралдаан зарлаж шалгарсан нэг сурагчид ирэх жилийн сургалтын төлбөрт тус болох үүднээс 5 сая төгрөгийн шагнал тэмцээний хаалтын үеэр гардуулах болно.
+              Мөн хүрэлцэн ирж сонсохыг хүссэн хүн бүрт нээлттэй.<br />Уулзалтын үеэр онцлох үйл явдал нь 12-р ангийн сурагчдаас <strong>&quot;Миний хүссэн мэргэжил&quot;</strong> сэдвээр Эссэ бичлэгийн уралдаан зарлаж шалгарсан нэг сурагчид ирэх жилийн сургалтын төлбөрт тус болох үүднээс ... сая төгрөгийн шагнал тэмцээний хаалтын үеэр гардуулах болно.
             </p>
             
           </div>
@@ -229,7 +229,7 @@ export default function SpeakersPage() {
               className="overflow-hidden hover:border-[#8DC63F] transition-colors"
             >
               {speaker.photo ? (
-                <div className="relative h-56 w-full bg-gray-100">
+                <div className="relative w-full bg-gray-100" style={{ height: '400px' }}>
                   <Image
                     src={speaker.photo}
                     alt={`${speaker.lastName} ${speaker.firstName}`}
@@ -239,7 +239,7 @@ export default function SpeakersPage() {
                   />
                 </div>
               ) : (
-                <div className="relative h-56 w-full bg-gray-100 flex items-center justify-center">
+                <div className="relative w-full bg-gray-100 flex items-center justify-center" style={{ height: '400px' }}>
                   <span className="text-gray-400 text-sm">Зураг байхгүй</span>
                 </div>
               )}
@@ -348,27 +348,21 @@ export default function SpeakersPage() {
                   <div
                     key={`${activeSpeaker.id}-photo-${idx}`}
                     className="overflow-hidden rounded-xl bg-gray-100"
+                    style={{ height: '400px' }}
                   >
                     <Image
                       src={src}
                       alt={`${activeSpeaker.lastName} ${activeSpeaker.firstName} зураг ${idx + 1}`}
                       width={600}
-                      height={450}
-                      className="h-32 w-full object-cover"
+                      height={400}
+                      className="w-full object-cover"
+                      style={{ height: '400px' }}
                     />
                   </div>
                 ))}
               </div>
             ) : null}
-            <div className="mt-6 flex justify-end">
-              <Button
-                type="button"
-                onClick={() => setActiveSpeaker(null)}
-                className="bg-[#1f632b] hover:bg-[#16451e] text-white cursor-pointer"
-              >
-                Хаах
-              </Button>
-            </div>
+         
           </div>
         </div>
       )}

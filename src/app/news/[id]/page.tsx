@@ -17,7 +17,6 @@ import {
 
 export default function NewsDetailPage() {
   const params = useParams();
-  const router = useRouter();
   const newsId = typeof params.id === 'string' ? params.id : '';
   const [news, setNews] = useState<NewsPost | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);

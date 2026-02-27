@@ -18,8 +18,8 @@ import {
 export default function SpecialOrderPage() {
   const { clear } = useCart();
   const bankInfo = {
-    ownerName: "Tarialan cup - 2026",
-    accountNumber: "0000000000",
+    ownerName: "Тунгалагмөрөн",
+    accountNumber: "5314583897",
   };
   const [formData, setFormData] = useState({
     gradRange: "",
@@ -446,7 +446,7 @@ export default function SpecialOrderPage() {
                   </div>
                   <div className="md:col-span-2">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Багийн тоглох үе:
+                      Багийн тоглох он:
                       <span className="text-red-500"> *</span>
                     </label>
                     <select
@@ -459,10 +459,9 @@ export default function SpecialOrderPage() {
                       <option value="" disabled>
                         Сонгох
                       </option>
-                      <option value="2000-аас өмнө">2000-аас өмнө</option>
-                      <option value="2001-2010">2001-2010</option>
-                      <option value="2011-2015">2011-2015</option>
-                      <option value="2016-2025">2016-2025</option>
+                      <option value="2003-аас өмнө">2003-аас өмнө</option>
+                      <option value="2004-2014">2004-2014</option>
+                      <option value="2015-2025">2015-2025</option>
                     </select>
                   </div>
                   <div>
@@ -768,8 +767,9 @@ export default function SpecialOrderPage() {
             <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
 
               <li>Багийн бооцооны мөнгө шилжсэний дараа бүртгэл баталгаажих болно</li>
-              <li>Дансны нэр:</li>
-              <li>Дансны дугаар:</li>
+              <li>Дансны нэр: Тунгалагмөрөн</li>
+              <li>Дансны дугаар: 5314583897</li>
+              <li>Гүйлгээний утга: Бүртгэлийн хүсэлт илгээсний дараа гарч ирнэ</li>
 
             </ul>
           </div>

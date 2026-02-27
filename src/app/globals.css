@@ -319,3 +319,27 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+/* Fix modal shaking/vibration */
+.fixed {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.swiper-container {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.swiper-wrapper {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.swiper-slide {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+}
