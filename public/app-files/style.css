@@ -648,12 +648,51 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
+  .info-hotspot-modal {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  .info-hotspot-modal .info-hotspot-header {
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+  }
   .info-hotspot-modal .info-hotspot-text {
-    position: static;
+    position: absolute;
+    top: 50px !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
     height: auto;
     max-height: none;
-    overflow-y: visible;
-    margin-top: 110px;
+    overflow-y: auto;
+    margin: 0 !important;
+    padding: 16px;
+    box-sizing: border-box !important;
+  }
+  .info-hotspot-modal .info-hotspot-text * {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .info-hotspot-modal .info-hotspot-text table {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .info-hotspot-modal .info-hotspot-text p,
+  .info-hotspot-modal .info-hotspot-text div,
+  .info-hotspot-modal .info-hotspot-text ul,
+  .info-hotspot-modal .info-hotspot-text li {
+    width: 100% !important;
+    max-width: 100% !important;
   }
   .info-hotspot .info-hotspot-text table,
   .info-hotspot .info-hotspot-text tbody,
@@ -705,15 +744,23 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
 .info-hotspot-modal {
   top: 0;
   left: 0;
-  position: absolute;
+  right: 0;
+  bottom: 0;
+  position: fixed;
   width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
   overflow: hidden;
   z-index: 11000 !important;
-  background-color: rgba(0,0,0,.5);
+  background-color: transparent;
   line-height: 1.2em;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
+  box-sizing: border-box;
   -webkit-transition: opacity 0.2s ease-in-out 0.5s,
                       visibility 0s 0.7s;
   transition: opacity 0.2s ease-in-out 0.5s,
@@ -723,6 +770,7 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
 .info-hotspot-modal.visible {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   -webkit-transition: opacity 0.2s ease-in-out,
                       visibility 0s 0s;
   transition: opacity 0.2s ease-in-out,
@@ -731,15 +779,21 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
 
 .info-hotspot-modal .info-hotspot-header {
   position: absolute;
-  top: 60px;
-  left: 10px;
-  right: 10px;
-  width: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   height: 50px;
+  margin: 0;
+  padding: 0;
   background-color: rgba(15, 23, 42, 0.85);
   border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 16px 16px 0 0;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
   opacity: 0;
+  pointer-events: auto;
   -webkit-transition: opacity 0.3s ease-in-out 0.2s;
   transition: opacity 0.3s ease-in-out 0.2s;
 }
@@ -809,26 +863,52 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
 
 .info-hotspot-modal .info-hotspot-text {
   position: absolute;
-  top: 110px;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  width: auto;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
   max-width: 100%;
-  padding: 10px;
+  margin: 0;
+  padding: 16px;
   background-color: rgba(15, 23, 42, 0.85);
   border: 1px solid rgba(148, 163, 184, 0.25);
-  border-radius: 0 0 16px 16px;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
   box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
-  overflow-y: visible;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   opacity: 0;
+  pointer-events: auto;
   -webkit-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
+  box-sizing: border-box;
 
   -moz-user-select: text;
   -webkit-user-select: text;
   -ms-user-select: text;
   user-select: text;
+}
+
+.info-hotspot-modal .info-hotspot-text * {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.info-hotspot-modal .info-hotspot-text table {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.info-hotspot-modal .info-hotspot-text p,
+.info-hotspot-modal .info-hotspot-text div,
+.info-hotspot-modal .info-hotspot-text ul,
+.info-hotspot-modal .info-hotspot-text li {
+  width: 100%;
+  max-width: 100%;
 }
 
 .info-hotspot-modal.visible .info-hotspot-text {

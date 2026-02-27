@@ -2,10 +2,9 @@
 import Header from "@/components/Header";
 import Image from "next/image";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { getNewsById, type NewsPost } from "@/lib/newsData";
 import { ArrowLeft } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import {
   Breadcrumb,
@@ -123,15 +122,6 @@ export default function NewsDetailPage() {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* Back button */}
-        <Button
-          variant="ghost"
-          onClick={() => router.back()}
-          className="mb-6 text-gray-700 hover:text-[#8DC63F]"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Буцах
-        </Button>
 
         <article className="max-w-4xl mx-auto">
           {/* Header */}

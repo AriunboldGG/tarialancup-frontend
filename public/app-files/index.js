@@ -258,6 +258,10 @@
         element._hotspotModal.classList.remove('visible');
       }
     });
+    // Notify parent page that modal is closed
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({ type: 'panorama:modalVisibility', visible: false }, '*');
+    }
   }
 
   function openInfoHotspotByTitle(title) {
@@ -274,6 +278,10 @@
     target.classList.add('visible');
     if (target._hotspotModal) {
       target._hotspotModal.classList.add('visible');
+      // Notify parent page that modal is open
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'panorama:modalVisibility', visible: true }, '*');
+      }
     }
   }
 
@@ -398,16 +406,58 @@
     wrapper._hotspotModal = modal;
     modal.dataset.hotspotTitle = hotspot.title;
 
-    var toggle = function() {
+    var toggle = function(event) {
+      if (event) {
+        event.stopPropagation();
+        event.preventDefault();
+      }
+      var wasVisible = wrapper.classList.contains('visible');
       wrapper.classList.toggle('visible');
       modal.classList.toggle('visible');
+      
+      // Notify parent page about modal visibility change
+      var isNowVisible = modal.classList.contains('visible');
+      if (window.parent && window.parent !== window) {
+        window.parent.postMessage({ type: 'panorama:modalVisibility', visible: isNowVisible }, '*');
+      }
     };
 
     // Show content when hotspot is clicked.
-    wrapper.querySelector('.info-hotspot-header').addEventListener('click', toggle);
+    wrapper.querySelector('.info-hotspot-header').addEventListener('click', function(event) {
+      event.stopPropagation();
+      toggle(event);
+    });
 
     // Hide content when close icon is clicked.
-    modal.querySelector('.info-hotspot-close-wrapper').addEventListener('click', toggle);
+    var closeButton = modal.querySelector('.info-hotspot-close-wrapper');
+    if (closeButton) {
+      closeButton.addEventListener('click', function(event) {
+        event.stopPropagation();
+        event.preventDefault();
+        toggle(event);
+      });
+    }
+    
+    // Prevent all clicks on the modal from bubbling to parent page/iframe
+    modal.addEventListener('click', function(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      // Only allow clicks on interactive elements
+      var target = event.target;
+      if (target.closest('.info-hotspot-header') || target.closest('.info-hotspot-text')) {
+        // Allow clicks within content areas
+        return;
+      }
+    });
+    
+    // Also prevent clicks on the modal background from triggering anything
+    modal.addEventListener('mousedown', function(event) {
+      event.stopPropagation();
+    });
+    
+    modal.addEventListener('touchstart', function(event) {
+      event.stopPropagation();
+    });
 
     // Prevent touch and scroll events from reaching the parent element.
     // This prevents the view control logic from interfering with the hotspot.
