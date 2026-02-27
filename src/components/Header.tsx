@@ -154,7 +154,7 @@ export default function Header() {
               <div className="flex items-center justify-between gap-3 px-4 py-4 border-b border-gray-200 bg-white">
                 <Link
                   href="/"
-                  className="flex min-w-0 items-center gap-3"
+                  className="flex min-w-0 items-center gap-3 flex-shrink-0"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <div className="relative h-10 w-[calc(100vw-104px)] max-w-[180px] sm:max-w-[220px]">
@@ -163,7 +163,7 @@ export default function Header() {
                       alt="Tarialan cup - 2026"
                       fill
                       sizes="(max-width: 640px) 160px, 220px"
-                      className="object-contain"
+                      className="object-contain object-left"
                       priority
                     />
                   </div>
