@@ -2,7 +2,7 @@
 
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCart } from "@/context/CartContext";
 import { CheckCircle } from "lucide-react";
 import { saveSpecialOrderToFirestore } from "@/lib/quotes";
@@ -70,6 +70,38 @@ export default function SpecialOrderPage() {
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [countdown, setCountdown] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0,
+  });
+
+  // Countdown timer to 2026-04-01
+  useEffect(() => {
+    const targetDate = new Date("2026-04-01T00:00:00").getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      if (distance > 0) {
+        setCountdown({
+          days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+          hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+          seconds: Math.floor((distance % (1000 * 60)) / 1000),
+        });
+      } else {
+        setCountdown({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -749,13 +781,38 @@ export default function SpecialOrderPage() {
                     Алдаа гарлаа. Дахин оролдоно уу эсвэл утсаар холбогдоно уу.
                   </div>
                 )}
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full md:w-auto bg-[#1f632b] hover:bg-[#16451e] text-white font-semibold py-3 px-8 rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? "Илгээж байна..." : "Илгээх"}
-                </Button>
+                <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <p className="text-sm text-gray-700 mb-2">
+                    Бүртгэл илгээх хугацаа 2026.04.01-нд эхлэнэ
+                  </p>
+                  <div className="flex items-center gap-4 text-sm">
+                    <div className="flex items-center gap-1">
+                      <span className="font-semibold text-gray-900">{countdown.days}</span>
+                      <span className="text-gray-600">өдөр</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="font-semibold text-gray-900">{String(countdown.hours).padStart(2, '0')}</span>
+                      <span className="text-gray-600">цаг</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="font-semibold text-gray-900">{String(countdown.minutes).padStart(2, '0')}</span>
+                      <span className="text-gray-600">минут</span>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="font-semibold text-gray-900">{String(countdown.seconds).padStart(2, '0')}</span>
+                      <span className="text-gray-600">секунд</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex justify-end">
+                  <Button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="bg-[#1f632b] hover:bg-[#16451e] text-white font-semibold py-3 px-8 rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? "Илгээж байна..." : "Илгээх"}
+                  </Button>
+                </div>
               </div>
             </form>
           </div>

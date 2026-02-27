@@ -13,7 +13,7 @@ export const defaultCompanyInfo: CompanyInfo = {
   email: "info@tarialancup.mn",
   phone: "70118585",
   mobilePhone: "",
-  facebookUrl: "",
+  facebookUrl: "https://www.facebook.com/profile.php?id=61587326840826",
   wechatUrl: "",
   whatsappUrl: "",
   address: "Хөвсгөл аймаг, Тариалан сум. Спорт зал",
