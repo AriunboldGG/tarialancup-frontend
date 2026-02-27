@@ -679,10 +679,32 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
     padding: 16px;
     box-sizing: border-box !important;
   }
-  .info-hotspot-modal .info-hotspot-text * {
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-  }
+.info-hotspot-modal .info-hotspot-text * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.info-hotspot-modal .info-hotspot-text a[href^="tel:"] {
+  color: #60a5fa !important;
+  text-decoration: underline !important;
+  cursor: pointer !important;
+  transition: color 0.2s ease !important;
+}
+
+.info-hotspot-modal .info-hotspot-text a[href^="tel:"]:hover {
+  color: #3b82f6 !important;
+}
+
+.info-hotspot .info-hotspot-text a[href^="tel:"] {
+  color: #60a5fa;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.info-hotspot .info-hotspot-text a[href^="tel:"]:hover {
+  color: #3b82f6;
+}
   .info-hotspot-modal .info-hotspot-text table {
     width: 100% !important;
     max-width: 100% !important;

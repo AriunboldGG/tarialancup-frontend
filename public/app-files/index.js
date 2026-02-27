@@ -185,6 +185,28 @@
     return s.replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;');
   }
 
+  function makePhoneNumbersClickable(html) {
+    // Pattern to match phone numbers after "Утас:" (Phone:)
+    // Matches: Утас: 89141818, Утас: +976 0000 0001, etc.
+    // Excludes: Утас: - (dash)
+    return html.replace(
+      /Утас:\s*([+]?[0-9\s\-]{6,})/g,
+      function(match, phoneNumber) {
+        // Skip if phone is just a dash or empty
+        var trimmed = phoneNumber.trim();
+        if (trimmed === '-' || trimmed === '' || trimmed.length < 6) {
+          return match;
+        }
+        // Clean phone number for tel: link (remove spaces, keep + and digits)
+        var cleanPhone = trimmed.replace(/\s+/g, '').replace(/[^\d+]/g, '');
+        if (cleanPhone && cleanPhone.length >= 6) {
+          return 'Утас: <a href="tel:' + cleanPhone + '" style="color: #60a5fa; text-decoration: underline; cursor: pointer;">' + trimmed + '</a>';
+        }
+        return match;
+      }
+    );
+  }
+
   function switchScene(scene) {
     stopAutorotate();
     scene.view.setParameters(scene.data.initialViewParameters);
@@ -392,7 +414,7 @@
     // Create text element.
     var text = document.createElement('div');
     text.classList.add('info-hotspot-text');
-    text.innerHTML = hotspot.text;
+    text.innerHTML = makePhoneNumbersClickable(hotspot.text);
 
     // Place header and text into wrapper element.
     wrapper.appendChild(header);
