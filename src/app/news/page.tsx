@@ -60,7 +60,6 @@ export default function NewsPage() {
         </Breadcrumb>
         <div className="mb-6 flex items-end justify-between gap-3">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800">МЭДЭЭ</h1>
-         
         </div>
 
         {isLoading ? (
@@ -119,25 +118,25 @@ export default function NewsPage() {
           </div>
         )}
 
-        {/* Pagination */}
-        {!isLoading && allNews.length > 0 && (
-          <div className="mt-8 flex items-center justify-center gap-2">
-            <button
-              className="px-3 py-1 rounded-md border text-sm disabled:opacity-50"
-              onClick={() => setPage((p) => Math.max(1, p - 1))}
-              disabled={page === 1}
-            >
-              Өмнөх
-            </button>
-            <span className="text-sm text-gray-600">
-              {page} / {totalPages}
-            </span>
-            <button
-              className="px-3 py-1 rounded-md border text-sm disabled:opacity-50"
-              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              disabled={page === totalPages}
-            >
-              Дараах
+            {/* Pagination */}
+            {!isLoading && allNews.length > 0 && (
+              <div className="mt-8 flex items-center justify-center gap-2">
+                <button
+                  className="px-3 py-1 rounded-md border text-sm disabled:opacity-50"
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  disabled={page === 1}
+                >
+                  Өмнөх
+                </button>
+                <span className="text-sm text-gray-600">
+                  {page} / {totalPages}
+                </span>
+                <button
+                  className="px-3 py-1 rounded-md border text-sm disabled:opacity-50"
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={page === totalPages}
+                >
+                  Дараах
             </button>
           </div>
         )}

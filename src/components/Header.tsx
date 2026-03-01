@@ -84,21 +84,27 @@ export default function Header() {
               <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 group-focus-within:visible group-focus-within:opacity-100 transition-all duration-200 absolute left-0 top-full z-20 mt-2 w-64 translate-x-0 rounded-xl border border-white/20 bg-white/90 backdrop-blur-xl shadow-[0_20px_40px_rgba(15,23,42,0.18)]">
                 <Link
                   href="/speakers"
-                  className="block px-4 py-3 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
+                  className="block px-4 py-2 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
                 >
                   Сурагчдад зориулсан арга хэмжээ
                 </Link>
                 <Link
                   href="/news"
-                  className="block px-4 pb-4 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
+                  className="block px-4 py-2 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
                 >
                   Мэдээ мэдээлэл
                 </Link>
                 <Link
                   href="/sponsors"
-                  className="block px-4 pb-4 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
+                  className="block px-4 py-2 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
                 >
                   Ивээн тэтгэгчид
+                </Link>
+                <Link
+                  href="/news/agenda"
+                  className="block px-4 pb-3 text-sm font-medium text-gray-800 transition-colors hover:text-[#1f632b]"
+                >
+                  Хөтөлбөр
                 </Link>
               </div>
             </div>
@@ -109,6 +115,7 @@ export default function Header() {
               ХОЛБОО БАРИХ
             </NavLink>
             <NavLink href="/teams">Бүртгэгдсэн багууд</NavLink>
+            <NavLink href="/news/donation">Хандив</NavLink>
             <NavLink href="/register" className="register-highlight">
               Бүртгүүлэх
             </NavLink>
@@ -186,7 +193,7 @@ export default function Header() {
                 <NavLink href="/#chapter-1" onClick={handlePanoramaNavAndClose("news")}>
                   МЭДЭЭ
                 </NavLink>
-                <div className="ml-4 flex flex-col gap-2 text-sm">
+                <div className="ml-4 flex flex-col gap-1 text-sm">
                   <NavLink href="/news" onClick={() => setIsMenuOpen(false)}>
                     Мэдээ мэдээлэл
                   </NavLink>
@@ -195,6 +202,9 @@ export default function Header() {
                   </NavLink>
                   <NavLink href="/sponsors" onClick={() => setIsMenuOpen(false)}>
                     Ивээн тэтгэгчид
+                  </NavLink>
+                  <NavLink href="/news/agenda" onClick={() => setIsMenuOpen(false)}>
+                    Хөтөлбөр
                   </NavLink>
                 </div>
                 <NavLink href="/#chapter-2" onClick={handlePanoramaNavAndClose("about")}>
@@ -205,6 +215,9 @@ export default function Header() {
                 </NavLink>
                 <NavLink href="/teams" onClick={() => setIsMenuOpen(false)}>
                   Бүртгэгдсэн багууд
+                </NavLink>
+                <NavLink href="/news/donation" onClick={() => setIsMenuOpen(false)}>
+                  Хандив
                 </NavLink>
                 <NavLink
                   href="/register"
