@@ -287,13 +287,13 @@ export default function SpeakersPage() {
       </div>
       {activeSpeaker && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4 md:p-8">
-          <div className="w-full h-full max-w-none rounded-2xl bg-white p-6 shadow-xl overflow-y-auto">
+          <div className="w-full h-full max-w-none rounded-2xl bg-white p-6 md:p-8 shadow-xl overflow-y-auto">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
                   {activeSpeaker.lastName} {activeSpeaker.firstName}
                 </h2>
-                <p className="text-sm text-gray-600">
+                <p className="text-base text-gray-600">
                   Ажлын газар:{" "}
                   <span className="font-semibold text-gray-800">
                     {activeSpeaker.workplace}
@@ -309,7 +309,7 @@ export default function SpeakersPage() {
                 ✕
               </button>
             </div>
-            <div className="mt-4 space-y-2 text-sm text-gray-700">
+            <div className="mt-4 space-y-3 text-base md:text-lg text-gray-700 leading-relaxed">
               <div>
                 Танилцуулга:{" "}
                 <span className="font-semibold text-gray-800">
@@ -342,27 +342,7 @@ export default function SpeakersPage() {
                 </span>
               </div>
             </div>
-            {activeSpeaker.gallery.length > 0 ? (
-              <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                {activeSpeaker.gallery.map((src, idx) => (
-                  <div
-                    key={`${activeSpeaker.id}-photo-${idx}`}
-                    className="overflow-hidden rounded-xl bg-gray-100"
-                    style={{ height: '400px' }}
-                  >
-                    <Image
-                      src={src}
-                      alt={`${activeSpeaker.lastName} ${activeSpeaker.firstName} зураг ${idx + 1}`}
-                      width={600}
-                      height={400}
-                      className="w-full object-cover"
-                      style={{ height: '400px' }}
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : null}
-         
+            
           </div>
         </div>
       )}

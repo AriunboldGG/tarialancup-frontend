@@ -16,15 +16,55 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h4 className="text-sm font-semibold text-gray-800 mb-4">ХОЛБОО БАРИХ</h4>
-            <a
-              href={`tel:86866006`}
-              className="text-2xl font-bold text-[#1D75B7] mb-4 inline-block hover:underline"
-            >
-              86866006
-            </a>
-          
-         
-            <div className="text-xs font-semibold text-gray-800 mb-1">Сошиал хаяг</div>
+            <div className="space-y-1 text-xs text-gray-600">
+              <p>
+                Ерөнхий ЗБ: Э. Өсөхбаяр —{" "}
+                <a
+                  href="tel:86866006"
+                  className="font-semibold text-[#1D75B7] hover:underline"
+                >
+                  86866006
+                </a>
+              </p>
+              <p>
+                Бүртгэл хариуцсан ЗБ: Г. Ариунболд —{" "}
+                <a
+                  href="tel:89141818"
+                  className="font-semibold text-[#1D75B7] hover:underline"
+                >
+                  89141818
+                </a>
+              </p>
+              <p>
+                Сагсан бөмбөг ЗБ: Э. Чинбат —{" "}
+                <a
+                  href="tel:+97600000001"
+                  className="font-semibold text-[#1D75B7] hover:underline"
+                >
+                  +976 0000 0001
+                </a>
+              </p>
+              <p>
+                Дартс ЗБ: Балжинням —{" "}
+                <a
+                  href="tel:94117579"
+                  className="font-semibold text-[#1D75B7] hover:underline"
+                >
+                  94117579
+                </a>
+              </p>
+              <p>
+                Теннис ЗБ: Ш. Гантогтох —{" "}
+                <a
+                  href="tel:9100"
+                  className="font-semibold text-[#1D75B7] hover:underline"
+                >
+                  9100...
+                </a>
+              </p>
+            </div>
+
+            <div className="mt-4 text-xs font-semibold text-gray-800 mb-1">Сошиал хаяг</div>
             <div className="mt-4 flex items-center gap-3">
               <a
                 href={companyInfo.facebookUrl || "#"}

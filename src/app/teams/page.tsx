@@ -141,7 +141,7 @@ const formatMemberDetails = (raw: string) => {
   const parts = cleaned.split(",").map((part) => part.trim()).filter(Boolean);
   const labels = [
     "Овог нэр",
-    "Өндөр",
+    "Ажил мэргэжил",
     "Спортын зэрэг",
     "Байрлал",
     "Хувийн дугаар",

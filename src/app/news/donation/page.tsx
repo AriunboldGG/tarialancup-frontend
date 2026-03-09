@@ -50,8 +50,14 @@ export default function DonationPage() {
                   QR кодоор хандив илгээх
                 </h2>
                 <div className="bg-white p-4 rounded-lg border-2 border-gray-200">
-                  <div className="w-64 h-64 bg-gray-100 rounded flex items-center justify-center">
-                    <span className="text-gray-400 text-sm">QR код зураг</span>
+                  <div className="w-64 h-64 bg-gray-100 rounded flex items-center justify-center overflow-hidden">
+                    <Image
+                      src="/images/qpay.jpg"
+                      alt="QPay QR код"
+                      width={256}
+                      height={256}
+                      className="object-contain w-full h-full"
+                    />
                   </div>
                 </div>
                 <p className="mt-4 text-sm text-gray-600 text-center max-w-md">

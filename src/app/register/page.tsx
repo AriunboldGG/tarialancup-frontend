@@ -105,9 +105,12 @@ export default function SpecialOrderPage() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
+    // Allow only digits for phone fields
+    const nextValue =
+      name === "contactPhone" || name === "phone" ? value.replace(/\D/g, "") : value;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: nextValue,
     }));
   };
 
@@ -140,10 +143,10 @@ export default function SpecialOrderPage() {
     {
       lastName: "",
       firstName: "",
-      height: "",
       sportRank: "",
       position: "",
       registerNo: "",
+      job: "",
       photo: null as File | null,
       photoUrl: "",
     },
@@ -169,10 +172,10 @@ export default function SpecialOrderPage() {
         {
           lastName: "",
           firstName: "",
-          height: "",
           sportRank: "",
           position: "",
           registerNo: "",
+          job: "",
           photo: null,
           photoUrl: "",
         },
@@ -229,7 +232,7 @@ export default function SpecialOrderPage() {
         "Тамирчид:",
         ...members.map(
           (member, idx) =>
-            `${idx + 1}) ${member.lastName} ${member.firstName}, ${member.height}см, ${member.sportRank}, ${member.position}, ${member.registerNo}${
+            `${idx + 1}) ${member.lastName} ${member.firstName}, ${member.sportRank}, ${member.position}, ${member.registerNo}, ${member.job}${
               member.photo?.name ? `, зураг: ${member.photo.name}` : ""
             }`
         ),
@@ -294,10 +297,10 @@ export default function SpecialOrderPage() {
         {
           lastName: "",
           firstName: "",
-          height: "",
           sportRank: "",
           position: "",
           registerNo: "",
+          job: "",
           photo: null,
           photoUrl: "",
         },
@@ -648,7 +651,6 @@ export default function SpecialOrderPage() {
                         <th className="px-3 py-2 w-12">№</th>
                         <th className="px-3 py-2">Тамирчны овог</th>
                         <th className="px-3 py-2">Тамирчны нэр</th>
-                        <th className="px-3 py-2">Өндөр</th>
                         <th className="px-3 py-2">Спортын зэрэг</th>
                         {formData.sportType === "Сагсан бөмбөг" ? (
                           <>
@@ -656,6 +658,7 @@ export default function SpecialOrderPage() {
                             <th className="px-3 py-2">Хувийн дугаар</th>
                           </>
                         ) : null}
+                        <th className="px-3 py-2">Ажил мэргэжил</th>
                         <th className="px-3 py-2">Зураг</th>
                       </tr>
                     </thead>
@@ -679,16 +682,6 @@ export default function SpecialOrderPage() {
                               onChange={(e) => handleMemberChange(index, "firstName", e.target.value)}
                               className="w-full rounded-md border border-gray-300 px-2 py-1 text-sm"
                               placeholder="Нэр"
-                            />
-                          </td>
-                          <td className="px-3 py-2">
-                            <input
-                              type="number"
-                              inputMode="numeric"
-                              value={member.height}
-                              onChange={(e) => handleMemberChange(index, "height", e.target.value)}
-                              className="w-full rounded-md border border-gray-300 px-2 py-1 text-sm"
-                              placeholder="см"
                             />
                           </td>
                           <td className="px-3 py-2">
@@ -725,6 +718,14 @@ export default function SpecialOrderPage() {
                               </td>
                             </>
                           ) : null}
+                          <td className="px-3 py-2">
+                            <input
+                              value={member.job}
+                              onChange={(e) => handleMemberChange(index, "job", e.target.value)}
+                              className="w-full rounded-md border border-gray-300 px-2 py-1 text-sm"
+                              placeholder="Ажил мэргэжил"
+                            />
+                          </td>
                           <td className="px-3 py-2">
                             <div className="flex items-center gap-2">
                               <input
