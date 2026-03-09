@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { CartProvider } from "@/context/CartContext";
-import { StockProvider } from "@/context/StockContext";
 import FooterGate from "@/components/FooterGate";
 import OrganizationSchema from "@/components/OrganizationSchema";
 import { Analytics } from "@vercel/analytics/next";
@@ -86,11 +84,7 @@ export default function RootLayout({
         className={`${inter.variable} font-sans antialiased`}
       >
         <OrganizationSchema />
-        <CartProvider>
-          <StockProvider>
-            {children}
-          </StockProvider>
-        </CartProvider>
+        {children}
         <FooterGate />
         <Analytics />
         <SpeedInsights />

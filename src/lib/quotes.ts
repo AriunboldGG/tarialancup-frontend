@@ -1,4 +1,4 @@
-import { CartItem } from "@/context/CartContext";
+
 
 export type QuoteData = {
   firstName: string;
@@ -7,7 +7,7 @@ export type QuoteData = {
   phone: string;
   note: string;
   company: string;
-  items: CartItem[];
+  items: any[];
   createdAt?: any;
   status?: "pending" | "processed" | "completed";
 };
@@ -33,7 +33,7 @@ const readFromStorage = (key: string): any[] => {
   }
 };
 
-const buildQuoteItems = (items: CartItem[]) => {
+const buildQuoteItems = (items: any[]) => {
   const itemsArray = Array.isArray(items) ? items : [];
   return itemsArray.map((item) => {
     const quantity = typeof item.qty === "number" && item.qty > 0 ? item.qty : 1;

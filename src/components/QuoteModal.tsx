@@ -1,7 +1,6 @@
  "use client";
 
 import { Button } from "@/components/ui/button";
-import { CartItem, useCart } from "@/context/CartContext";
 import { useState } from "react";
 import { saveQuoteToFirestore } from "@/lib/quotes";
 import { CheckCircle } from "lucide-react";
@@ -9,11 +8,10 @@ import { CheckCircle } from "lucide-react";
 type QuoteModalProps = {
   open: boolean;
   onClose: () => void;
-  items: CartItem[];
+  items: any[];
 };
 
 export function QuoteModal({ open, onClose, items }: QuoteModalProps) {
-  const { clear } = useCart();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
@@ -57,9 +55,6 @@ export function QuoteModal({ open, onClose, items }: QuoteModalProps) {
       });
 
       setSuccess(true);
-      // Clear cart after successful submission
-      clear();
-      
       // Close modal after 3 seconds
       setTimeout(() => {
         onClose();

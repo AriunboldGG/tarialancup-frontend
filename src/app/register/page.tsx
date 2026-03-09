@@ -3,7 +3,6 @@
 import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { useCart } from "@/context/CartContext";
 import { CheckCircle } from "lucide-react";
 import { saveSpecialOrderToFirestore } from "@/lib/quotes";
 import {
@@ -16,7 +15,6 @@ import {
 } from "@/components/ui/breadcrumb";
 
 export default function SpecialOrderPage() {
-  const { clear } = useCart();
   const bankInfo = {
     ownerName: "Тунгалагмөрөн",
     accountNumber: "5314583897",
@@ -264,8 +262,6 @@ export default function SpecialOrderPage() {
       });
       setSubmitStatus("success");
       setShowSuccessModal(true);
-      // Clear cart after successful submission
-      clear();
       
       // Reset form after successful submission
       setFormData({
