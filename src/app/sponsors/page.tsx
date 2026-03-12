@@ -21,24 +21,20 @@ import {
 const sponsors = [
   {
     id: "sponsor-1",
-    name: "Ивээн тэтгэгч 1",
-    role: "Албан ёсны ивээн тэтгэгч",
-    description: "Тэмцээний зохион байгуулалтад дэмжлэг үзүүлж буй байгууллага.",
-    image: "/images/cover-1.png",
+    name: "Г. Тунгалагмөрөн",
+    info: "2015 оны 12в ангийн төгсөгч",
+    amount: "500,000₮",
+    image: "/images/sponsors/sponsor1.jpg",
   },
   {
     id: "sponsor-2",
     name: "Ивээн тэтгэгч 2",
-    role: "Мөнгөн ивээн тэтгэгч",
-    description: "Оролцогчдын үйл ажиллагааг дэмжиж буй хамтрагч.",
-    image: "/images/cover-2.png",
+    image: "/images/sponsors/cover-2.png",
   },
   {
     id: "sponsor-3",
     name: "Ивээн тэтгэгч 3",
-    role: "Хүрэл ивээн тэтгэгч",
-    description: "Тэмцээний урамшуулал, шагналын санг дэмжигч байгууллага.",
-    image: "/images/cover-4.png",
+    image: "/images/sponsors/cover-4.png",
   },
 ];
 
@@ -79,11 +75,13 @@ export default function SponsorsPage() {
               </div>
               <CardHeader>
                 <CardTitle className="text-lg">{sponsor.name}</CardTitle>
-                <CardDescription>{sponsor.role}</CardDescription>
+                {sponsor.info && (
+                  <div className="text-sm text-gray-700 mt-1">{sponsor.info}</div>
+                )}
+                {sponsor.amount && (
+                  <div className="text-xl font-bold text-[#b8860b] mt-2">Хандив: {sponsor.amount}</div>
+                )}
               </CardHeader>
-              <CardContent className="text-sm text-gray-600">
-                {sponsor.description}
-              </CardContent>
             </Card>
           ))}
         </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
+import { getRegistrationsBySportType } from "@/lib/firestore";
 import Header from "@/components/Header";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -34,109 +35,9 @@ type TeamRegistration = {
   members: TeamMember[];
 };
 
-const MOCK_TEAMS: TeamRegistration[] = [
-  {
-    id: "team-1",
-    sportType: "Сагсан бөмбөг",
-    gradRange: "2015-2025",
-    classGroup: "12 А анги",
-    gradYear: "2024",
-    gender: "эр",
-    teamName: "Шонхорууд",
-    contactName: "Бат-Эрдэнэ",
-    contactPhone: "99112233",
-    members: [
-      {
-        name: "Батсайхан Ганбаатар",
-        raw: "1) Батсайхан Ганбаатар, 185см, Дэд мастер, Довтлогч, 123456",
-      },
-      {
-        name: "Тэмүүлэн Баярсайхан",
-        raw: "2) Тэмүүлэн Баярсайхан, 178см, Спортын зэрэггүй, Хамгаалагч, 654321",
-      },
-      {
-        name: "Анхбаяр Мөнх",
-        raw: "3) Анхбаяр Мөнх, 181см, Спортын зэрэггүй, Төв, 778899",
-      },
-      {
-        name: "Эрдэнэ-Очир Ням",
-        raw: "4) Эрдэнэ-Очир Ням, 176см, Спортын зэрэггүй, Довтлогч, 334455",
-      },
-      {
-        name: "Гантулга Болд",
-        raw: "5) Гантулга Болд, 183см, Спортын зэрэггүй, Хамгаалагч, 998877",
-      },
-      {
-        name: "Билгүүн Энх",
-        raw: "6) Билгүүн Энх, 174см, Спортын зэрэггүй, Довтлогч, 556677",
-      },
-      {
-        name: "Тэнгис Ариун",
-        raw: "7) Тэнгис Ариун, 180см, Спортын зэрэггүй, Төв, 112233",
-      },
-      {
-        name: "Хүсэл Бат",
-        raw: "8) Хүсэл Бат, 169см, Спортын зэрэггүй, Довтлогч, 445566",
-      },
-      {
-        name: "Мөнх-Эрдэнэ Ганаа",
-        raw: "9) Мөнх-Эрдэнэ Ганаа, 186см, Дэд мастер, Төв, 223344",
-      },
-      {
-        name: "Жавхлан Отгон",
-        raw: "10) Жавхлан Отгон, 177см, Спортын зэрэггүй, Хамгаалагч, 667788",
-      },
-      {
-        name: "Цэлмэг Алдар",
-        raw: "11) Цэлмэг Алдар, 170см, Спортын зэрэггүй, Довтлогч, 889900",
-      },
-      {
-        name: "Содон Төгс",
-        raw: "12) Содон Төгс, 173см, Спортын зэрэггүй, Хамгаалагч, 101010",
-      },
-    ],
-  },
-  {
-    id: "team-2",
-    sportType: "Дартс",
-    gradRange: "2004-2014",
-    classGroup: "10 Б анги",
-    gradYear: "2009",
-    gender: "эм",
-    teamName: "Мэргэн",
-    contactName: "Саруул",
-    contactPhone: "88005566",
-    members: [
-      {
-        name: "Саруул Эрдэнэ",
-        raw: "1) Саруул Эрдэнэ, 165см, Спортын зэрэггүй",
-      },
-    ],
-  },
-  {
-    id: "team-3",
-    sportType: "Теннис",
-    gradRange: "2003-с өмнөх",
-    classGroup: "11 В анги",
-    gradYear: "2013",
-    gender: "эр",
-    teamName: "Сетүүд",
-    contactName: "Наран",
-    contactPhone: "99001122",
-    members: [
-      {
-        name: "Наран Төмөр",
-        raw: "1) Наран Төмөр, 172см, Дэд мастер",
-      },
-      {
-        name: "Ганболд Билгүүн",
-        raw: "2) Ганболд Билгүүн, 176см, Спортын зэрэггүй",
-      },
-    ],
-  },
-];
 
-const formatMemberDetails = (raw: string) => {
+const formatMemberDetails = (raw: string | undefined | null) => {
+  if (!raw || typeof raw !== "string") return [];
   const cleaned = raw.replace(/^\d+\)\s*/, "").trim();
   const parts = cleaned.split(",").map((part) => part.trim()).filter(Boolean);
   const labels = [
@@ -155,53 +56,76 @@ const formatMemberDetails = (raw: string) => {
 };
 
 export default function TeamsPage() {
-  const [teams] = useState<TeamRegistration[]>(MOCK_TEAMS);
+  const TEAMS_PER_PAGE = 24;
+  const [teams, setTeams] = useState<TeamRegistration[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [activeTeam, setActiveTeam] = useState<TeamRegistration | null>(null);
+  const [activeMember, setActiveMember] = useState<TeamMember | null>(null);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [activeRange, setActiveRange] = useState<string>("Бүгд");
   const [sportTypes, setSportTypes] = useState<string[]>([]);
   const [classGroups, setClassGroups] = useState<string[]>([]);
   const [gradYears, setGradYears] = useState<string[]>([]);
   const [genders, setGenders] = useState<string[]>([]);
-  const [activeTeam, setActiveTeam] = useState<TeamRegistration | null>(null);
-  const [activeMember, setActiveMember] = useState<TeamMember | null>(null);
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [filterOptions, setFilterOptions] = useState({
+    sportTypes: [] as string[],
+    classGroups: [] as string[],
+    gradYears: [] as string[],
+    genders: [] as string[],
+  });
+  const rangeTabs = ["Бүгд", "2003-аас өмнө", "2004-2014", "2015-2025"];
 
-  // Prevent body scroll when modals are open
+  // Utility to normalize gender label
+  function normalizeGenderLabel(gender: string) {
+    if (!gender) return "-";
+    if (gender === "male" || gender === "эрэгтэй") return "Эрэгтэй";
+    if (gender === "female" || gender === "эмэгтэй") return "Эмэгтэй";
+    return gender;
+  }
+
+  // Fetch teams from all sport collections in Firestore
   useEffect(() => {
-    if (typeof document === "undefined") return;
-    if (activeTeam || activeMember || isFilterOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
+    async function fetchAllTeams() {
+      try {
+        const [basketball, darts, tennis] = await Promise.all([
+          getRegistrationsBySportType("Сагсан бөмбөг"),
+          getRegistrationsBySportType("Дартс"),
+          getRegistrationsBySportType("Теннис"),
+        ]);
+        const allTeamsRaw = [...(basketball || []), ...(darts || []), ...(tennis || [])];
+        // Ensure id is always a string
+        const allTeams: TeamRegistration[] = allTeamsRaw.map((team: any) => ({
+          ...team,
+          id: team.id || "",
+        }));
+        setTeams(allTeams);
+        // Extract filter options
+        const sportTypesSet = new Set<string>();
+        const classGroupsSet = new Set<string>();
+        const gradYearsSet = new Set<string>();
+        const gendersSet = new Set<string>();
+        allTeams.forEach((team) => {
+          if (team.sportType) sportTypesSet.add(team.sportType);
+          if (team.classGroup) classGroupsSet.add(team.classGroup);
+          if (team.gradYear) gradYearsSet.add(team.gradYear);
+          if (team.gender) gendersSet.add(normalizeGenderLabel(team.gender));
+        });
+        setFilterOptions({
+          sportTypes: Array.from(sportTypesSet),
+          classGroups: Array.from(classGroupsSet),
+          gradYears: Array.from(gradYearsSet),
+          genders: Array.from(gendersSet),
+        });
+      } catch (e) {
+        setTeams([]);
+      }
     }
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [activeTeam, activeMember, isFilterOpen]);
+    fetchAllTeams();
+  }, []);
 
-  const rangeTabs = useMemo(() => {
-    const ranges = Array.from(
-      new Set(teams.map((team) => team.gradRange).filter(Boolean))
-    ) as string[];
-    return ["Бүгд", ...ranges];
-  }, [teams]);
 
-  const normalizeGenderLabel = (value: string) => {
-    if (value === "эр") return "Эрэгтэй";
-    if (value === "эм") return "Эмэгтэй";
-    return value;
-  };
-  const uniqueOptions = (values: (string | undefined)[]) =>
-    Array.from(new Set(values.filter(Boolean) as string[]));
 
-  const filterOptions = useMemo(() => {
-    return {
-      sportTypes: uniqueOptions(teams.map((team) => team.sportType)),
-      classGroups: uniqueOptions(teams.map((team) => team.classGroup)),
-      gradYears: uniqueOptions(teams.map((team) => team.gradYear)),
-      genders: uniqueOptions(teams.map((team) => normalizeGenderLabel(team.gender || ""))),
-    };
-  }, [teams]);
-
+  // Filtered teams (must be above pagination)
   const filteredTeams = useMemo(() => {
     return teams.filter((team) => {
       if (activeRange !== "Бүгд" && team.gradRange !== activeRange) return false;
@@ -216,6 +140,13 @@ export default function TeamsPage() {
       return true;
     });
   }, [teams, activeRange, sportTypes, classGroups, gradYears, genders]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredTeams.length / TEAMS_PER_PAGE);
+  const paginatedTeams = useMemo(() => {
+    const start = (currentPage - 1) * TEAMS_PER_PAGE;
+    return filteredTeams.slice(start, start + TEAMS_PER_PAGE);
+  }, [filteredTeams, currentPage]);
 
   const toggleSelection = (
     value: string,
@@ -362,17 +293,22 @@ export default function TeamsPage() {
                 {filterOptions.genders.length === 0 ? (
                   <div className="text-gray-400">Мэдээлэл алга</div>
                 ) : (
-                  filterOptions.genders.map((option, index) => (
-                    <label key={`${option}-${index}`} className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        checked={genders.includes(option)}
-                        onChange={() => toggleSelection(option, genders, setGenders)}
-                        className="h-4 w-4 rounded border-gray-300 cursor-pointer"
-                      />
-                      <span>{option}</span>
-                    </label>
-                  ))
+                  filterOptions.genders.map((option, index) => {
+                    let display = option;
+                    if (option === "эр" || option === "эрэгтэй") display = "Эрэгтэй";
+                    if (option === "эм" || option === "эмэгтэй") display = "Эмэгтэй";
+                    return (
+                      <label key={`${option}-${index}`} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={genders.includes(option)}
+                          onChange={() => toggleSelection(option, genders, setGenders)}
+                          className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+                        />
+                        <span>{display}</span>
+                      </label>
+                    );
+                  })
                 )}
               </div>
             </div>
@@ -426,7 +362,7 @@ export default function TeamsPage() {
                         Утас: <span className="font-semibold">{team.contactPhone || "-"}</span>
                       </div>
                     </div>
-                    {team.members.length ? (
+                    {Array.isArray(team.members) && team.members.length > 0 ? (
                       <div className="mt-3 text-xs text-gray-500">
                         Багийн гишүүд: {team.members.length}
                       </div>
@@ -583,7 +519,7 @@ export default function TeamsPage() {
                           {member.name || "-"}
                         </div>
                         <div className="mt-2 space-y-1 text-xs text-gray-500">
-                          {formatMemberDetails(member.raw).map((item) => (
+                          {formatMemberDetails(member?.raw).map((item) => (
                             <div key={`${item.label}-${item.value}`}>
                               {item.label}: {item.value}
                             </div>

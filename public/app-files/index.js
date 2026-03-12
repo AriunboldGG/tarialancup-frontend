@@ -79,7 +79,7 @@
       { cubeMapPreviewUrl: urlPrefix + "/" + data.id + "/preview.jpg" });
     var geometry = new Marzipano.CubeGeometry(data.levels);
 
-    var limiter = Marzipano.RectilinearView.limit.traditional(data.faceSize, 100*Math.PI/180, 120*Math.PI/180);
+    var limiter = Marzipano.RectilinearView.limit.traditional(data.faceSize, 100*Math.PI/180, 170*Math.PI/180);
     var view = new Marzipano.RectilinearView(data.initialViewParameters, limiter);
 
     var scene = viewer.createScene({
@@ -303,8 +303,12 @@
       return;
     }
     lookAt(payload);
+    // Always close all info modals before opening the requested one
     if (payload.openHotspotTitle) {
-      openInfoHotspotByTitle(payload.openHotspotTitle);
+      closeAllInfoHotspots();
+      setTimeout(function() {
+        openInfoHotspotByTitle(payload.openHotspotTitle);
+      }, 50); // Small delay to ensure close then open
     }
   });
 

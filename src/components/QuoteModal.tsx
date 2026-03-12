@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { saveQuoteToFirestore } from "@/lib/quotes";
 import { CheckCircle } from "lucide-react";
 
 type QuoteModalProps = {

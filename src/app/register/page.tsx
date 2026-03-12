@@ -4,7 +4,9 @@ import Header from "@/components/Header";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { CheckCircle } from "lucide-react";
-import { saveSpecialOrderToFirestore } from "@/lib/quotes";
+import { uploadTeamMemberPhoto } from "@/lib/firebaseStorage";
+import { saveTeamRegistration } from "@/lib/firestore";
+import { initializeFirebase } from "@/lib/firebase";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,7 +16,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 
-export default function SpecialOrderPage() {
+export default function RegisterTeamPage() {
   const bankInfo = {
     ownerName: "Тунгалагмөрөн",
     accountNumber: "5314583897",
@@ -28,41 +30,26 @@ export default function SpecialOrderPage() {
     teamName: "",
     contactName: "",
     contactPhone: "",
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    productName: "",
-    productDescription: "",
-    quantity: "",
-    specifications: "",
-    deliveryDate: "",
-    additionalInfo: "",
   });
-  const [submittedInfo, setSubmittedInfo] = useState({
+  const [submittedInfo, setSubmittedInfo] = useState<{
+    sportType: string;
+    gradRange: string;
+    gradYear: string;
+    gender: string;
+    classGroup: string;
+    teamName: string;
+    playerName: string;
+    contactName: string;
+  }>({
     sportType: "",
     gradRange: "",
     gradYear: "",
     gender: "",
     classGroup: "",
     teamName: "",
+    playerName: "",
+    contactName: "",
   });
-  const transactionCode = [
-    submittedInfo.sportType || formData.sportType,
-    submittedInfo.gradYear || formData.gradYear,
-    submittedInfo.gender || formData.gender,
-    submittedInfo.classGroup || formData.classGroup,
-    submittedInfo.teamName || formData.teamName,
-  ]
-    .filter(Boolean)
-    .map((value) =>
-      value
-        .toString()
-        .toUpperCase()
-        .replace(/\s+/g, "")
-        .replace(/[^A-Z0-9А-ЯӨҮЁ]/g, "")
-    )
-    .join("-");
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<"success" | "error" | null>(null);
@@ -74,6 +61,15 @@ export default function SpecialOrderPage() {
     minutes: 0,
     seconds: 0,
   });
+
+  // Initialize Firebase on component mount
+  useEffect(() => {
+    try {
+      initializeFirebase();
+    } catch (error) {
+      console.error("Firebase initialization failed:", error);
+    }
+  }, []);
 
   // Countdown timer to 2026-04-01
   useEffect(() => {
@@ -150,6 +146,46 @@ export default function SpecialOrderPage() {
     },
   ]);
 
+  // Enforce sport-specific member limits on sportType change
+  useEffect(() => {
+    let maxMembers = 12;
+    if (formData.sportType === "Теннис") maxMembers = 1;
+    if (formData.sportType === "Дартс") maxMembers = 4;
+    if (members.length > maxMembers) {
+      setMembers((prev) => prev.slice(0, maxMembers));
+    }
+  }, [formData.sportType, members.length]);
+
+  const getTransactionLastPart = () => {
+    if (submittedInfo.sportType === "Теннис") {
+      return submittedInfo.playerName || members[0]?.firstName || "";
+    }
+    if (submittedInfo.sportType === "Дартс") {
+      // If team name is present, use it as last part. If not, use contactName as last part.
+      return submittedInfo.teamName?.trim()
+        ? submittedInfo.teamName
+        : (submittedInfo.contactName || formData.contactName || "");
+    }
+    return submittedInfo.teamName || formData.teamName;
+  }
+
+  const transactionCode = [
+    submittedInfo.sportType || formData.sportType,
+    submittedInfo.gradYear || formData.gradYear,
+    submittedInfo.gender || formData.gender,
+    submittedInfo.classGroup || formData.classGroup,
+    getTransactionLastPart(),
+  ]
+    .filter(Boolean)
+    .map((value) =>
+      value
+        .toString()
+        .toUpperCase()
+        .replace(/\s+/g, "")
+        .replace(/[^A-Z0-9А-ЯӨҮЁ]/g, "")
+    )
+    .join("-");
+
   const handleMemberChange = (
     index: number,
     field: keyof (typeof members)[number],
@@ -164,7 +200,13 @@ export default function SpecialOrderPage() {
 
   const addMemberRow = () => {
     setMembers((prev) => {
-      if (prev.length >= 12) return prev;
+      const maxMembers =
+        formData.sportType === "Теннис"
+          ? 1
+          : formData.sportType === "Дартс"
+          ? 4
+          : 12;
+      if (prev.length >= maxMembers) return prev;
       return [
         ...prev,
         {
@@ -196,7 +238,7 @@ export default function SpecialOrderPage() {
     setMembers((prev) => {
       const next = [...prev];
       const current = next[index];
-      if (current.photoUrl) {
+      if (current.photoUrl && current.photoUrl.startsWith("blob:")) {
         URL.revokeObjectURL(current.photoUrl);
       }
       next[index] = {
@@ -213,44 +255,91 @@ export default function SpecialOrderPage() {
     setSubmitStatus(null);
 
     try {
-      if (formData.sportType !== "Сагсан бөмбөг" && !formData.teamName.trim()) {
+      // Initialize Firebase
+      initializeFirebase();
+
+      // Team name is optional now for all sports. Keep the current value if provided.
+      const sanitizedTeamName = formData.teamName.trim();
+
+      const submissionTeamName =
+        formData.sportType === "Теннис"
+          ? `${members[0]?.lastName || ""} ${members[0]?.firstName || ""}`.trim()
+          : sanitizedTeamName;
+
+      // Validate member required fields (lastName firstName)
+      const invalidMember = members.some(
+        (member) => !member.lastName.trim() || !member.firstName.trim()
+      );
+      if (invalidMember) {
         setSubmitStatus("error");
         setIsSubmitting(false);
         return;
       }
+
+      // submissionTeamName can be empty for all sports now (team name optional).
+      // If you want fallback values, adjust here.
+
+      // Upload team member photos to Firebase Storage
+      const membersWithPhotos = await Promise.all(
+        members.map(async (member) => {
+          let photoUrl = member.photoUrl || "";
+          
+          // If photo exists and is a local blob, upload to Firebase
+          if (member.photo && member.photoUrl?.startsWith("blob:")) {
+            const uploadedUrl = await uploadTeamMemberPhoto(
+              member.photo,
+              formData.gradYear,
+              submissionTeamName,
+              `${member.lastName}-${member.firstName}`
+            );
+            photoUrl = uploadedUrl || member.photoUrl;
+          }
+          
+          return {
+            ...member,
+            photoUrl,
+            photo: undefined, // Remove File object before saving
+          };
+        })
+      );
+
       const combinedInfo = [
         formData.gradRange ? `Төгсөлтийн хүрээ: ${formData.gradRange}` : null,
         formData.sportType ? `Спортын төрөл: ${formData.sportType}` : null,
         formData.classGroup ? `Анги: ${formData.classGroup}` : null,
         formData.gradYear ? `Төгссөн жил: ${formData.gradYear}` : null,
         formData.gender ? `Хүйс: ${formData.gender}` : null,
-        formData.teamName ? `Багийн нэр: ${formData.teamName}` : null,
+        formData.teamName ? `Багийн нэр: ${sanitizedTeamName}` : null,
         formData.contactName ? `Холбоо барих хүний нэр: ${formData.contactName}` : null,
         formData.contactPhone ? `Холбоо барих утас: ${formData.contactPhone}` : null,
         "Тамирчид:",
-        ...members.map(
+        ...membersWithPhotos.map(
           (member, idx) =>
             `${idx + 1}) ${member.lastName} ${member.firstName}, ${member.sportRank}, ${member.position}, ${member.registerNo}, ${member.job}${
-              member.photo?.name ? `, зураг: ${member.photo.name}` : ""
+              member.photoUrl ? `, зураг URL: ${member.photoUrl}` : ""
             }`
         ),
       ]
         .filter(Boolean)
         .join("\n");
 
-      // Save to Firestore special_quotes collection
-      await saveSpecialOrderToFirestore({
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        company: formData.company,
-        productName: formData.productName,
-        productDescription: formData.productDescription,
-        quantity: formData.quantity,
-        specifications: formData.specifications,
-        deliveryDate: formData.deliveryDate,
-        additionalInfo: combinedInfo,
-      });
+      // Save to Firestore team_registrations organized by sport type
+      const registrationPayload: any = {
+        gradRange: formData.gradRange,
+        sportType: formData.sportType,
+        classGroup: formData.classGroup,
+        gradYear: formData.gradYear,
+        gender: formData.gender,
+        contactPhone: formData.contactPhone,
+        members: membersWithPhotos as any,
+      };
+
+      if (formData.sportType !== "Теннис") {
+        registrationPayload.teamName = submissionTeamName;
+        registrationPayload.contactName = formData.contactName;
+      }
+
+      await saveTeamRegistration(registrationPayload);
       
       setSubmittedInfo({
         sportType: formData.sportType,
@@ -258,7 +347,12 @@ export default function SpecialOrderPage() {
         gradYear: formData.gradYear,
         gender: formData.gender,
         classGroup: formData.classGroup,
-        teamName: formData.teamName,
+        teamName: submissionTeamName,
+        playerName:
+          formData.sportType === "Теннис"
+            ? `${membersWithPhotos[0]?.firstName || ""}`.trim()
+            : "",
+        contactName: formData.contactName,
       });
       setSubmitStatus("success");
       setShowSuccessModal(true);
@@ -273,16 +367,6 @@ export default function SpecialOrderPage() {
         teamName: "",
         contactName: "",
         contactPhone: "",
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        productName: "",
-        productDescription: "",
-        quantity: "",
-        specifications: "",
-        deliveryDate: "",
-        additionalInfo: "",
       });
       members.forEach((member) => {
         if (member.photoUrl) {
@@ -307,6 +391,13 @@ export default function SpecialOrderPage() {
       setIsSubmitting(false);
     }
   };
+  const maxMemberCount =
+    formData.sportType === "Теннис"
+      ? 1
+      : formData.sportType === "Дартс"
+      ? 4
+      : 12;
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setShowConfirmModal(true);
@@ -383,12 +474,16 @@ export default function SpecialOrderPage() {
                     <span>
                       Хураамж:{" "}
                       <span className="text-base font-semibold text-gray-900">
-                        20,000₮
+                        {(() => {
+                          const sport = submittedInfo.sportType || formData.sportType;
+                          if (sport === "Сагсан бөмбөг") return "160,000₮";
+                          return "20,000₮";
+                        })()}
                       </span>
                     </span>
                     <Button
                       type="button"
-                      onClick={() => handleCopy("20000")}
+                      onClick={() => handleCopy((submittedInfo.sportType || formData.sportType) === "Сагсан бөмбөг" ? "160000" : "20000")}
                       className="h-7 px-2 text-xs bg-[#1f632b] hover:bg-[#16451e] text-white cursor-pointer"
                     >
                       Хуулах
@@ -549,55 +644,43 @@ export default function SpecialOrderPage() {
                       })}
                     </select>
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Хүйс
-                      <span className="text-red-500"> *</span>
-                    </label>
-                    <select
-                      name="gender"
-                      value={formData.gender}
-                      onChange={handleSelectChange}
-                      required
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f632b]"
-                    >
-                      <option value="" disabled>
-                        Сонгох
-                      </option>
-                      <option value="эр">эр</option>
-                      <option value="эм">эм</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Багийн нэр
-                      {formData.sportType !== "Сагсан бөмбөг" ? (
+                  {formData.sportType !== "Дартс" && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Хүйс
                         <span className="text-red-500"> *</span>
-                      ) : null}
-                    </label>
-                    <input
-                      name="teamName"
-                      value={formData.teamName}
-                      onChange={handleChange}
-                      required={formData.sportType !== "Сагсан бөмбөг"}
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f632b]"
-                      placeholder="Багийн нэр"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Холбоо барих хүний нэр
-                      <span className="text-red-500"> *</span>
-                    </label>
-                    <input
-                      name="contactName"
-                      value={formData.contactName}
-                      onChange={handleChange}
-                      required
-                      className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f632b]"
-                      placeholder="Нэр"
-                    />
-                  </div>
+                      </label>
+                      <select
+                        name="gender"
+                        value={formData.gender}
+                        onChange={handleSelectChange}
+                        required
+                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f632b]"
+                      >
+                        <option value="" disabled>
+                          Сонгох
+                        </option>
+                        <option value="эр">эрэгтэй</option>
+                        <option value="эм">эмэгтэй</option>
+                      </select>
+                    </div>
+                  )}
+                  {formData.sportType !== "Теннис" && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Багийн нэр
+                        <span className="text-red-500"> *</span>
+                      </label>
+                      <input
+                        name="teamName"
+                        value={formData.teamName}
+                        onChange={handleChange}
+                        className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1f632b]"
+                        placeholder="Багийн нэр (заавал)"
+                        required
+                      />
+                    </div>
+                  )}
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Холбоо барих утас
@@ -633,7 +716,7 @@ export default function SpecialOrderPage() {
                     <Button
                       type="button"
                       onClick={addMemberRow}
-                      disabled={members.length >= 12}
+                      disabled={members.length >= maxMemberCount}
                       className="bg-[#1f632b] hover:bg-[#16451e] text-white disabled:opacity-60 disabled:cursor-not-allowed"
                     >
                       Нэмэх

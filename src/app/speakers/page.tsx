@@ -43,7 +43,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт.",
     gallery: ["/images/cover-1.png", "/images/cover-2.png", "/images/cover-111.png"],
   },
   {
@@ -58,7 +58,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
     gallery: ["/images/cover-2.png", "/images/cover-1.png", "/images/cover-111.png"],
   },
   {
@@ -73,7 +73,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
     gallery: ["/images/cover-111.png", "/images/cover-1.png", "/images/cover-2.png"],
   },
   {
@@ -88,7 +88,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
     gallery: ["/images/cover-1.png", "/images/cover-2.png"],
   },
   {
@@ -103,7 +103,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
     gallery: ["/images/cover-2.png", "/images/cover-1.png"],
   },
   {
@@ -118,7 +118,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
     gallery: ["/images/cover-111.png", "/images/cover-1.png"],
   },
   {
@@ -133,7 +133,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
     gallery: ["/images/cover-1.png", "/images/cover-2.png"],
   },
   {
@@ -148,7 +148,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
     gallery: ["/images/cover-2.png", "/images/cover-111.png"],
   },
   {
@@ -163,7 +163,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
     gallery: ["/images/cover-111.png", "/images/cover-2.png"],
   },
   {
@@ -178,7 +178,7 @@ const speakers: Speaker[] = [
     intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
     universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
     jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, .",
+    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
     gallery: ["/images/cover-1.png", "/images/cover-111.png"],
   },
 ];
@@ -210,7 +210,7 @@ export default function SpeakersPage() {
               &quot;Мэргэжил сонголт&quot; арга хэмжээнд 2014–2017 оны өөрсдийн мэргэжлээрээ салбар салбартаа манлайлж яваа 
               төгсөгчид өөрсдийн түүх,
               ажлын туршлага, ажлын байрны өрсөлдөөн, өөрсдийн мэргэжлийн давуу болон сул тал, ажлын байран дээрх цалингийн мэдээлэл гэх мэт сонирхолтой мэргэжлүүдийн талаар, ирээдүйд мэргэжлээ сонгохоор бэлтгэж байгаа сурагч дүү нартаа өөрсдийн туршлагаас хуваалцах болно.
-              Мөн хүрэлцэн ирж сонсохыг хүссэн хүн бүрт нээлттэй.<br />Уулзалтын үеэр онцлох үйл явдал нь 12-р ангийн сурагчдаас <strong>&quot;Миний хүссэн мэргэжил&quot;</strong> сэдвээр Эссэ бичлэгийн уралдаан зарлаж шалгарсан нэг сурагчид ирэх жилийн сургалтын төлбөрт тус болох үүднээс ... сая төгрөгийн шагнал тэмцээний хаалтын үеэр гардуулах болно.
+              Мөн хүрэлцэн ирж сонсохыг хүссэн хүн бүрт нээлттэй.<br />Уулзалтын үеэр онцлох үйл явдал нь 12-р ангийн сурагчдаас <strong>&quot;Миний хүссэн мэргэжил&quot;</strong> сэдвээр Эссэ бичлэгийн уралдаан зарлаж шалгарсан сурагчдхд ирэх жилийн сургалтын төлбөрт тус болох үүднээс ... сая төгрөгийн шагнал тэмцээний хаалтын үеэр гардуулах болно.
             </p>
             
           </div>
@@ -311,35 +311,24 @@ export default function SpeakersPage() {
             </div>
             <div className="mt-4 space-y-3 text-base md:text-lg text-gray-700 leading-relaxed">
               <div>
-                Танилцуулга:{" "}
-                <span className="font-semibold text-gray-800">
-                  {activeSpeaker.intro}
-                </span>
+                <span className="font-semibold text-gray-800">Танилцуулга:</span> {" "}
+                <span>{activeSpeaker.intro}</span>
               </div>
               <div>
-                Мэргэжил:{" "}
-                <span className="font-semibold text-gray-800">
-                  Мэргэжил сонголтын талаарх мэдээлэл
-                </span>
-              </div>
-              
-              <div>
-                Их сургууль:{" "}
-                <span className="font-semibold text-gray-800">
-                  {activeSpeaker.universityInfo}
-                </span>
+                <span className="font-semibold text-gray-800">Мэргэжил:</span> {" "}
+                <span>Мэргэжил сонголтын талаарх мэдээлэл</span>
               </div>
               <div>
-                Ажлын мэдээлэл:{" "}
-                <span className="font-semibold text-gray-800">
-                  {activeSpeaker.jobInfo}
-                </span>
+                <span className="font-semibold text-gray-800">Их сургууль:</span> {" "}
+                <span>{activeSpeaker.universityInfo}</span>
               </div>
               <div>
-                Туршлага:{" "}
-                <span className="font-semibold text-gray-800">
-                  {activeSpeaker.experience}
-                </span>
+                <span className="font-semibold text-gray-800">Ажлын мэдээлэл:</span> {" "}
+                <span>{activeSpeaker.jobInfo}</span>
+              </div>
+              <div>
+                <span className="font-semibold text-gray-800">Туршлага:</span> {" "}
+                <span>{activeSpeaker.experience}</span>
               </div>
             </div>
             

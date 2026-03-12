@@ -38,10 +38,10 @@ export default function Footer() {
               <p>
                 Сагсан бөмбөг ЗБ: Э. Чинбат —{" "}
                 <a
-                  href="tel:+97600000001"
+                  href="tel:80985506"
                   className="font-semibold text-[#1D75B7] hover:underline"
                 >
-                  +976 0000 0001
+                  80985506
                 </a>
               </p>
               <p>
