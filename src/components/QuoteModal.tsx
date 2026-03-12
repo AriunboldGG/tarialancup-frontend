@@ -1,6 +1,7 @@
  "use client";
 
 import { Button } from "@/components/ui/button";
+import { saveQuoteToFirestore } from "@/lib/firestore";
 import { useState } from "react";
 import { CheckCircle } from "lucide-react";
 

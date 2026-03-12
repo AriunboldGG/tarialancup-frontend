@@ -1,3 +1,40 @@
+// Quote type for Firestore
+export interface Quote {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  note?: string;
+  company?: string;
+  items?: any[];
+  createdAt?: Timestamp;
+}
+
+/**
+ * Save a quote to Firestore in the 'quotes' collection
+ */
+export async function saveQuoteToFirestore(data: Quote): Promise<string> {
+  try {
+    const db = getFirebaseDb();
+    const cleanData = {
+      firstName: data.firstName || "",
+      lastName: data.lastName || "",
+      email: data.email || "",
+      phone: data.phone || "",
+      note: data.note || "",
+      company: data.company || "",
+      items: Array.isArray(data.items) ? data.items : [],
+      createdAt: Timestamp.now(),
+    };
+    const quotesRef = collection(db, "quotes");
+    const docRef = await addDoc(quotesRef, cleanData);
+    console.log(`Quote saved to quotes/${docRef.id}`);
+    return docRef.id;
+  } catch (error) {
+    console.error("Error saving quote:", error);
+    throw error;
+  }
+}
 import { getFirebaseDb } from "./firebase";
 import {
   collection,
