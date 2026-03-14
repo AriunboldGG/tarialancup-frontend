@@ -199,8 +199,10 @@ export async function getRegistrationsBySportType(
     const db = getFirebaseDb();
     const sportCollection = getSportTypeCollection(sportType);
     
-    // Get all registration documents for this sport type
-    const registrationsSnapshot = await getDocs(collection(db, sportCollection));
+    // Only fetch approved registrations
+    const registrationsSnapshot = await getDocs(
+      query(collection(db, sportCollection), where("status", "==", "approved"))
+    );
 
     const allRegistrations: TeamRegistration[] = [];
 
