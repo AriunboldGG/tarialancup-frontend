@@ -40,7 +40,7 @@ var APP_DATA = {
           "yaw": 2.4,
           "pitch": 0.1,
           "title": "Холбоо барих",
-          "text": "• Ерөнхий зохион байгуулагч — Э. Өсөхбаяр<br>&nbsp;Утас:86866006<br>&nbsp;Facebook: Э. Өсөхбаяр<br><br>• Бүртгэл хариуцсан ЗБ — Г. Ариунболд<br>&nbsp;&nbsp;Утас: 89141818<br>&nbsp;&nbsp;Facebook: Ариунболд Ганбат<br><br>• Сагсан бөмбөг ЗБ — Э.Чинбат<br>&nbsp;&nbsp;Утас: 80985506<br>&nbsp;&nbsp;&nbsp;Facebook: Э. Чинбат<br><br>• Дартс ЗБ — Балжинням<br>&nbsp;&nbsp;Утас: 94117579<br>&nbsp;&nbsp;Facebook: Э. Балжинням<br><br>• Теннис ЗБ — Ш. Гантогтох<br>&nbsp;&nbsp;Утас: 9100...<br>&nbsp;&nbsp;Facebook: Тоогий Гантогтох"
+          "text": "• Ерөнхий зохион байгуулагч — Э. Өсөхбаяр<br>&nbsp;Утас:86866006<br>&nbsp;Facebook: Э. Өсөхбаяр<br><br>• Бүртгэл хариуцсан ЗБ — Г. Ариунболд<br>&nbsp;&nbsp;Утас: 89141818<br>&nbsp;&nbsp;Facebook: Ариунболд Ганбат<br><br>• Сагсан бөмбөг ЗБ — Э.Чинбат<br>&nbsp;&nbsp;Утас: 80985506<br>&nbsp;&nbsp;&nbsp;Facebook: Э. Чинбат<br><br>• Дартс ЗБ — Балжинням<br>&nbsp;&nbsp;Утас: 94117579<br>&nbsp;&nbsp;Facebook: Э. Балжинням<br><br>• Теннис ЗБ — Ш. Гантогтох<br>&nbsp;&nbsp;Утас: 91006991<br>&nbsp;&nbsp;Facebook: Тоогий Гантогтох"
         },
         {
           "yaw": -0.35,

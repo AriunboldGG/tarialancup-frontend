@@ -59,6 +59,7 @@ export interface TeamRegistration {
   teamName?: string;
   contactName?: string;
   contactPhone?: string;
+  transactionCode?: string;
   members: TeamMember[];
   createdAt?: Timestamp;
   status?: "pending" | "approved" | "rejected";
@@ -67,6 +68,7 @@ export interface TeamRegistration {
 export interface TeamMember {
   lastName: string;
   firstName: string;
+  fullName?: string;
   sportRank: string;
   position: string;
   registerNo: string;
@@ -127,6 +129,7 @@ export async function saveTeamRegistration(
       gradYear: data.gradYear || "",
       gender: data.gender || "",
       contactPhone: data.contactPhone || "",
+      transactionCode: data.transactionCode || "",
       members: (data.members || []).map(member => ({
         lastName: member.lastName || "",
         firstName: member.firstName || "",
@@ -134,7 +137,7 @@ export async function saveTeamRegistration(
         position: member.position || "",
         registerNo: member.registerNo || "",
         job: member.job || "",
-        photoUrl: member.photoUrl || "",
+        photoUrl: (member.photoUrl && !member.photoUrl.startsWith("blob:")) ? member.photoUrl : "",
       })),
       createdAt: Timestamp.now(),
       status: "pending" as const,
@@ -202,10 +205,23 @@ export async function getRegistrationsBySportType(
     const allRegistrations: TeamRegistration[] = [];
 
     registrationsSnapshot.docs.forEach((docItem) => {
+      const data = docItem.data();
       allRegistrations.push({
         id: docItem.id,
-        ...docItem.data(),
-      } as TeamRegistration);
+        ...data,
+        members: Array.isArray(data.members)
+          ? data.members.map((m: any) => ({
+              lastName: m.lastName || "",
+              firstName: m.firstName || "",
+              fullName: m.fullName || "",
+              sportRank: m.sportRank || "-",
+              position: m.position || "",
+              registerNo: m.registerNo || m.personalNumber || "",
+              job: m.job || "",
+              photoUrl: [m.photoUrl, m.imageUrl].find((u) => u && !u.startsWith("blob:")) || "",
+            }))
+          : [],
+      } as unknown as TeamRegistration);
     });
 
     return allRegistrations;

@@ -16,9 +16,14 @@ import {
 } from "@/components/ui/breadcrumb";
 
 type TeamMember = {
-  raw: string;
-  name: string;
-  photoName?: string;
+  lastName: string;
+  firstName: string;
+  fullName?: string;
+  sportRank?: string;
+  position?: string;
+  registerNo?: string;
+  job?: string;
+  photoUrl?: string;
 };
 
 type TeamRegistration = {
@@ -32,28 +37,10 @@ type TeamRegistration = {
   teamName?: string;
   contactName?: string;
   contactPhone?: string;
+  transactionCode?: string;
   members: TeamMember[];
 };
 
-
-const formatMemberDetails = (raw: string | undefined | null) => {
-  if (!raw || typeof raw !== "string") return [];
-  const cleaned = raw.replace(/^\d+\)\s*/, "").trim();
-  const parts = cleaned.split(",").map((part) => part.trim()).filter(Boolean);
-  const labels = [
-    "Овог нэр",
-    "Ажил мэргэжил",
-    "Спортын зэрэг",
-    "Байрлал",
-    "Хувийн дугаар",
-  ];
-  return labels
-    .map((label, index) => ({
-      label,
-      value: parts[index],
-    }))
-    .filter((item) => item.value);
-};
 
 export default function TeamsPage() {
   const TEAMS_PER_PAGE = 24;
@@ -93,11 +80,13 @@ export default function TeamsPage() {
           getRegistrationsBySportType("Теннис"),
         ]);
         const allTeamsRaw = [...(basketball || []), ...(darts || []), ...(tennis || [])];
-        // Ensure id is always a string
+        // Ensure id is always a string and members is always an array
         const allTeams: TeamRegistration[] = allTeamsRaw.map((team: any) => ({
           ...team,
           id: team.id || "",
+          members: Array.isArray(team.members) ? team.members : [],
         }));
+        console.log("[TeamsPage] fetched teams:", allTeams.map(t => ({ id: t.id, teamName: t.teamName, membersCount: t.members.length, members: t.members })));
         setTeams(allTeams);
         // Extract filter options
         const sportTypesSet = new Set<string>();
@@ -327,10 +316,19 @@ export default function TeamsPage() {
                     className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
                   >
                     <div className="text-lg text-black">
-                      Багийн нэр:{" "}
-                      <span className="font-semibold">
-                        {team.teamName || "Багийн нэр оруулаагүй"}
-                      </span>
+                      {team.sportType === "Теннис" ? (
+                        <>Тамирчны нэр:{" "}
+                          <span className="font-semibold">
+                            {[team.members?.[0]?.lastName, team.members?.[0]?.firstName].filter(Boolean).join(" ") || team.members?.[0]?.fullName || "-"}
+                          </span>
+                        </>
+                      ) : (
+                        <>Багийн нэр:{" "}
+                          <span className="font-semibold">
+                            {team.teamName || "Багийн нэр оруулаагүй"}
+                          </span>
+                        </>
+                      )}
                     </div>
                     <div className="mt-2 space-y-1 text-sm text-black">
                       <div>
@@ -369,7 +367,11 @@ export default function TeamsPage() {
                     ) : null}
                     <button
                       type="button"
-                      onClick={() => setActiveTeam(team)}
+                      onClick={() => {
+                        console.log("[TeamsPage] opening team modal:", team);
+                        console.log("[TeamsPage] members:", team.members);
+                        setActiveTeam(team);
+                      }}
                       className="mt-4 w-full rounded-lg border border-[#1f632b] px-3 py-2 text-sm font-medium text-[#1f632b] transition hover:bg-[#1f632b] hover:text-white cursor-pointer"
                     >
                       Дэлгэрэнгүй
@@ -417,7 +419,9 @@ export default function TeamsPage() {
             <div className="flex items-start justify-between gap-4">
               <div>
                 <h2 className="text-xl font-semibold text-gray-900">
-                  {activeTeam.teamName || "Багийн нэр оруулаагүй"}
+                  {activeTeam.sportType === "Теннис"
+                    ? [activeTeam.members?.[0]?.lastName, activeTeam.members?.[0]?.firstName].filter(Boolean).join(" ") || activeTeam.members?.[0]?.fullName || "-"
+                    : activeTeam.teamName || "Багийн нэр оруулаагүй"}
                 </h2>
                 <p className="text-sm text-gray-500 mt-1">
                   Багийн дэлгэрэнгүй мэдээлэл
@@ -433,7 +437,11 @@ export default function TeamsPage() {
             </div>
 
             <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 text-sm text-gray-700 md:[&>div:nth-child(2n)]:font-semibold">
-              <div>Багийн нэр: {activeTeam.teamName || "-"}</div>
+              {activeTeam.sportType === "Теннис" ? (
+                <div>Тамирчны нэр: {[activeTeam.members?.[0]?.lastName, activeTeam.members?.[0]?.firstName].filter(Boolean).join(" ") || activeTeam.members?.[0]?.fullName || "-"}</div>
+              ) : (
+                <div>Багийн нэр: {activeTeam.teamName || "-"}</div>
+              )}
               <div>Спортын төрөл: {activeTeam.sportType || "-"}</div>
               <div>Багийн тоглох үе: {activeTeam.gradRange || "-"}</div>
               <div>Анги: {activeTeam.classGroup || "-"}</div>
@@ -505,25 +513,26 @@ export default function TeamsPage() {
                     }}
                   >
                   {activeTeam.members.map((member, index) => (
-                    <SwiperSlide key={`${member.raw}-${index}`}>
+                    
+                    <SwiperSlide key={`${member.lastName}-${member.firstName}-${index}`}>
                       <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm cursor-pointer">
                         <div className="aspect-square w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
                           <img
-                            src="/images/cover-2.png"
+                            src={member.photoUrl || "/images/cover-2.png"}
                             alt="Багийн гишүүний зураг"
                             className="h-full w-full object-cover transition-transform duration-300 hover:scale-110 cursor-pointer"
                             onClick={() => setActiveMember(member)}
+                            onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/images/cover-2.png"; }}
                           />
                         </div>
                         <div className="mt-3 text-base font-semibold text-gray-900">
-                          {member.name || "-"}
+                          {[member.lastName, member.firstName].filter(Boolean).join(" ") || member.fullName || "-"}
                         </div>
                         <div className="mt-2 space-y-1 text-xs text-gray-500">
-                          {formatMemberDetails(member?.raw).map((item) => (
-                            <div key={`${item.label}-${item.value}`}>
-                              {item.label}: {item.value}
-                            </div>
-                          ))}
+                          {member.sportRank && <div>Спортын зэрэг: {member.sportRank}</div>}
+                          {member.position && <div>Байрлал: {member.position}</div>}
+                          {member.registerNo && <div>Хувийн дугаар: {member.registerNo}</div>}
+                          {member.job && <div>Ажил мэргэжил: {member.job}</div>}
                         </div>
                       </div>
                     </SwiperSlide>
@@ -547,7 +556,7 @@ export default function TeamsPage() {
           <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl bg-white p-4 shadow-xl">
             <div className="flex items-center justify-between gap-4 pb-3">
               <div className="text-base font-semibold text-gray-900">
-                {activeMember.name || "Багийн гишүүн"}
+                {[activeMember.lastName, activeMember.firstName].filter(Boolean).join(" ") || activeMember.fullName || "Багийн гишүүн"}
               </div>
               <button
                 type="button"
@@ -559,11 +568,28 @@ export default function TeamsPage() {
             </div>
             <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
               <img
-                src="/images/cover-2.png"
-                alt={`${activeMember.name || "Багийн гишүүн"} зураг`}
+                src={activeMember.photoUrl || "/images/cover-2.png"}
+                alt={`${[activeMember.lastName, activeMember.firstName].filter(Boolean).join(" ") || activeMember.fullName || "Багийн гишүүн"} зураг`}
                 className="h-full w-full object-contain"
+                onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/images/cover-2.png"; }}
               />
             </div>
+            {(activeMember.sportRank || activeMember.position || activeMember.registerNo || activeMember.job) && (
+              <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-gray-700">
+                {activeMember.sportRank && (
+                  <div><span className="text-gray-500">Спортын зэрэг:</span> {activeMember.sportRank}</div>
+                )}
+                {activeMember.position && (
+                  <div><span className="text-gray-500">Байрлал:</span> {activeMember.position}</div>
+                )}
+                {activeMember.registerNo && (
+                  <div><span className="text-gray-500">Хувийн дугаар:</span> {activeMember.registerNo}</div>
+                )}
+                {activeMember.job && (
+                  <div><span className="text-gray-500">Ажил мэргэжил:</span> {activeMember.job}</div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       ) : null}

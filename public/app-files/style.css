@@ -456,8 +456,8 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
   width: 40px;
   height: 40px;
   border-radius: 999px;
-  background-color: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  background-color: #242731;
+  border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
   -webkit-transition: width 0.3s ease-in-out 0.5s,
                       border-radius 0.3s ease-in-out 0.5s;
@@ -474,6 +474,8 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
 .desktop.no-touch .info-hotspot .info-hotspot-header:hover {
   width: 260px;
   border-radius: 999px;
+  border-color: rgba(255, 107, 0, 0.5);
+  box-shadow: 0 0 18px rgba(255, 107, 0, 0.35);
   -webkit-transition: width 0.3s ease-in-out,
                       border-radius 0.3s ease-in-out;
   transition: width 0.3s ease-in-out,
@@ -591,8 +593,8 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
   height: 40px;
   width: 40px;
   border-top-right-radius: 999px;
-  background-color: rgba(15, 23, 42, 0.8);
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   visibility: hidden;
   -ms-transform: perspective(200px) rotateY(90deg);
   -webkit-transform: perspective(200px) rotateY(90deg);
@@ -639,12 +641,16 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
   max-height: none;
   top: 40px;
   left: 0;
-  padding: 10px;
-  background-color: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 14px 16px;
+  background: linear-gradient(135deg, #0f1117 0%, #1a1e2e 50%, #242d45 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-left: 3px solid #FF6B00;
   border-bottom-right-radius: 12px;
   border-bottom-left-radius: 12px;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  font-size: 0.88em;
+  line-height: 1.7;
   overflow-y: visible;
   visibility: hidden;
   /* rotate(90deg) causes transition flicker on Firefox 58 */
@@ -818,12 +824,10 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
   height: 50px;
   margin: 0;
   padding: 0;
-  background-color: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.35);
+  background: linear-gradient(135deg, #242731 0%, #2d3040 100%);
+  border: none;
+  border-bottom: 2px solid #FF6B00;
   border-radius: 0;
-  border-top: none;
-  border-left: none;
-  border-right: none;
   opacity: 0;
   pointer-events: auto;
   -webkit-transition: opacity 0.3s ease-in-out 0.2s;
@@ -878,12 +882,13 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
 
 .info-hotspot-modal .info-hotspot-close-wrapper {
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 50px;
-  height: 50px;
-  background-color: rgba(15, 23, 42, 0.85);
-  border-left: 1px solid rgba(148, 163, 184, 0.25);
+  top: 5px;
+  right: 8px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
   cursor: pointer;
 }
 
@@ -902,15 +907,14 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding: 16px;
-  background-color: rgba(15, 23, 42, 0.85);
-  border: 1px solid rgba(148, 163, 184, 0.25);
+  padding: 20px 24px;
+  background: linear-gradient(135deg, #0f1117 0%, #1a1e2e 50%, #242d45 100%);
+  border: none;
   border-radius: 0;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  border-bottom: none;
-  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.35);
+  box-shadow: none;
+  color: #ffffff;
+  font-size: 0.9em;
+  line-height: 1.75;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   opacity: 0;
@@ -947,6 +951,36 @@ body.single-scene #sceneList, body.single-scene #sceneListToggle {
   opacity: 1;
   -webkit-transition: opacity 0.3s ease-in-out 0.4s;
   transition: opacity 0.3s ease-in-out 0.4s;
+}
+
+/* Info hotspot content typography */
+
+.info-hotspot .info-hotspot-text strong,
+.info-hotspot .info-hotspot-text b,
+.info-hotspot-modal .info-hotspot-text strong,
+.info-hotspot-modal .info-hotspot-text b {
+  color: #FF6B00;
+  font-weight: 600;
+}
+
+.info-hotspot .info-hotspot-text table td,
+.info-hotspot-modal .info-hotspot-text table td {
+  color: #e8eaed;
+  vertical-align: top;
+  padding-right: 20px;
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.info-hotspot .info-hotspot-text table td:last-child,
+.info-hotspot-modal .info-hotspot-text table td:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.info-hotspot .info-hotspot-title,
+.info-hotspot-modal .info-hotspot-title {
+  color: #ffffff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 /* View control buttons */

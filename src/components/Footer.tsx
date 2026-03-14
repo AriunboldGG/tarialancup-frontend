@@ -56,10 +56,10 @@ export default function Footer() {
               <p>
                 Теннис ЗБ: Ш. Гантогтох —{" "}
                 <a
-                  href="tel:9100"
+                  href="tel:91006991"
                   className="font-semibold text-[#1D75B7] hover:underline"
                 >
-                  9100...
+                  91006991...
                 </a>
               </p>
             </div>

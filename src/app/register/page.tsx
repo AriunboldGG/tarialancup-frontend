@@ -134,6 +134,7 @@ export default function RegisterTeamPage() {
   };
 
   const [members, setMembers] = useState([
+    
     {
       lastName: "",
       firstName: "",
@@ -142,7 +143,8 @@ export default function RegisterTeamPage() {
       registerNo: "",
       job: "",
       photo: null as File | null,
-      photoUrl: "",
+      previewUrl: "",  // local blob for form preview only, never saved to Firestore
+      photoUrl: "",    // real Firebase Storage URL, set after upload
     },
   ]);
 
@@ -217,6 +219,7 @@ export default function RegisterTeamPage() {
           registerNo: "",
           job: "",
           photo: null,
+          previewUrl: "",
           photoUrl: "",
         },
       ];
@@ -227,8 +230,8 @@ export default function RegisterTeamPage() {
     setMembers((prev) => {
       if (prev.length <= 1) return prev;
       const last = prev[prev.length - 1];
-      if (last.photoUrl) {
-        URL.revokeObjectURL(last.photoUrl);
+      if (last.previewUrl) {
+        URL.revokeObjectURL(last.previewUrl);
       }
       return prev.slice(0, -1);
     });
@@ -238,13 +241,14 @@ export default function RegisterTeamPage() {
     setMembers((prev) => {
       const next = [...prev];
       const current = next[index];
-      if (current.photoUrl && current.photoUrl.startsWith("blob:")) {
-        URL.revokeObjectURL(current.photoUrl);
+      if (current.previewUrl) {
+        URL.revokeObjectURL(current.previewUrl);
       }
       next[index] = {
         ...current,
         photo: file,
-        photoUrl: file ? URL.createObjectURL(file) : "",
+        previewUrl: file ? URL.createObjectURL(file) : "",
+        photoUrl: "", // reset until upload succeeds
       };
       return next;
     });
@@ -281,24 +285,28 @@ export default function RegisterTeamPage() {
 
       // Upload team member photos to Firebase Storage
       const membersWithPhotos = await Promise.all(
-        members.map(async (member) => {
-          let photoUrl = member.photoUrl || "";
-          
-          // If photo exists and is a local blob, upload to Firebase
-          if (member.photo && member.photoUrl?.startsWith("blob:")) {
+        members.map(async (member, idx) => {
+          let photoUrl = "";
+
+          console.log(`[Upload] member[${idx}] photo=${!!member.photo} previewUrl=${member.previewUrl?.slice(0, 30)}`);
+
+          // If a file was selected, upload it to Firebase Storage
+          if (member.photo) {
             const uploadedUrl = await uploadTeamMemberPhoto(
               member.photo,
               formData.gradYear,
               submissionTeamName,
               `${member.lastName}-${member.firstName}`
             );
-            photoUrl = uploadedUrl || member.photoUrl;
+            console.log(`[Upload] member[${idx}] result=${uploadedUrl?.slice(0, 60)}`);
+            photoUrl = uploadedUrl || "";
           }
-          
+
           return {
             ...member,
             photoUrl,
-            photo: undefined, // Remove File object before saving
+            previewUrl: undefined, // strip local preview before saving
+            photo: undefined,      // strip File object before saving
           };
         })
       );
@@ -331,6 +339,7 @@ export default function RegisterTeamPage() {
         gradYear: formData.gradYear,
         gender: formData.gender,
         contactPhone: formData.contactPhone,
+        transactionCode: transactionCode,
         members: membersWithPhotos as any,
       };
 
@@ -369,8 +378,8 @@ export default function RegisterTeamPage() {
         contactPhone: "",
       });
       members.forEach((member) => {
-        if (member.photoUrl) {
-          URL.revokeObjectURL(member.photoUrl);
+        if (member.previewUrl) {
+          URL.revokeObjectURL(member.previewUrl);
         }
       });
       setMembers([
@@ -382,6 +391,7 @@ export default function RegisterTeamPage() {
           registerNo: "",
           job: "",
           photo: null,
+          previewUrl: "",
           photoUrl: "",
         },
       ]);
@@ -819,10 +829,10 @@ export default function RegisterTeamPage() {
                                 }
                                 className="hidden"
                               />
-                              {member.photoUrl ? (
+                              {member.previewUrl ? (
                                 <div className="relative h-14 w-14">
                                   <img
-                                    src={member.photoUrl}
+                                    src={member.previewUrl}
                                     alt="Тамирчны зураг"
                                     className="h-14 w-14 rounded border border-gray-200 object-cover"
                                   />

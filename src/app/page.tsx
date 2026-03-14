@@ -47,12 +47,13 @@ export default function Home() {
       >
         <Header />
       </div>
-      <div className="relative z-0 h-screen w-full">
+      <div className="relative z-0 h-screen w-full" style={{ isolation: 'isolate' }}>
         <iframe
           id="panorama-frame"
           src="/app-files/index.html"
           title="Tarialan Cup Panorama"
           className="h-full w-full border-0"
+          style={{ zIndex: 0 }}
           allow="fullscreen"
         />
       </div>

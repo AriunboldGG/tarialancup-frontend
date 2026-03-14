@@ -143,7 +143,8 @@ export default function Header() {
         {/* Mobile Menu - Fullscreen Modal */}
         {isMenuOpen && (
           <div
-            className="lg:hidden fixed inset-0 z-[100] w-screen h-[100dvh] bg-black/40 backdrop-blur-sm"
+            className="lg:hidden fixed inset-0 w-screen h-[100dvh] bg-white"
+            style={{ zIndex: 99999 }}
             role="dialog"
             aria-modal="true"
             aria-label="Navigation menu"

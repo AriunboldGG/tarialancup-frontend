@@ -49,6 +49,12 @@ const safeSegment = (value: string): string =>
     .replace(/[-_]+/g, "-")
     .replace(/(^-+|-+$)/g, "");
 
+const safeExtension = (ext: string): string =>
+  ext
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "")
+    .slice(0, 5) || "jpg";
+
 export async function uploadTeamMemberPhoto(
   file: File,
   tournamentYear: string,
@@ -57,32 +63,16 @@ export async function uploadTeamMemberPhoto(
 ): Promise<string | null> {
   const ts = Date.now();
   const fileExtension = file.name.split(".").pop() || "jpg";
-  const safeYear = safeSegment(tournamentYear || "");
-  let safeTeam = safeSegment(teamName || "");
-  const safeMember = safeSegment(memberName || "");
-
-  // If teamName is empty and this is for darts, use memberName as team segment
-  if (!safeTeam && teamName === "" && typeof tournamentYear === "string") {
-    // Try to detect darts by call site, fallback to memberName for empty team
-    safeTeam = safeMember;
-  }
-
-  if (!safeYear || !safeTeam || !safeMember) {
-    console.error("Invalid path segment for team-photos upload", { safeYear, safeTeam, safeMember });
-    return null;
-  }
+  const safeYear = safeSegment(tournamentYear || "") || `year-${ts}`;
+  let safeTeam = safeSegment(teamName || "") || safeSegment(memberName || "") || `team-${ts}`;
+  const safeMember = safeSegment(memberName || "") || `member-${ts}`;
 
   const fileName = `${safeMember}-${ts}.${safeExtension(fileExtension)}`;
   const path = `team-photos/${safeYear}/${safeTeam}/${fileName}`;
+  console.log(`[uploadTeamMemberPhoto] path=${path}`);
 
   return uploadFileToStorage(file, path);
 }
-
-const safeExtension = (ext: string): string =>
-  ext
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, "")
-    .slice(0, 5) || "jpg";
 
 
 /**
