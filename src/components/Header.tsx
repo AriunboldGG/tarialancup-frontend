@@ -53,6 +53,7 @@ export default function Header() {
       setIsMenuOpen(false);
     };
   return (
+    <>
     <header className={`w-full glass-header ${isHome ? "glass-header--home" : ""}`}>
       {/* Top Header Bar */}
    
@@ -140,8 +141,11 @@ export default function Header() {
           </div>
         </div>
 
-        {/* Mobile Menu - Fullscreen Modal */}
-        {isMenuOpen && (
+        {/* Mobile Menu - Fullscreen Modal - rendered outside <header> to avoid backdrop-filter stacking context */}
+      </div>
+    </header>
+
+      {isMenuOpen && (
           <div
             className="lg:hidden fixed inset-0 w-screen h-[100dvh] bg-white"
             style={{ zIndex: 99999 }}
@@ -231,8 +235,7 @@ export default function Header() {
             </div>
           </div>
         )}
-      </div>
-    </header>
+    </>
   );
 }
 

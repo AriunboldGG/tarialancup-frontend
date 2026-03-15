@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect } from "react";
+import { X } from "lucide-react";
 import { getRegistrationsBySportType } from "@/lib/firestore";
 import Header from "@/components/Header";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -48,6 +49,7 @@ export default function TeamsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTeam, setActiveTeam] = useState<TeamRegistration | null>(null);
   const [activeMember, setActiveMember] = useState<TeamMember | null>(null);
+  const [slideIndex, setSlideIndex] = useState(0);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [activeRange, setActiveRange] = useState<string>("Бүгд");
   const [sportTypes, setSportTypes] = useState<string[]>([]);
@@ -353,10 +355,6 @@ export default function TeamsPage() {
                         </span>
                       </div>
                       <div>
-                        Холбоо барих хүн:{" "}
-                        <span className="font-semibold">{team.contactName || "-"}</span>
-                      </div>
-                      <div>
                         Утас: <span className="font-semibold">{team.contactPhone || "-"}</span>
                       </div>
                     </div>
@@ -406,13 +404,9 @@ export default function TeamsPage() {
             className="relative w-full max-w-3xl rounded-2xl bg-white p-6 shadow-xl"
             style={{
               maxHeight: '90vh',
-              overflowY: 'auto',
+              overflowY: 'scroll',
               overflowX: 'hidden',
               overscrollBehavior: 'contain',
-              WebkitOverflowScrolling: 'touch',
-              transform: 'translateZ(0)',
-              backfaceVisibility: 'hidden',
-              perspective: '1000px'
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -430,9 +424,9 @@ export default function TeamsPage() {
               <button
                 type="button"
                 onClick={() => setActiveTeam(null)}
-                className="rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer"
+                className="rounded-full border border-gray-200 p-1.5 text-gray-600 hover:bg-gray-100 cursor-pointer"
               >
-                Хаах
+                <X size={16} />
               </button>
             </div>
 
@@ -449,7 +443,6 @@ export default function TeamsPage() {
               <div>
                 Хүйс: {activeTeam.gender ? normalizeGenderLabel(activeTeam.gender) : "-"}
               </div>
-              <div>Холбоо барих хүн: {activeTeam.contactName || "-"}</div>
               <div>Утас: {activeTeam.contactPhone || "-"}</div>
             </div>
 
@@ -462,9 +455,7 @@ export default function TeamsPage() {
                   className="swiper-container" 
                   style={{ 
                     width: '100%', 
-                    position: 'relative',
-                    transform: 'translateZ(0)',
-                    willChange: 'transform'
+                    position: 'relative'
                   }}
                 >
                   <Swiper
@@ -474,7 +465,7 @@ export default function TeamsPage() {
                     autoplay={
                       activeTeam.members.length > 3
                         ? { 
-                            delay: 800, 
+                            delay: 3000, 
                             disableOnInteraction: false, 
                             pauseOnMouseEnter: true,
                             stopOnLastSlide: false,
@@ -486,7 +477,7 @@ export default function TeamsPage() {
                     loopAdditionalSlides={activeTeam.members.length > 6 ? Math.max(3, Math.ceil(activeTeam.members.length / 2)) : 0}
                     watchOverflow={true}
                     preventInteractionOnTransition={true}
-                    speed={600}
+                    speed={3000}
                     allowTouchMove={true}
                     resistance={true}
                     resistanceRatio={0.85}
@@ -494,6 +485,8 @@ export default function TeamsPage() {
                     observer={true}
                     observeParents={true}
                     normalizeSlideIndex={true}
+                    onSlideChange={(swiper) => setSlideIndex(swiper.realIndex)}
+                    onSwiper={(swiper) => setSlideIndex(swiper.realIndex)}
                     breakpoints={{
                       480: { 
                         slidesPerView: 1.4,
@@ -520,7 +513,7 @@ export default function TeamsPage() {
                           <img
                             src={member.photoUrl || "/images/cover-2.png"}
                             alt="Багийн гишүүний зураг"
-                            className="h-full w-full object-cover transition-transform duration-300 hover:scale-110 cursor-pointer"
+                            className="h-full w-full object-cover cursor-pointer"
                             onClick={() => setActiveMember(member)}
                             onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/images/cover-2.png"; }}
                           />
@@ -538,6 +531,19 @@ export default function TeamsPage() {
                     </SwiperSlide>
                   ))}
                   </Swiper>
+                  {activeTeam.members.length > 3 && (
+                    <div className="mt-3 flex gap-1">
+                      {activeTeam.members.map((_, i) => (
+                        <div
+                          key={i}
+                          className="h-1 flex-1 rounded-full transition-all duration-500"
+                          style={{
+                            backgroundColor: i === slideIndex ? "#1f632b" : "#e5e7eb",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -561,9 +567,9 @@ export default function TeamsPage() {
               <button
                 type="button"
                 onClick={() => setActiveMember(null)}
-                className="rounded-full border border-gray-200 px-3 py-1 text-sm text-gray-600 hover:bg-gray-100 cursor-pointer"
+                className="rounded-full border border-gray-200 p-1.5 text-gray-600 hover:bg-gray-100 cursor-pointer"
               >
-                Хаах
+                <X size={16} />
               </button>
             </div>
             <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
