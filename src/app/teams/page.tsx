@@ -1,11 +1,10 @@
 "use client";
 
-import { useMemo, useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { useMemo, useState, useEffect, useRef } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { getRegistrationsBySportType } from "@/lib/firestore";
 import Header from "@/components/Header";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay } from "swiper/modules";
 import "swiper/css";
 import {
   Breadcrumb,
@@ -50,6 +49,7 @@ export default function TeamsPage() {
   const [activeTeam, setActiveTeam] = useState<TeamRegistration | null>(null);
   const [activeMember, setActiveMember] = useState<TeamMember | null>(null);
   const [slideIndex, setSlideIndex] = useState(0);
+  const swiperRef = useRef<any>(null);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [activeRange, setActiveRange] = useState<string>("Бүгд");
   const [sportTypes, setSportTypes] = useState<string[]>([]);
@@ -458,26 +458,24 @@ export default function TeamsPage() {
                     position: 'relative'
                   }}
                 >
+                  <div style={{ position: 'relative', paddingLeft: '32px', paddingRight: '32px' }}>
+                    <button
+                      type="button"
+                      onClick={() => swiperRef.current?.slidePrev()}
+                      className="absolute left-0 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-7 h-7 rounded-full border border-gray-200 bg-white shadow-sm hover:bg-gray-50 cursor-pointer"
+                    >
+                      <ChevronLeft size={16} className="text-gray-600" />
+                    </button>
                   <Swiper
                     spaceBetween={16}
                     slidesPerView={1.1}
-                    modules={[Autoplay]}
-                    autoplay={
-                      activeTeam.members.length > 3
-                        ? { 
-                            delay: 3000, 
-                            disableOnInteraction: false, 
-                            pauseOnMouseEnter: true,
-                            stopOnLastSlide: false,
-                            waitForTransition: true
-                          }
-                        : false
-                    }
+                    modules={[]}
+                    autoplay={false}
                     loop={activeTeam.members.length > 6}
                     loopAdditionalSlides={activeTeam.members.length > 6 ? Math.max(3, Math.ceil(activeTeam.members.length / 2)) : 0}
                     watchOverflow={true}
                     preventInteractionOnTransition={true}
-                    speed={3000}
+                    speed={300}
                     allowTouchMove={true}
                     resistance={true}
                     resistanceRatio={0.85}
@@ -486,7 +484,7 @@ export default function TeamsPage() {
                     observeParents={true}
                     normalizeSlideIndex={true}
                     onSlideChange={(swiper) => setSlideIndex(swiper.realIndex)}
-                    onSwiper={(swiper) => setSlideIndex(swiper.realIndex)}
+                    onSwiper={(swiper) => { swiperRef.current = swiper; setSlideIndex(swiper.realIndex); }}
                     breakpoints={{
                       480: { 
                         slidesPerView: 1.4,
@@ -509,11 +507,11 @@ export default function TeamsPage() {
                     
                     <SwiperSlide key={`${member.lastName}-${member.firstName}-${index}`}>
                       <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm cursor-pointer">
-                        <div className="aspect-square w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+                        <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50" style={{ height: '180px' }}>
                           <img
                             src={member.photoUrl || "/images/cover-2.png"}
                             alt="Багийн гишүүний зураг"
-                            className="h-full w-full object-cover cursor-pointer"
+                            className="w-full h-full object-cover object-top cursor-pointer"
                             onClick={() => setActiveMember(member)}
                             onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/images/cover-2.png"; }}
                           />
@@ -531,6 +529,14 @@ export default function TeamsPage() {
                     </SwiperSlide>
                   ))}
                   </Swiper>
+                    <button
+                      type="button"
+                      onClick={() => swiperRef.current?.slideNext()}
+                      className="absolute right-0 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center w-7 h-7 rounded-full border border-gray-200 bg-white shadow-sm hover:bg-gray-50 cursor-pointer"
+                    >
+                      <ChevronRight size={16} className="text-gray-600" />
+                    </button>
+                  </div>
                   {activeTeam.members.length > 3 && (
                     <div className="mt-3 flex gap-1">
                       {activeTeam.members.map((_, i) => (
@@ -552,15 +558,15 @@ export default function TeamsPage() {
       ) : null}
 
       {activeMember ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4 py-6">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4">
           <button
             type="button"
             onClick={() => setActiveMember(null)}
             className="absolute inset-0 h-full w-full cursor-pointer"
             aria-label="Close member photo"
           />
-          <div className="relative w-full max-w-3xl overflow-hidden rounded-2xl bg-white p-4 shadow-xl">
-            <div className="flex items-center justify-between gap-4 pb-3">
+          <div className="relative w-full h-full max-w-2xl flex flex-col rounded-2xl bg-white shadow-xl overflow-hidden" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-gray-100 shrink-0">
               <div className="text-base font-semibold text-gray-900">
                 {[activeMember.lastName, activeMember.firstName].filter(Boolean).join(" ") || activeMember.fullName || "Багийн гишүүн"}
               </div>
@@ -572,16 +578,16 @@ export default function TeamsPage() {
                 <X size={16} />
               </button>
             </div>
-            <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50">
+            <div className="flex-1 overflow-hidden bg-gray-50 flex items-center justify-center">
               <img
                 src={activeMember.photoUrl || "/images/cover-2.png"}
                 alt={`${[activeMember.lastName, activeMember.firstName].filter(Boolean).join(" ") || activeMember.fullName || "Багийн гишүүн"} зураг`}
-                className="h-full w-full object-contain"
+                className="w-full h-full object-contain"
                 onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/images/cover-2.png"; }}
               />
             </div>
             {(activeMember.sportRank || activeMember.position || activeMember.registerNo || activeMember.job) && (
-              <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-gray-700">
+              <div className="px-5 py-4 grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-gray-700 border-t border-gray-100 shrink-0">
                 {activeMember.sportRank && (
                   <div><span className="text-gray-500">Спортын зэрэг:</span> {activeMember.sportRank}</div>
                 )}
