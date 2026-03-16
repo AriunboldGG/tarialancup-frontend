@@ -59,7 +59,7 @@ export default function Footer() {
                   href="tel:91006991"
                   className="font-semibold text-[#1D75B7] hover:underline"
                 >
-                  91006991...
+                  91006991
                 </a>
               </p>
             </div>
