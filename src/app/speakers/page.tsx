@@ -33,93 +33,93 @@ type Speaker = {
 const speakers: Speaker[] = [
   {
     id: "speaker-1",
-    firstName: "Test",
-    lastName: "Tester",
+    firstName: "Ариунболд",
+    lastName: "Ганбатын",
     workplace: "Хаан банк",
     profession: "Програм хангамжийн инженер",
     graduateUniversity: "ОХУ, Томскийн Политехникийн Их Сургууль",
-    talkTitle: "Технологийн эрин зуун",
-    photo: "/images/cover-1.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт.",
-    gallery: ["/images/cover-1.png", "/images/cover-2.png", "/images/cover-111.png"],
+    talkTitle: "Careers in IT: From Student to Solution Architect",
+    photo: "/images/speakers/speaker11.jpg",
+    intro: "Сайн байна уу? Намайг Ариунболд гэдэг. 2016 оны төгсөгч.\nБи Хаан банканд Мэдээлэл Технологи Архитект Өгөдлийн газарт шийдлийн архитект мэргэжлээр ажилладаг.\n\nМТ – н шийдлийн архитект нь тухайн байгууллагат ямар төрлийн технологи, системийг нэвтрүүлэх, шинээр хөгжүүлж буй системүүд дээр технологийн шийдлүүд гаргаж ажиллах үндсэн чиг үүрэгтэй байдаг.\nНэг үгээр миний хувьд Хаан банканд ашиглагдаж буй системүүдийн уялдаа холбоо тасралтгүй үйл ажиллагаа болон технологийн алсын харааг боловсруулж ажилладаг.\n\nЭнэ удаагийн эвэнтээр мэргэжил сонголт хийхээр ЭЕШ – дээ бэлтгэж байгаа төгсөгч дүү нартаа IT мэргэжлийн талаар өөрийн туршлагаас хуваалцах болсондоо баяртай байна.",
+    universityInfo: "ОХУ, Томскийн Политехникийн Их Сургууль",
+    jobInfo: "Хаан банк — Мэдээлэл Технологи Архитект Өгөдлийн газар, Шийдлийн архитект",
+    experience: "6+ жил",
+    gallery: ["/images/speakers/speaker11.jpg"],
   },
   {
     id: "speaker-2",
-    firstName: "Нэр",
-    lastName: "Овог",
-    workplace: "Ажлын газар",
-    profession: "Мэргэжил",
-    graduateUniversity: "Төгссөн сургууль",
-    talkTitle: "Ирээдүйн мэргэжил сонголт",
-    photo: "/images/cover-2.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
-    gallery: ["/images/cover-2.png", "/images/cover-1.png", "/images/cover-111.png"],
+    firstName: "Хонгорзул",
+    lastName: "Батдоржийн",
+    workplace: "Систем Арт Венчурс ХХК",
+    profession: "Ахлах шинжээч, Төслийн менежер",
+    graduateUniversity: "ШУТИС - Бизнесийн Удирдлага, Хүмүүнлэгийн Сургууль",
+    talkTitle: "Бизнесийн удирдлага мэргэжлийн ойлголт болон карьерын боломжууд",
+    photo: "/images/speakers/speaker2.jpg",
+    intro: "Сайн байна уу? Намайг Батдоржийн Хонгорзул гэдэг. Тариалан ЕБС-ыг 2017 онд төгссөн.\nШинжлэх Ухаан, Технологийн Их Сургууль-Бизнесийн Удирдлага, Хүмүүнлэгийн Сургуулийг Бизнесийн удирдлага, \"Мэдээллийн систем менежмент\" мэргэжлээр 2021 онд төгссөн.\n\nОдоогоор Систем Арт Венчурс ХХК-д байгууллагын менежментийн үнэлгээ, процессын дахин инженерчлэл, стратеги ба үйл ажиллагааны уялдааг сайжруулах, процессын архитектур боловсруулах, судалгаа болон нотолгоонд суурилсан шинжилгээ, мониторинг ба үр нөлөөний үнэлгээ зэрэг чиглэлээр олон улсын болон төрийн байгууллагын төслүүдэд төслийн менежер, ахлах шинжээчээр ажиллаж, байгууллагын үйл ажиллагааг илүү үр ашигтай болгох шийдлүүдийг боловсруулдаг. Энэ чиглэлээр 5 гаруй жилийн ажлын туршлагатай.\n\nЭнэ удаагийн эвэнтээр \"Бизнесийн удирдлага мэргэжлийн ойлголт болон карьерын боломжууд\" сэдвээр өөрийн туршлага, ойлголтоос та бүхэнтэй хуваалцах болсондоо баяртай байна.",
+    universityInfo: "Шинжлэх Ухаан, Технологийн Их Сургууль - Бизнесийн Удирдлага, Хүмүүнлэгийн Сургууль",
+    jobInfo: "Систем Арт Венчурс ХХК — Ахлах шинжээч, Төслийн менежер",
+    experience: "+5 жил",
+    gallery: ["/images/speakers/speaker2.jpg"],
   },
   {
     id: "speaker-3",
-    firstName: "Нэр",
-    lastName: "Овог",
-    workplace: "Ажлын газар",
-    profession: "Мэргэжил",
-    graduateUniversity: "Төгссөн сургууль",
-    talkTitle: "Өрсөлдөх чадвар ба ур чадвар",
-    photo: "/images/cover-111.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of de Finibus Bonorum et Malorum (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, Lorem ipsum dolor sit amet.., comes from a line in section 1.10.32. The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from de Finibus Bonorum et Malorum by Cicero are also reproduced in their exact original form, accompanied by English versions from the 1914 translation by H. Rackham",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
-    gallery: ["/images/cover-111.png", "/images/cover-1.png", "/images/cover-2.png"],
+    firstName: "Лувсанжамба",
+    lastName: "Батцэнгэлийн",
+    workplace: "Khazaar dance studio, CHANS зураг төслийн компани",
+    profession: "Бүжгийн багш, Архитектор, Захирал",
+    graduateUniversity: "Тариалан, Эрдмийн далай, ШУТИС",
+    talkTitle: "Бүжгийн спорт",
+    photo: "/images/speakers/speaker3.jpg",
+    intro: "Сайн байна уу? Намайг Лувсанжамба гэдэг. 2016 оны төгсөгч. Би одоогоор Хазаар бүжгийн студийн захирал, бүжгийн багш, найруулагчаар ажилладаг. Зуны улиралд барилгын салбарын эд ажлын үед Архитектор мэргэжлээр ажилладаг.\n\nУрлагийн арга хэмжээнд найруулагч хийж, бүжгийн спортын багш дасгалжуулагчаар олон шавь нараа улс болон дэлхийн тавцанд бэлтгэдэг. Мөн урлагийн хувцас үйлдвэрлэж, тэмцээн наадмуудад хувцас түрээс ажиллуулдаг. Архитектор мэргэжлээр мөн Улаанбаатар хотод баригдах барилгуудын зураг төслийг инженерүүдийн хамт гаргадаг.\nНэг үгээр Архитекторын туршлага бага тул Бүжгийн багш найруулагч талаар сургалт орвол илүү зохимжтой байх болов уу\n\nЭнэ удаагийн эвэнтээр мэргэжил сонголт хийхээр ЭЕШ-дээ бэлтгэж байгаа төгсөгч дүү нартаа Бүжгийн багш бүжиг дэглээч, найруулагч мэргэжлийн талаар өөрийн туршлагаасаа хуваалцах болсондоо баяртай байна.",
+    universityInfo: "ШУТИС",
+    jobInfo: "Khazaar dance studio — Захирал, Бүжгийн багш, Найруулагч; CHANS зураг төслийн компани — Архитектор",
+    experience: "Бүжгийн багш 10 жил, Архитектор 1 жил",
+    gallery: ["/images/speakers/speaker3.jpg"],
   },
   {
     id: "speaker-4",
-    firstName: "Нэр",
-    lastName: "Овог",
-    workplace: "Ажлын газар",
-    profession: "Мэргэжил",
-    graduateUniversity: "Төгссөн сургууль",
-    talkTitle: "Карьер төлөвлөлтийн зөвлөмж",
-    photo: "/images/cover-1.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
-    gallery: ["/images/cover-1.png", "/images/cover-2.png"],
+    firstName: "Идэрхангай",
+    lastName: "Эрдэнэбатын",
+    workplace: "Би Жи Эм дистрибьюшн ХХК",
+    profession: "Хүрээлэн буй орчны инженерчлэл",
+    graduateUniversity: "МУИС-ИТС",
+    talkTitle: "Хүрээлэн буй орчин судлал",
+    photo: "/images/speakers/speaker4.jpg",
+    intro: "Б.Нямдаваа багштай 2016 оны 12а ангийн төгсөгч. МУИС-ыг 2020, 2024 онуудад суралцаж төгссөн ба байгаль орчны нөлөөллийн үнэлгээ болон уул, уурхайн салбарт 6 дахь жилдээ ажиллаж байна.\n\nМиний мэргэжил нь томоохон төсөл хөтөлбөр буюу уул уурхай, үйлдвэрлэл, дэд бүтэц, аялал жуулчлалын төслийн үйл ажиллагаанаас байгаль орчинд үзүүлж болзошгүй нөлөөллийг ШУ-ны үндэслэлтэйгээр тодорхойлж төсөл хэрэгжүүлэгчид зөвлөх үйлчилгээ үзүүлдэг онцлогтой, улсынхаа 21 аймаг, 365 сумаар хээрийн судалгааны ажлаар тойрон аялах боломжтой мэргэжил билээ.\n\nЭнэ удаагийн эвэнтээр мэргэжил сонголт хийхээр ЭЕШ – дээ бэлтгэж байгаа төгсөгч дүү нартаа ХҮРЭЭЛЭН БУЙ ОРЧНЫ ИНЖЕНЕРЧЛЭЛ мэргэжлийн талаар өөрийн туршлагаас хуваалцах болсондоо баяртай байна.",
+    universityInfo: "МУИС-ИТС",
+    jobInfo: "Би Жи Эм дистрибьюшн ХХК — Хүрээлэн буй орчны инженер",
+    experience: "6 жил (байгаль орчны нөлөөллийн үнэлгээ, уул уурхайн салбар)",
+    gallery: ["/images/speakers/speaker4.jpg"],
   },
   {
     id: "speaker-5",
-    firstName: "Нэр",
-    lastName: "Овог",
-    workplace: "Ажлын газар",
-    profession: "Мэргэжил",
-    graduateUniversity: "Төгссөн сургууль",
-    talkTitle: "Дижитал эдийн засагт бэлтгэх нь",
-    photo: "/images/cover-2.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
-    gallery: ["/images/cover-2.png", "/images/cover-1.png"],
+    firstName: "Балжинням",
+    lastName: "Энэбишийн",
+    workplace: "EZNIIT design llc",
+    profession: "Интерьер дизайн",
+    graduateUniversity: "ШУТИС",
+    talkTitle: "Интерьер дизайны онцлог",
+    photo: "/images/speakers/speaker5.jpg",
+    intro: "Сайн байна уу? Намайг Балжинням гэдэг. 2016 оны төгсөгч.\nБи Ezniit LLC компанид үйлдвэрийн дарга, дизайнер мэргэжлээр ажилладаг.\n\nИнтерьер дизайнер нь тухайн орон зайн зориулалт, хэрэглэгчдийн хэрэгцээ шаардлагад тохируулан дотоод орчныг төлөвлөж, зохион байгуулалт, өнгө материал, гэрэлтүүлэг болон тавилгын шийдлийг боловсруулж ажилладаг мэргэжил юм. Мөн барилгын дотоод орчныг илүү тав тухтай, гоо зүйтэй, ашиглалтын хувьд үр ашигтай байхаар шийдэл гаргах нь интерьер дизайнерын үндсэн үүрэг байдаг.\n\nНэг үгээр хэлбэл миний хувьд тухайн орон зайг хүмүүс ажиллах, амьдрах, амрахад илүү таатай, зохион байгуулалттай орчин болгох дизайны шийдлүүдийг боловсруулж, түүний хэрэгжилтийг удирдан ажилладаг.\n\nЭнэ удаагийн эвэнтээр мэргэжил сонголт хийхээр ЭЕШ-д бэлтгэж байгаа төгсөгч дүү нартаа интерьер дизайнер мэргэжлийн талаар өөрийн туршлагаас хуваалцах болсондоо баяртай байна.",
+    universityInfo: "ШУТИС",
+    jobInfo: "EZNIIT design llc — Үйлдвэрийн дарга, Дизайнер",
+    experience: "+6 жил",
+    gallery: ["/images/speakers/speaker5.jpg"],
   },
   {
     id: "speaker-6",
-    firstName: "Нэр",
-    lastName: "Овог",
-    workplace: "Ажлын газар",
-    profession: "Мэргэжил",
-    graduateUniversity: "Төгссөн сургууль",
-    talkTitle: "Суралцах арга барил ба амжилт",
-    photo: "/images/cover-111.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
-    gallery: ["/images/cover-111.png", "/images/cover-1.png"],
+    firstName: "Хулан",
+    lastName: "Б.",
+    workplace: "",
+    profession: "",
+    graduateUniversity: "",
+    talkTitle: "",
+    photo: "/images/speakers/speaker6.jpg",
+    intro: "",
+    universityInfo: "",
+    jobInfo: "",
+    experience: "",
+    gallery: ["/images/speakers/speaker6.jpg"],
   },
   {
     id: "speaker-7",
@@ -129,62 +129,21 @@ const speakers: Speaker[] = [
     profession: "Мэргэжил",
     graduateUniversity: "Төгссөн сургууль",
     talkTitle: "Ажил мэргэжлийн сорилт",
-    photo: "/images/cover-1.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
-    gallery: ["/images/cover-1.png", "/images/cover-2.png"],
+    photo: "",
+    intro: "",
+    universityInfo: "",
+    jobInfo: "",
+    experience: "",
+    gallery: [],
   },
-  {
-    id: "speaker-8",
-    firstName: "Нэр",
-    lastName: "Овог",
-    workplace: "Ажлын газар",
-    profession: "Мэргэжил",
-    graduateUniversity: "Төгссөн сургууль",
-    talkTitle: "Шийдвэр гаргалт ба ирээдүй",
-    photo: "/images/cover-2.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
-    gallery: ["/images/cover-2.png", "/images/cover-111.png"],
-  },
-  {
-    id: "speaker-9",
-    firstName: "Нэр",
-    lastName: "Овог",
-    workplace: "Ажлын газар",
-    profession: "Мэргэжил",
-    graduateUniversity: "Төгссөн сургууль",
-    talkTitle: "Багийн ажил ба манлайлал",
-    photo: "/images/cover-111.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
-    gallery: ["/images/cover-111.png", "/images/cover-2.png"],
-  },
-  {
-    id: "speaker-10",
-    firstName: "Нэр",
-    lastName: "Овог",
-    workplace: "Ажлын газар",
-    profession: "Мэргэжил",
-    graduateUniversity: "Төгссөн сургууль",
-    talkTitle: "Мэргэжлийн өсөлт ба хөгжил",
-    photo: "/images/cover-1.png",
-    intro: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.",
-    universityInfo: "Төгссөн сургууль болон мэргэжлийн чиглэлийн мэдээлэл.",
-    jobInfo: "Одоогийн ажил, байгууллага, үүрэг хариуцлагын тухай.",
-    experience: "Ажлын туршлага, оролцсон төслүүд, ажилласан жил гэх мэт., .",
-    gallery: ["/images/cover-1.png", "/images/cover-111.png"],
-  },
+
+
+
 ];
 
 export default function SpeakersPage() {
   const [activeSpeaker, setActiveSpeaker] = useState<Speaker | null>(null);
+  const [zoomedPhoto, setZoomedPhoto] = useState<string | null>(null);
 
   return (
     <main className="min-h-screen bg-white">
@@ -229,12 +188,12 @@ export default function SpeakersPage() {
               className="overflow-hidden hover:border-[#8DC63F] transition-colors"
             >
               {speaker.photo ? (
-                <div className="relative w-full bg-gray-100" style={{ height: '400px' }}>
+                <div className="relative w-full bg-gray-100 cursor-zoom-in" style={{ height: '400px' }} onClick={() => setZoomedPhoto(speaker.photo!)}>
                   <Image
                     src={speaker.photo}
                     alt={`${speaker.lastName} ${speaker.firstName}`}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                     sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   />
                 </div>
@@ -247,29 +206,21 @@ export default function SpeakersPage() {
                 <div className="text-base font-semibold text-gray-900">
                   {speaker.lastName} {speaker.firstName}
                 </div>
-                <div className="text-sm text-gray-600">
-                  Ажлын газар:{" "}
-                  <span className="font-semibold text-gray-800">
-                    {speaker.workplace}
-                  </span>
+                <div className="text-sm text-gray-700">
+                  <span className="font-semibold text-gray-800">Ажлын газар:</span>{" "}
+                  {speaker.workplace}
                 </div>
-                <div className="text-sm text-gray-600">
-                  Мэргэжил:{" "}
-                  <span className="font-semibold text-gray-800">
-                    {speaker.profession}
-                  </span>
+                <div className="text-sm text-gray-700">
+                  <span className="font-semibold text-gray-800">Мэргэжил:</span>{" "}
+                  {speaker.profession}
                 </div>
-                <div className="text-sm text-gray-600">
-                  Төгссөн сургууль:{" "}
-                  <span className="font-semibold text-gray-800">
-                    {speaker.graduateUniversity}
-                  </span>
+                <div className="text-sm text-gray-700">
+                  <span className="font-semibold text-gray-800">Төгссөн сургууль:</span>{" "}
+                  {speaker.graduateUniversity}
                 </div>
-                <div className="text-sm text-gray-600">
-                  Илтгэлийн сэдэв:{" "}
-                  <span className="font-semibold text-gray-800">
-                    {speaker.talkTitle}
-                  </span>
+                <div className="text-sm text-gray-700">
+                  <span className="font-semibold text-gray-800">Илтгэлийн сэдэв:</span>{" "}
+                  {speaker.talkTitle}
                 </div>
                 <div className="pt-2">
                   <Button
@@ -293,11 +244,9 @@ export default function SpeakersPage() {
                 <h2 className="text-2xl md:text-3xl font-semibold text-gray-900">
                   {activeSpeaker.lastName} {activeSpeaker.firstName}
                 </h2>
-                <p className="text-base text-gray-600">
-                  Ажлын газар:{" "}
-                  <span className="font-semibold text-gray-800">
-                    {activeSpeaker.workplace}
-                  </span>
+                <p className="text-base text-gray-700">
+                  <span className="font-semibold text-gray-800">Ажлын газар:</span>{" "}
+                  {activeSpeaker.workplace}
                 </p>
               </div>
               <button
@@ -312,7 +261,7 @@ export default function SpeakersPage() {
             <div className="mt-4 space-y-3 text-base md:text-lg text-gray-700 leading-relaxed">
               <div>
                 <span className="font-semibold text-gray-800">Танилцуулга:</span> {" "}
-                <span>{activeSpeaker.intro}</span>
+                <span className="whitespace-pre-line">{activeSpeaker.intro}</span>
               </div>
               <div>
                 <span className="font-semibold text-gray-800">Мэргэжил:</span> {" "}
@@ -332,6 +281,22 @@ export default function SpeakersPage() {
               </div>
             </div>
             
+          </div>
+        </div>
+      )}
+
+      {zoomedPhoto && (
+        <div
+          className="fixed inset-0 z-[99999] flex items-center justify-center bg-black/80 p-4 cursor-zoom-out"
+          onClick={() => setZoomedPhoto(null)}
+        >
+          <div className="relative w-full max-w-2xl max-h-[90vh]">
+            <img
+              src={zoomedPhoto}
+              alt="Зураг томруулах"
+              className="w-full h-full object-contain rounded-xl"
+              style={{ maxHeight: '90vh' }}
+            />
           </div>
         </div>
       )}
