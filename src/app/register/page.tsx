@@ -873,26 +873,12 @@ export default function RegisterTeamPage() {
                 )}
                 <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
                   <p className="text-sm text-gray-700 mb-2">
-                    Бүртгэл илгээх хугацаа 2026.04.01-нд эхлэнэ
+                    Бүртгэл нээгдлээ!
                   </p>
-                  <div className="flex items-center gap-4 text-sm">
-                    <div className="flex items-center gap-1">
-                      <span className="font-semibold text-gray-900">{countdown.days}</span>
-                      <span className="text-gray-600">өдөр</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <span className="font-semibold text-gray-900">{String(countdown.hours).padStart(2, '0')}</span>
-                      <span className="text-gray-600">цаг</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <span className="font-semibold text-gray-900">{String(countdown.minutes).padStart(2, '0')}</span>
-                      <span className="text-gray-600">минут</span>
-                    </div>
-                    <div className="flex items-center gap-1">
-                      <span className="font-semibold text-gray-900">{String(countdown.seconds).padStart(2, '0')}</span>
-                      <span className="text-gray-600">секунд</span>
-                    </div>
-                  </div>
+                  <p className="text-sm text-gray-700 mb-2">
+                    Багийн бооцооны мөнгөө шилжүүлсний дараа таны бүртгэл баталгаажих болно.
+                  </p>
+                  
                 </div>
                 <div className="flex justify-end">
                   <Button
@@ -913,7 +899,6 @@ export default function RegisterTeamPage() {
             <h3 className="text-sm font-semibold text-gray-800 mb-2">Анхаарна уу:</h3>
             <ul className="text-sm text-gray-600 space-y-1 list-disc list-inside">
 
-              <li>Багийн бооцооны мөнгө шилжсэний дараа бүртгэл баталгаажих болно</li>
               <li>Дансны нэр: Тунгалагмөрөн</li>
               <li>Дансны дугаар: 5314583897</li>
               <li>Гүйлгээний утга: Бүртгэлийн хүсэлт илгээсний дараа гарч ирнэ</li>

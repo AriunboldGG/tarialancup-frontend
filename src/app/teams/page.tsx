@@ -468,11 +468,10 @@ export default function TeamsPage() {
                     </button>
                   <Swiper
                     spaceBetween={16}
-                    slidesPerView={1.1}
+                    slidesPerView={1}
                     modules={[]}
                     autoplay={false}
-                    loop={activeTeam.members.length > 6}
-                    loopAdditionalSlides={activeTeam.members.length > 6 ? Math.max(3, Math.ceil(activeTeam.members.length / 2)) : 0}
+                    loop={false}
                     watchOverflow={true}
                     preventInteractionOnTransition={true}
                     speed={300}
@@ -486,24 +485,12 @@ export default function TeamsPage() {
                     onSlideChange={(swiper) => setSlideIndex(swiper.realIndex)}
                     onSwiper={(swiper) => { swiperRef.current = swiper; setSlideIndex(swiper.realIndex); }}
                     breakpoints={{
-                      480: { 
-                        slidesPerView: 1.4,
-                        loop: activeTeam.members.length > 6,
-                        spaceBetween: 16
-                      },
-                      640: { 
-                        slidesPerView: 2.1,
-                        loop: activeTeam.members.length > 6,
-                        spaceBetween: 16
-                      },
-                      1024: { 
-                        slidesPerView: 3,
-                        loop: activeTeam.members.length > 6,
-                        spaceBetween: 16
-                      },
+                      480: { slidesPerView: 2, spaceBetween: 16 },
+                      640: { slidesPerView: 2, spaceBetween: 16 },
+                      1024: { slidesPerView: 3, spaceBetween: 16 },
                     }}
                   >
-                  {activeTeam.members.map((member, index) => (
+                  {activeTeam.members.slice(0, 12).map((member, index) => (
                     
                     <SwiperSlide key={`${member.lastName}-${member.firstName}-${index}`}>
                       <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm cursor-pointer">
@@ -511,7 +498,7 @@ export default function TeamsPage() {
                           <img
                             src={member.photoUrl || "/images/cover-2.png"}
                             alt="Багийн гишүүний зураг"
-                            className="w-full h-full object-cover object-top cursor-pointer"
+                            className="w-full h-full object-cover object-center cursor-pointer"
                             onClick={() => setActiveMember(member)}
                             onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/images/cover-2.png"; }}
                           />
@@ -539,7 +526,7 @@ export default function TeamsPage() {
                   </div>
                   {activeTeam.members.length > 3 && (
                     <div className="mt-3 flex gap-1">
-                      {activeTeam.members.map((_, i) => (
+                      {activeTeam.members.slice(0, 12).map((_, i) => (
                         <div
                           key={i}
                           className="h-1 flex-1 rounded-full transition-all duration-500"

@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import NavLink from "./NavLink";
 import { useCompanyInfo } from "@/hooks/useCompanyInfo";
 
@@ -196,19 +196,19 @@ export default function Header() {
                   НҮҮР
                 </NavLink>
                 <NavLink href="/#chapter-1" onClick={handlePanoramaNavAndClose("news")}>
-                  МЭДЭЭ
+                  <span className="flex items-center gap-1">МЭДЭЭ <ChevronDown size={14} className="text-[#1f632b]" /></span>
                 </NavLink>
-                <div className="ml-4 flex flex-col gap-1 text-sm">
-                  <NavLink href="/news" onClick={() => setIsMenuOpen(false)}>
+                <div className="ml-3 flex flex-col gap-0 border-l-2 border-[#1f632b]/20 pl-3">
+                  <NavLink href="/news" onClick={() => setIsMenuOpen(false)} className="text-sm text-gray-500 py-1">
                     Мэдээ мэдээлэл
                   </NavLink>
-                  <NavLink href="/speakers" onClick={() => setIsMenuOpen(false)}>
+                  <NavLink href="/speakers" onClick={() => setIsMenuOpen(false)} className="text-sm text-gray-500 py-1">
                     Мэргэжил сонголтын талаар
                   </NavLink>
-                  <NavLink href="/sponsors" onClick={() => setIsMenuOpen(false)}>
+                  <NavLink href="/sponsors" onClick={() => setIsMenuOpen(false)} className="text-sm text-gray-500 py-1">
                     Ивээн тэтгэгчид
                   </NavLink>
-                  <NavLink href="/news/agenda" onClick={() => setIsMenuOpen(false)}>
+                  <NavLink href="/news/agenda" onClick={() => setIsMenuOpen(false)} className="text-sm text-gray-500 py-1">
                     Хөтөлбөр
                   </NavLink>
                 </div>
