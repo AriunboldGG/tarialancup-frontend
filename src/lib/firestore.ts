@@ -220,6 +220,7 @@ export async function getRegistrationsBySportType(
               position: m.position || "",
               registerNo: m.registerNo || m.personalNumber || "",
               job: m.job || "",
+              profession: m.profession || "",
               photoUrl: [m.photoUrl, m.imageUrl].find((u) => u && !u.startsWith("blob:")) || "",
             }))
           : [],

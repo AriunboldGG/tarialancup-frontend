@@ -14,6 +14,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { log } from "node:console";
 
 type TeamMember = {
   lastName: string;
@@ -22,8 +23,11 @@ type TeamMember = {
   sportRank?: string;
   position?: string;
   registerNo?: string;
+  personalNumber?: string;
   job?: string;
+  profession?: string;
   photoUrl?: string;
+  imageUrl?: string;
 };
 
 type TeamRegistration = {
@@ -86,7 +90,12 @@ export default function TeamsPage() {
         const allTeams: TeamRegistration[] = allTeamsRaw.map((team: any) => ({
           ...team,
           id: team.id || "",
-          members: Array.isArray(team.members) ? team.members : [],
+          members: Array.isArray(team.members) ? team.members.map((m: any) => ({
+            ...m,
+            photoUrl: m.photoUrl || m.imageUrl || undefined,
+            registerNo: m.registerNo || m.personalNumber || undefined,
+            profession: m.profession || m.job 
+          })) : [],
         }));
         console.log("[TeamsPage] fetched teams:", allTeams.map(t => ({ id: t.id, teamName: t.teamName, membersCount: t.members.length, members: t.members })));
         setTeams(allTeams);
@@ -491,7 +500,7 @@ export default function TeamsPage() {
                     }}
                   >
                   {activeTeam.members.slice(0, 12).map((member, index) => (
-                    
+console.log("[TeamsPage] rendering member:", member),                    
                     <SwiperSlide key={`${member.lastName}-${member.firstName}-${index}`}>
                       <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm cursor-pointer">
                         <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50" style={{ height: '180px' }}>
@@ -506,11 +515,12 @@ export default function TeamsPage() {
                         <div className="mt-3 text-base font-semibold text-gray-900">
                           {[member.lastName, member.firstName].filter(Boolean).join(" ") || member.fullName || "-"}
                         </div>
+                        
                         <div className="mt-2 space-y-1 text-xs text-gray-500">
                           {member.sportRank && <div>Спортын зэрэг: {member.sportRank}</div>}
                           {member.position && <div>Байрлал: {member.position}</div>}
-                          {member.registerNo && <div>Хувийн дугаар: {member.registerNo}</div>}
-                          {member.job && <div>Ажил мэргэжил: {member.job}</div>}
+                          <div>Хувийн дугаар: {member.registerNo || "-"}</div>
+                          <div>Ажил мэргэжил: {member.profession || member.job || "-"}</div>
                         </div>
                       </div>
                     </SwiperSlide>
@@ -573,7 +583,7 @@ export default function TeamsPage() {
                 onError={(e) => { (e.currentTarget as HTMLImageElement).src = "/images/cover-2.png"; }}
               />
             </div>
-            {(activeMember.sportRank || activeMember.position || activeMember.registerNo || activeMember.job) && (
+            {(activeMember.sportRank || activeMember.position || activeMember.registerNo || activeMember.job || activeMember.profession) && (
               <div className="px-5 py-4 grid grid-cols-2 gap-x-6 gap-y-1 text-sm text-gray-700 border-t border-gray-100 shrink-0">
                 {activeMember.sportRank && (
                   <div><span className="text-gray-500">Спортын зэрэг:</span> {activeMember.sportRank}</div>
@@ -584,8 +594,8 @@ export default function TeamsPage() {
                 {activeMember.registerNo && (
                   <div><span className="text-gray-500">Хувийн дугаар:</span> {activeMember.registerNo}</div>
                 )}
-                {activeMember.job && (
-                  <div><span className="text-gray-500">Ажил мэргэжил:</span> {activeMember.job}</div>
+                {(activeMember.profession || activeMember.job) && (
+                  <div><span className="text-gray-500">Ажил мэргэжил:</span> {activeMember.profession || activeMember.job}</div>
                 )}
               </div>
             )}
