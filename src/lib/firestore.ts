@@ -28,7 +28,6 @@ export async function saveQuoteToFirestore(data: Quote): Promise<string> {
     };
     const quotesRef = collection(db, "quotes");
     const docRef = await addDoc(quotesRef, cleanData);
-    console.log(`Quote saved to quotes/${docRef.id}`);
     return docRef.id;
   } catch (error) {
     console.error("Error saving quote:", error);
@@ -289,7 +288,6 @@ export async function updateRegistrationStatus(
     const registrationRef = doc(db, sportCollection, registrationId);
 
     await updateDoc(registrationRef, { status });
-    console.log(`Registration ${registrationId} status updated to ${status}`);
   } catch (error) {
     console.error("Error updating registration status:", error);
     throw error;

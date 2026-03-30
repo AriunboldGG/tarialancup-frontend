@@ -288,7 +288,6 @@ export default function RegisterTeamPage() {
         members.map(async (member, idx) => {
           let photoUrl = "";
 
-          console.log(`[Upload] member[${idx}] photo=${!!member.photo} previewUrl=${member.previewUrl?.slice(0, 30)}`);
 
           // If a file was selected, upload it to Firebase Storage
           if (member.photo) {
@@ -298,7 +297,6 @@ export default function RegisterTeamPage() {
               submissionTeamName,
               `${member.lastName}-${member.firstName}`
             );
-            console.log(`[Upload] member[${idx}] result=${uploadedUrl?.slice(0, 60)}`);
             photoUrl = uploadedUrl || "";
           }
 
@@ -487,13 +485,14 @@ export default function RegisterTeamPage() {
                         {(() => {
                           const sport = submittedInfo.sportType || formData.sportType;
                           if (sport === "Сагсан бөмбөг") return "160,000₮";
+                          if (sport === "Дартс") return "80,000₮";
                           return "20,000₮";
                         })()}
                       </span>
                     </span>
                     <Button
                       type="button"
-                      onClick={() => handleCopy((submittedInfo.sportType || formData.sportType) === "Сагсан бөмбөг" ? "160000" : "20000")}
+                      onClick={() => { const s = submittedInfo.sportType || formData.sportType; handleCopy(s === "Сагсан бөмбөг" ? "160000" : s === "Дартс" ? "80000" : "20000"); }}
                       className="h-7 px-2 text-xs bg-[#1f632b] hover:bg-[#16451e] text-white cursor-pointer"
                     >
                       Хуулах
@@ -580,6 +579,11 @@ export default function RegisterTeamPage() {
                       <option value="Теннис">Теннис</option>
                     </select>
                   </div>
+                  {formData.sportType === "Дартс" && (
+                    <div className="md:col-span-2 rounded-lg border border-yellow-300 bg-yellow-50 px-4 py-3 text-sm text-yellow-800">
+                      ⚠️ <span className="font-semibold">Дартс тэмцээний дүрэм:</span> Баг нь <span className="font-semibold">2 эрэгтэй, 2 эмэгтэй</span> нийт <span className="font-semibold">4 гишүүнтэй</span> байна. Тоглолт нь <span className="font-semibold">багийн</span> дүрмээр явагдана.
+                    </div>
+                  )}
                   <div className="md:col-span-2">
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Багийн тоглох он:

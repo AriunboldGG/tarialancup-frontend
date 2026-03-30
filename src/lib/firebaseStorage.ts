@@ -69,7 +69,6 @@ export async function uploadTeamMemberPhoto(
 
   const fileName = `${safeMember}-${ts}.${safeExtension(fileExtension)}`;
   const path = `team-photos/${safeYear}/${safeTeam}/${fileName}`;
-  console.log(`[uploadTeamMemberPhoto] path=${path}`);
 
   return uploadFileToStorage(file, path);
 }

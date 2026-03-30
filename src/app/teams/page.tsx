@@ -97,7 +97,6 @@ export default function TeamsPage() {
             profession: m.profession || m.job 
           })) : [],
         }));
-        console.log("[TeamsPage] fetched teams:", allTeams.map(t => ({ id: t.id, teamName: t.teamName, membersCount: t.members.length, members: t.members })));
         setTeams(allTeams);
         // Extract filter options
         const sportTypesSet = new Set<string>();
@@ -375,8 +374,7 @@ export default function TeamsPage() {
                     <button
                       type="button"
                       onClick={() => {
-                        console.log("[TeamsPage] opening team modal:", team);
-                        console.log("[TeamsPage] members:", team.members);
+                
                         setActiveTeam(team);
                       }}
                       className="mt-4 w-full rounded-lg border border-[#1f632b] px-3 py-2 text-sm font-medium text-[#1f632b] transition hover:bg-[#1f632b] hover:text-white cursor-pointer"
@@ -500,7 +498,6 @@ export default function TeamsPage() {
                     }}
                   >
                   {activeTeam.members.slice(0, 12).map((member, index) => (
-console.log("[TeamsPage] rendering member:", member),                    
                     <SwiperSlide key={`${member.lastName}-${member.firstName}-${index}`}>
                       <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm cursor-pointer">
                         <div className="w-full overflow-hidden rounded-2xl border border-gray-200 bg-gray-50" style={{ height: '180px' }}>
