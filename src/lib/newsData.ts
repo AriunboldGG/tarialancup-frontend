@@ -7,9 +7,23 @@ export type NewsPost = {
   description?: string;
   content?: string;
   author?: string;
+  gallery?: string[];
 };
 
 const LOCAL_NEWS: NewsPost[] = [
+  {
+    id: "news-balls",
+    title: "Тэмцээний тоглолтын бөмбөг болон MVP шагналын бөмбөг ирлээ!",
+    date: "2026-04-11",
+    category: "Мэдээлэл",
+    img: "/images/ball-1.jpg",
+    description:
+      "2K26 Tarialan Cup тэмцээнд ашиглагдах тоглолтын бөмбөг болон шилдэг тоглогчид (MVP) олгох шагналын бөмбөг амжилттай ирлээ.",
+    content:
+      "2K26 Tarialan Cup тэмцээнд ашиглагдах тоглолтын бөмбөг болон MVP шагналын бөмбөгнүүдээ Солонгос улсаас захиалж хүлээн авлаа!\n\nТэмцээнд зориулан Wilson brand - н NBA ашиглагддаг бөмбөгүүдийг захиалсан бөгөөд тэмцээний шилдэг тоглогчид (MVP)-д тусгайлан нэмэлтээр шагналын бөмбөгийг гардуулна.\n\nТэмцээн болох хугацаа: 2026.05.16–17\nТэмцээн болох байршил: Тариалан сумын спорт заал",
+    author: "Tarialan cup - 2026",
+    gallery: ["/images/ball-1.jpg", "/images/ball-2.jpg"],
+  },
   {
     id: "news-coming-soon",
     title: "ТУН УДАХГҮЙ - 2K26 TARIALAN CUP",

@@ -166,11 +166,57 @@ export default function SpeakersPage() {
               Мэргэжил сонголтын талаар
             </h1>
             <p className="text-sm md:text-base text-gray-600 w-full">
-              &quot;Мэргэжил сонголт&quot; арга хэмжээнд 2014–2017 оны өөрсдийн мэргэжлээрээ салбар салбартаа манлайлж яваа төгсөгчид өөрсдийн түүх, ажлын туршлага, ажлын байрны өрсөлдөөн, өөрсдийн мэргэжлийн давуу болон сул тал, ажлын байран дээрх цалингийн мэдээлэл гэх мэт сонирхолтой мэргэжлүүдийн талаар, ирээдүйд мэргэжлээ сонгохоор бэлтгэж байгаа сурагч дүү нартаа өөрсдийн туршлагаас хуваалцах болно. Мөн хүрэлцэн ирж сонсохыг хүссэн хүн бүрд нээлттэй.<br />Уулзалтын үеэр онцлох үйл явдал нь 12-р ангийн сурагчдаас <strong>&quot;Миний хүссэн мэргэжил&quot;</strong> сэдвээр Эсээ бичлэгийн уралдаан зарлаж шалгарсан сурагчдад ирэх жилийн сургалтын төлбөрт тус болох үүднээс ... сая төгрөгийн шагнал тэмцээний хаалтын үеэр гардуулах болно.
+              &quot;Мэргэжил сонголт&quot; арга хэмжээнд 2014–2017 оны өөрсдийн мэргэжлээрээ салбар салбартаа манлайлж яваа төгсөгчид өөрсдийн түүх, ажлын туршлага, ажлын байрны өрсөлдөөн, өөрсдийн мэргэжлийн давуу болон сул тал, ажлын байран дээрх цалингийн мэдээлэл гэх мэт сонирхолтой мэргэжлүүдийн талаар, ирээдүйд мэргэжлээ сонгохоор бэлтгэж байгаа сурагч дүү нартаа өөрсдийн туршлагаас хуваалцах болно. Мөн хүрэлцэн ирж сонсохыг хүссэн хүн бүрд нээлттэй.<br />Уулзалтын үеэр онцлох үйл явдал нь 10-12-р ангийн сурагчдаас <strong>&quot;Миний сонгосон ирээдүйн мэргэжил&quot;</strong> сэдвээр Эсээ бичлэгийн уралдаан зарлаж Зохион байгуулагчдын зүгээс шагналт байруудыг шалгаруулж урамшуулах болно.
             </p>
-            
+            <div className="pt-3">
+              <a
+                href="/files/udirdamj.docx"
+                download="Удирдамж.docx"
+                className="inline-flex items-center gap-2 rounded-md bg-[#1f632b] px-4 py-2 text-sm font-medium text-white hover:bg-[#16451e] transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V4" />
+                </svg>
+                Удирдамж татах
+              </a>
+            </div>
           </div>
         </div>
+
+        {/* Prizes section */}
+        <div className="mb-8 w-full">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Тэмцээний шагнал</h2>
+          <p className="text-sm md:text-base text-gray-600 mb-4">
+            Уралдааны шилдэг бүтээлд дараах шагналыг олгоно. Шагналыг эвэнт дууссаны дараа гардуулах болно.
+          </p>
+          <div className="overflow-x-auto rounded-lg border border-gray-200">
+            <table className="w-full text-sm text-left">
+              <thead className="bg-[#1f632b] text-white">
+                <tr>
+                  <th className="px-4 py-3 font-semibold">Байр</th>
+                  <th className="px-4 py-3 font-semibold">Мөнгөн шагнал</th>
+                  <th className="px-4 py-3 font-semibold">Нэмэлт урамшуулал</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { place: "I байр", money: "500,000 ₮", bonus: '"Americano english" 500,000₮ эрхийн бичиг' },
+                  { place: "II байр", money: "400,000 ₮", bonus: '"Americano english" 500,000₮ эрхийн бичиг' },
+                  { place: "III байр", money: "300,000 ₮", bonus: "—" },
+                  { place: "IV байр", money: "200,000 ₮", bonus: "—" },
+                  { place: "V байр", money: "100,000 ₮", bonus: "—" },
+                ].map((row, i) => (
+                  <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                    <td className="px-4 py-3 font-semibold text-[#1f632b]">{row.place}</td>
+                    <td className="px-4 py-3 font-bold text-[#b8860b]">{row.money}</td>
+                    <td className="px-4 py-3 text-gray-700">{row.bonus}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <div>
           <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
             Илтгэгчид

@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import Image from "next/image";
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -28,20 +29,49 @@ const sponsors = [
   },
   {
     id: "sponsor-2",
-    name: "Ивээн тэтгэгч 2",
-    image: "/images/sponsors/cover-2.png",
+    name: "Ц. Энхболд",
+    info: "2014 оны төгсөгч Шинэхэн аймгийн алдарт уяач",
+    gift: "Унаган хурдан даага",
+    image: "/images/sponsors/sponsor2.jpg",
   },
   {
     id: "sponsor-3",
-    name: "Ивээн тэтгэгч 3",
-    image: "/images/sponsors/cover-4.png",
+    name: "Б. Хулан",
+    info: "2017 оны 12а ангийн төгсөгч",
+    gift: "Шилдэг тоглогчдын шагнал, мөн зохион байгууулалтын хувцас хэрэглэл",
+    image: "/images/sponsors/sponsor3.jpg",
   },
 ];
 
 export default function SponsorsPage() {
+  const [zoomedImage, setZoomedImage] = useState<{ src: string; alt: string } | null>(null);
+
   return (
     <main className="min-h-screen bg-[#f8fafc]">
       <Header />
+
+      {/* Lightbox */}
+      {zoomedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80"
+          onClick={() => setZoomedImage(null)}
+        >
+          <div className="relative max-h-[90vh] max-w-[90vw]" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="absolute -top-4 -right-4 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-black shadow-lg hover:bg-gray-200"
+              onClick={() => setZoomedImage(null)}
+            >
+              ✕
+            </button>
+            <img
+              src={zoomedImage.src}
+              alt={zoomedImage.alt}
+              className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
+
       <div className="container mx-auto px-4 py-10">
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
@@ -64,7 +94,10 @@ export default function SponsorsPage() {
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {sponsors.map((sponsor) => (
             <Card key={sponsor.id} className="overflow-hidden">
-              <div className="relative h-64 w-full bg-gray-100">
+              <div
+                className="relative h-64 w-full cursor-zoom-in bg-gray-100"
+                onClick={() => setZoomedImage({ src: sponsor.image, alt: sponsor.name })}
+              >
                 <Image
                   src={sponsor.image}
                   alt={sponsor.name}
@@ -80,6 +113,9 @@ export default function SponsorsPage() {
                 )}
                 {sponsor.amount && (
                   <div className="text-xl font-bold text-[#b8860b] mt-2">Хандив: {sponsor.amount}</div>
+                )}
+                {sponsor.gift && (
+                  <div className="text-xl font-bold text-[#2e7d32] mt-2">Бэлэг: {sponsor.gift}</div>
                 )}
               </CardHeader>
             </Card>

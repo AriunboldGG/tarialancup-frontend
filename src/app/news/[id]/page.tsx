@@ -20,6 +20,7 @@ export default function NewsDetailPage() {
   const newsId = typeof params.id === 'string' ? params.id : '';
   const [news, setNews] = useState<NewsPost | undefined>(undefined);
   const [isLoading, setIsLoading] = useState(true);
+  const [zoomedImage, setZoomedImage] = useState<string | null>(null);
 
   useEffect(() => {
     async function fetchNews() {
@@ -105,6 +106,28 @@ export default function NewsDetailPage() {
   return (
     <main className="min-h-screen bg-white">
       <Header />
+
+      {/* Lightbox */}
+      {zoomedImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 cursor-zoom-out"
+          onClick={() => setZoomedImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-full bg-white text-black shadow-lg hover:bg-gray-200 text-lg"
+            onClick={() => setZoomedImage(null)}
+          >
+            ✕
+          </button>
+          <img
+            src={zoomedImage}
+            alt="Томруулсан зураг"
+            className="max-h-[90vh] max-w-[90vw] rounded-lg object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
+
       <div className="container mx-auto px-4 py-8 md:py-12">
         <Breadcrumb className="mb-6">
           <BreadcrumbList>
@@ -136,7 +159,10 @@ export default function NewsDetailPage() {
 
           {/* Featured Image */}
           {news.img && news.img.trim() !== '' && (
-            <div className="relative w-full h-64 md:h-96 mb-8 rounded-lg overflow-hidden bg-gray-100">
+            <div
+              className="relative w-full h-64 md:h-96 mb-8 rounded-lg overflow-hidden bg-gray-100 cursor-zoom-in"
+              onClick={() => setZoomedImage(news.img)}
+            >
               <Image
                 src={news.img}
                 alt={news.title}
@@ -170,6 +196,27 @@ export default function NewsDetailPage() {
           {!news.content && !news.description && (
             <div className="text-gray-500 italic mb-8">
               Контент оруулаагүй байна.
+            </div>
+          )}
+
+          {/* Gallery */}
+          {news.gallery && news.gallery.length > 0 && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+              {news.gallery.map((src, i) => (
+                <div
+                  key={i}
+                  className="relative w-full h-64 rounded-lg overflow-hidden bg-gray-100 cursor-zoom-in"
+                  onClick={() => setZoomedImage(src)}
+                >
+                  <Image
+                    src={src}
+                    alt={`${news.title} - зураг ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, 50vw"
+                  />
+                </div>
+              ))}
             </div>
           )}
 

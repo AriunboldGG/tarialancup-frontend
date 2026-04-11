@@ -117,6 +117,7 @@ export default function Footer() {
 
         <div className="mt-10 border-t pt-6 flex flex-col gap-2 text-xs text-gray-500 md:flex-row md:items-center md:justify-between">
           <div>© 2026 Tarialan cup - 2026 . Зохиогчийн эрх хуулиар хамгаалагдсан</div>
+          <div>Нүүр хуудасны зургийг:©Amaa AB </div>
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
             <a
               href="https://ariunbold-portfolio.vercel.app/"
