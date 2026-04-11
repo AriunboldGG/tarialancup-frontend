@@ -200,11 +200,11 @@ export default function SpeakersPage() {
               </thead>
               <tbody>
                 {[
-                  { place: "I байр", money: "500,000 ₮", bonus: '"Americano english" 500,000₮ эрхийн бичиг' },
-                  { place: "II байр", money: "400,000 ₮", bonus: '"Americano english" 500,000₮ эрхийн бичиг' },
-                  { place: "III байр", money: "300,000 ₮", bonus: "—" },
-                  { place: "IV байр", money: "200,000 ₮", bonus: "—" },
-                  { place: "V байр", money: "100,000 ₮", bonus: "—" },
+                  { place: "I байр", money: " ₮", bonus: '"' },
+                  { place: "II байр", money: " ₮", bonus: '"' },
+                  { place: "III байр", money: " ₮", bonus: "—" },
+                  { place: "IV байр", money: " ₮", bonus: "—" },
+                  { place: "V байр", money: " ₮", bonus: "—" },
                 ].map((row, i) => (
                   <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                     <td className="px-4 py-3 font-semibold text-[#1f632b]">{row.place}</td>
