@@ -186,34 +186,66 @@ export default function SpeakersPage() {
         {/* Prizes section */}
         <div className="mb-8 w-full">
           <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Тэмцээний шагнал</h2>
-          <p className="text-sm md:text-base text-gray-600 mb-4">
-            Уралдааны шилдэг бүтээлд дараах шагналыг олгоно. Шагналыг эвэнт дууссаны дараа гардуулах болно.
+          <p className="text-sm md:text-base text-gray-600 mb-6">
+            Уралдааны шилдэг бүтээлд дараах шагналыг олгоно. Шагналыг 12-р анги, 10-11-р анги гэсэн хоёр төрөлд тус бүр эхний гурван байрыг шалгаруулж 2025 оны 05 сарын 15-нд эвэнтийн төгсгөлд гардуулна.
           </p>
-          <div className="overflow-x-auto rounded-lg border border-gray-200">
-            <table className="w-full text-sm text-left">
-              <thead className="bg-[#1f632b] text-white">
-                <tr>
-                  <th className="px-4 py-3 font-semibold">Байр</th>
-                  <th className="px-4 py-3 font-semibold">Мөнгөн шагнал</th>
-                  <th className="px-4 py-3 font-semibold">Нэмэлт урамшуулал</th>
-                </tr>
-              </thead>
-              <tbody>
-                {[
-                  { place: "I байр", money: " ₮", bonus: '"' },
-                  { place: "II байр", money: " ₮", bonus: '"' },
-                  { place: "III байр", money: " ₮", bonus: "—" },
-                  { place: "IV байр", money: " ₮", bonus: "—" },
-                  { place: "V байр", money: " ₮", bonus: "—" },
-                ].map((row, i) => (
-                  <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                    <td className="px-4 py-3 font-semibold text-[#1f632b]">{row.place}</td>
-                    <td className="px-4 py-3 font-bold text-[#b8860b]">{row.money}</td>
-                    <td className="px-4 py-3 text-gray-700">{row.bonus}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 12th grade */}
+            <div>
+              <h3 className="text-base md:text-lg font-bold text-gray-800 mb-3">12-р анги</h3>
+              <div className="overflow-x-auto rounded-lg border border-gray-200">
+                <table className="w-full text-sm text-left">
+                  <thead className="bg-[#1f632b] text-white">
+                    <tr>
+                      <th className="px-4 py-3 font-semibold">Байр</th>
+                      <th className="px-4 py-3 font-semibold">Мөнгөн шагнал</th>
+                      <th className="px-4 py-3 font-semibold">Нэмэлт урамшуулал</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { place: "I байр", money: "700,000₮", bonus: '"Americano english" 500,000₮ эрхийн бичиг' },
+                      { place: "II байр", money: "500,000₮", bonus: '"Americano english" 500,000₮ эрхийн бичиг' },
+                      { place: "III байр", money: "300,000₮", bonus: "—" },
+                    ].map((row, i) => (
+                      <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                        <td className="px-4 py-3 font-semibold text-[#1f632b]">{row.place}</td>
+                        <td className="px-4 py-3 font-bold text-[#b8860b]">{row.money}</td>
+                        <td className="px-4 py-3 text-gray-700">{row.bonus}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {/* 10-11th grade */}
+            <div>
+              <h3 className="text-base md:text-lg font-bold text-gray-800 mb-3">10-11-р анги</h3>
+              <div className="overflow-x-auto rounded-lg border border-gray-200">
+                <table className="w-full text-sm text-left">
+                  <thead className="bg-[#1f632b] text-white">
+                    <tr>
+                      <th className="px-4 py-3 font-semibold">Байр</th>
+                      <th className="px-4 py-3 font-semibold">Мөнгөн шагнал</th>
+                      <th className="px-4 py-3 font-semibold">Нэмэлт урамшуулал</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { place: "I байр", money: "500,000₮", bonus: "—" },
+                      { place: "II байр", money: "300,000₮", bonus: "—" },
+                      { place: "III байр", money: "200,000₮", bonus: "—" },
+                    ].map((row, i) => (
+                      <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
+                        <td className="px-4 py-3 font-semibold text-[#1f632b]">{row.place}</td>
+                        <td className="px-4 py-3 font-bold text-[#b8860b]">{row.money}</td>
+                        <td className="px-4 py-3 text-gray-700">{row.bonus}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
 
