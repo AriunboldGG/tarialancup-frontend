@@ -295,7 +295,8 @@ export default function RegisterTeamPage() {
               member.photo,
               formData.gradYear,
               submissionTeamName,
-              `${member.lastName}-${member.firstName}`
+              `${member.lastName}-${member.firstName}`,
+              idx
             );
             photoUrl = uploadedUrl || "";
           }

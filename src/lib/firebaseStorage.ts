@@ -59,15 +59,17 @@ export async function uploadTeamMemberPhoto(
   file: File,
   tournamentYear: string,
   teamName: string,
-  memberName: string
+  memberName: string,
+  memberIndex?: number
 ): Promise<string | null> {
   const ts = Date.now();
   const fileExtension = file.name.split(".").pop() || "jpg";
   const safeYear = safeSegment(tournamentYear || "") || `year-${ts}`;
-  let safeTeam = safeSegment(teamName || "") || safeSegment(memberName || "") || `team-${ts}`;
-  const safeMember = safeSegment(memberName || "") || `member-${ts}`;
+  let safeTeam = safeSegment(teamName || "") || `team-${ts}`;
+  const safeMember = safeSegment(memberName || "") || "member";
+  const idxPart = memberIndex !== undefined ? `${memberIndex}` : `${ts}`;
 
-  const fileName = `${safeMember}-${ts}.${safeExtension(fileExtension)}`;
+  const fileName = `${safeMember}-${idxPart}-${ts}.${safeExtension(fileExtension)}`;
   const path = `team-photos/${safeYear}/${safeTeam}/${fileName}`;
 
   return uploadFileToStorage(file, path);
