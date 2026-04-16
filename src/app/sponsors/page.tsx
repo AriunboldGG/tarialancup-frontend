@@ -128,9 +128,6 @@ export default function SponsorsPage() {
                 {sponsor.amount && (
                   <div className="text-xl font-bold text-[#b8860b] mt-2">Хандив: {sponsor.amount}</div>
                 )}
-                {sponsor.gift && (
-                  <div className="text-xl font-bold text-[#2e7d32] mt-2">Хандив: {sponsor.gift}</div>
-                )}
               </CardHeader>
             </Card>
           ))}
