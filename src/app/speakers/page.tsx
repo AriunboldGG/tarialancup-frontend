@@ -170,8 +170,8 @@ export default function SpeakersPage() {
             </p>
             <div className="pt-3">
               <a
-                href="/files/udirdamj.docx"
-                download="Удирдамж.docx"
+                href="/files/udirdamj.pdf"
+                download="Удирдамж.pdf"
                 className="inline-flex items-center gap-2 rounded-md bg-[#1f632b] px-4 py-2 text-sm font-medium text-white hover:bg-[#16451e] transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -204,9 +204,9 @@ export default function SpeakersPage() {
                   </thead>
                   <tbody>
                     {[
-                      { place: "I байр", money: "700,000₮", bonus: '"Americano english" 500,000₮ эрхийн бичиг' },
-                      { place: "II байр", money: "500,000₮", bonus: '"Americano english" 500,000₮ эрхийн бичиг' },
-                      { place: "III байр", money: "300,000₮", bonus: "—" },
+                      { place: "I байр", money: "1,300,000₮", bonus: "Медаль, өргөмжлөл" },
+                      { place: "II байр", money: "800,000₮", bonus: "Медаль, өргөмжлөл" },
+                      { place: "III байр", money: "400,000₮", bonus: "Медаль, өргөмжлөл" },
                     ].map((row, i) => (
                       <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                         <td className="px-4 py-3 font-semibold text-[#1f632b]">{row.place}</td>
@@ -232,9 +232,9 @@ export default function SpeakersPage() {
                   </thead>
                   <tbody>
                     {[
-                      { place: "I байр", money: "500,000₮", bonus: "—" },
-                      { place: "II байр", money: "300,000₮", bonus: "—" },
-                      { place: "III байр", money: "200,000₮", bonus: "—" },
+                      { place: "I байр", money: "500,000₮", bonus: "Медаль, өргөмжлөл" },
+                      { place: "II байр", money: "300,000₮", bonus: "Медаль, өргөмжлөл" },
+                      { place: "III байр", money: "200,000₮", bonus: "Медаль, өргөмжлөл" },
                     ].map((row, i) => (
                       <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                         <td className="px-4 py-3 font-semibold text-[#1f632b]">{row.place}</td>
@@ -247,6 +247,14 @@ export default function SpeakersPage() {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Event Location section */}
+        <div className="mb-8 w-full">
+          <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">Эвэнт болох байршил</h2>
+          <p className="text-sm md:text-base text-gray-600">
+            Тариалан сумын Соёлын төвд 2026 оны 05-р сарын 15-нд 15:00 -17:00 цагийн хооронд болно
+          </p>
         </div>
 
         <div>
