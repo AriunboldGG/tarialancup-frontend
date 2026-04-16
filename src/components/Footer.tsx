@@ -75,6 +75,8 @@ export default function Footer() {
                 <Image src="/svg/fb-footer.svg" alt="Facebook" width={9} height={14} />
               </a>
             </div>
+            <div className="mt-4 text-xs font-semibold text-gray-800 mb-1">Зохион байгуулагч үе:</div>
+            <div className="space-y-1 text-xs text-gray-600">Тариалан сумын 2014-2017 оны төгсөгчид</div>
           </div>
 
           {/* Address with Map */}
@@ -125,7 +127,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-gray-800 hover:underline"
             >
-              Developed by: Ariunbold Ganbat
+              Вебсайт хөгжүүлсэн: Ганбатын Ариунболд
             </a>
             <div className="flex items-center gap-4">
               {/* <Image src="/svg/mastercard.svg" alt="Mastercard" width={36} height={22} />
