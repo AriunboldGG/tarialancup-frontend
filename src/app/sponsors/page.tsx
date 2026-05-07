@@ -55,6 +55,13 @@ const sponsors = [
     amount: "2,500,000₮ Эсээ бичлэгийн уралдааны 12-р ангийн шагналыг ивээн тэтгэж байна",
     image: "/images/sponsors/sponsor5.jpg",
   },
+  {
+    id: "sponsor-6",
+    name: "Б. Батцэцэг",
+    info: "2005 оны төгсөгч",
+    amount: "1,000,000₮",
+    image: "/images/sponsors/sponsor6.jpg",
+  },
 ];
 
 export default function SponsorsPage() {

@@ -127,7 +127,7 @@ export default function Footer() {
               rel="noopener noreferrer"
               className="text-gray-600 hover:text-gray-800 hover:underline"
             >
-              Вебсайт хөгжүүлсэн: Ганбатын Ариунболд
+              Вебсайт хөгжүүлсэн: Г. Ариунболд
             </a>
             <div className="flex items-center gap-4">
               {/* <Image src="/svg/mastercard.svg" alt="Mastercard" width={36} height={22} />

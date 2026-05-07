@@ -160,16 +160,13 @@ export default function NewsDetailPage() {
           {/* Featured Image */}
           {news.img && news.img.trim() !== '' && (
             <div
-              className="relative w-full h-64 md:h-96 mb-8 rounded-lg overflow-hidden bg-gray-100 cursor-zoom-in"
+              className="w-full mb-8 rounded-lg overflow-hidden bg-gray-100 cursor-zoom-in flex justify-center"
               onClick={() => setZoomedImage(news.img)}
             >
-              <Image
+              <img
                 src={news.img}
                 alt={news.title}
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1024px"
+                className="w-full h-auto object-contain rounded-lg"
               />
             </div>
           )}
