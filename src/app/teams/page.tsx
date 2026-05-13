@@ -5,7 +5,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { getRegistrationsBySportType } from "@/lib/firestore";
 import Header from "@/components/Header";
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+import "swiper/swiper.css";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -47,7 +47,7 @@ type TeamRegistration = {
 
 
 export default function TeamsPage() {
-  const TEAMS_PER_PAGE = 24;
+  const TEAMS_PER_PAGE = 27;
   const [teams, setTeams] = useState<TeamRegistration[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeTeam, setActiveTeam] = useState<TeamRegistration | null>(null);
@@ -71,8 +71,9 @@ export default function TeamsPage() {
   // Utility to normalize gender label
   function normalizeGenderLabel(gender: string) {
     if (!gender) return "-";
-    if (gender === "male" || gender === "эрэгтэй") return "Эрэгтэй";
-    if (gender === "female" || gender === "эмэгтэй") return "Эмэгтэй";
+    const lower = gender.toLowerCase().trim();
+    if (lower === "male" || lower === "эрэгтэй" || lower === "эр" || lower === "м") return "Эрэгтэй";
+    if (lower === "female" || lower === "эмэгтэй" || lower === "эм" || lower === "э") return "Эмэгтэй";
     return gender;
   }
 
@@ -111,8 +112,13 @@ export default function TeamsPage() {
         });
         setFilterOptions({
           sportTypes: Array.from(sportTypesSet),
-          classGroups: Array.from(classGroupsSet),
-          gradYears: Array.from(gradYearsSet),
+          classGroups: Array.from(classGroupsSet).sort((a, b) => {
+            const numA = parseInt(a) || 0;
+            const numB = parseInt(b) || 0;
+            if (numB !== numA) return numB - numA;
+            return a.localeCompare(b);
+          }),
+          gradYears: Array.from(gradYearsSet).sort((a, b) => b.localeCompare(a, undefined, { numeric: true })),
           genders: Array.from(gendersSet),
         });
       } catch (e) {
@@ -139,6 +145,11 @@ export default function TeamsPage() {
       return true;
     });
   }, [teams, activeRange, sportTypes, classGroups, gradYears, genders]);
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeRange, sportTypes, classGroups, gradYears, genders]);
 
   // Pagination
   const totalPages = Math.ceil(filteredTeams.length / TEAMS_PER_PAGE);
@@ -245,6 +256,32 @@ export default function TeamsPage() {
             </div>
 
             <div className="rounded-2xl border border-gray-200 bg-white p-4">
+              <h3 className="text-sm font-semibold text-gray-900 mb-3">Хүйс</h3>
+              <div className="space-y-2 text-sm text-gray-700">
+                {filterOptions.genders.length === 0 ? (
+                  <div className="text-gray-400">Мэдээлэл алга</div>
+                ) : (
+                  filterOptions.genders.map((option, index) => {
+                    let display = option;
+                    if (option === "эр" || option === "эрэгтэй") display = "Эрэгтэй";
+                    if (option === "эм" || option === "эмэгтэй") display = "Эмэгтэй";
+                    return (
+                      <label key={`${option}-${index}`} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={genders.includes(option)}
+                          onChange={() => toggleSelection(option, genders, setGenders)}
+                          className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+                        />
+                        <span>{display}</span>
+                      </label>
+                    );
+                  })
+                )}
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-gray-200 bg-white p-4">
               <h3 className="text-sm font-semibold text-gray-900 mb-3">Анги</h3>
               <div className="space-y-2 text-sm text-gray-700">
                 {filterOptions.classGroups.length === 0 ? (
@@ -285,32 +322,6 @@ export default function TeamsPage() {
                 )}
               </div>
             </div>
-
-            <div className="rounded-2xl border border-gray-200 bg-white p-4">
-              <h3 className="text-sm font-semibold text-gray-900 mb-3">Хүйс</h3>
-              <div className="space-y-2 text-sm text-gray-700">
-                {filterOptions.genders.length === 0 ? (
-                  <div className="text-gray-400">Мэдээлэл алга</div>
-                ) : (
-                  filterOptions.genders.map((option, index) => {
-                    let display = option;
-                    if (option === "эр" || option === "эрэгтэй") display = "Эрэгтэй";
-                    if (option === "эм" || option === "эмэгтэй") display = "Эмэгтэй";
-                    return (
-                      <label key={`${option}-${index}`} className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          checked={genders.includes(option)}
-                          onChange={() => toggleSelection(option, genders, setGenders)}
-                          className="h-4 w-4 rounded border-gray-300 cursor-pointer"
-                        />
-                        <span>{display}</span>
-                      </label>
-                    );
-                  })
-                )}
-              </div>
-            </div>
           </aside>
 
           <section>
@@ -320,7 +331,7 @@ export default function TeamsPage() {
               </div>
             ) : (
               <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
-                {filteredTeams.map((team) => (
+                {paginatedTeams.map((team) => (
                   <div
                     key={team.id}
                     className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm"
@@ -383,6 +394,59 @@ export default function TeamsPage() {
                     </button>
                   </div>
                 ))}
+              </div>
+            )}
+
+            {totalPages > 1 && (
+              <div className="mt-8 flex items-center justify-center gap-1">
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                  disabled={currentPage === 1}
+                  className="flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 bg-white text-gray-600 hover:border-[#1f632b] hover:text-[#1f632b] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition"
+                >
+                  <ChevronLeft size={16} />
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1)
+                  .filter((page) => {
+                    if (totalPages <= 7) return true;
+                    if (page === 1 || page === totalPages) return true;
+                    if (Math.abs(page - currentPage) <= 1) return true;
+                    return false;
+                  })
+                  .reduce<(number | "...")[]>((acc, page, idx, arr) => {
+                    if (idx > 0 && typeof arr[idx - 1] === "number" && (page as number) - (arr[idx - 1] as number) > 1) {
+                      acc.push("...");
+                    }
+                    acc.push(page);
+                    return acc;
+                  }, [])
+                  .map((item, idx) =>
+                    item === "..." ? (
+                      <span key={`ellipsis-${idx}`} className="px-2 text-gray-400 select-none">&hellip;</span>
+                    ) : (
+                      <button
+                        key={item}
+                        type="button"
+                        onClick={() => setCurrentPage(item as number)}
+                        className={`flex items-center justify-center w-9 h-9 rounded-lg border text-sm font-medium transition cursor-pointer ${
+                          currentPage === item
+                            ? "border-[#1f632b] bg-[#1f632b] text-white"
+                            : "border-gray-200 bg-white text-gray-700 hover:border-[#1f632b] hover:text-[#1f632b]"
+                        }`}
+                      >
+                        {item}
+                      </button>
+                    )
+                  )}
+                <button
+                  type="button"
+                  onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                  disabled={currentPage === totalPages}
+                  className="flex items-center justify-center w-9 h-9 rounded-lg border border-gray-200 bg-white text-gray-600 hover:border-[#1f632b] hover:text-[#1f632b] disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer transition"
+                >
+                  <ChevronRight size={16} />
+                </button>
               </div>
             )}
           </section>
@@ -631,6 +695,27 @@ export default function TeamsPage() {
               </div>
 
               <div className="rounded-xl border border-gray-200 p-4">
+                <h4 className="text-sm font-semibold text-gray-900 mb-3">Хүйс</h4>
+                <div className="space-y-2 text-sm text-gray-700">
+                  {filterOptions.genders.length === 0 ? (
+                    <div className="text-gray-400">Мэдээлэл алга</div>
+                  ) : (
+                    filterOptions.genders.map((option, index) => (
+                      <label key={`${option}-${index}`} className="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          checked={genders.includes(option)}
+                          onChange={() => toggleSelection(option, genders, setGenders)}
+                          className="h-4 w-4 rounded border-gray-300 cursor-pointer"
+                        />
+                        <span>{option}</span>
+                      </label>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-gray-200 p-4">
                 <h4 className="text-sm font-semibold text-gray-900 mb-3">Анги</h4>
                 <div className="space-y-2 text-sm text-gray-700">
                   {filterOptions.classGroups.length === 0 ? (
@@ -663,27 +748,6 @@ export default function TeamsPage() {
                           type="checkbox"
                           checked={gradYears.includes(option)}
                           onChange={() => toggleSelection(option, gradYears, setGradYears)}
-                          className="h-4 w-4 rounded border-gray-300 cursor-pointer"
-                        />
-                        <span>{option}</span>
-                      </label>
-                    ))
-                  )}
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-gray-200 p-4">
-                <h4 className="text-sm font-semibold text-gray-900 mb-3">Хүйс</h4>
-                <div className="space-y-2 text-sm text-gray-700">
-                  {filterOptions.genders.length === 0 ? (
-                    <div className="text-gray-400">Мэдээлэл алга</div>
-                  ) : (
-                    filterOptions.genders.map((option, index) => (
-                      <label key={`${option}-${index}`} className="flex items-center gap-2">
-                        <input
-                          type="checkbox"
-                          checked={genders.includes(option)}
-                          onChange={() => toggleSelection(option, genders, setGenders)}
                           className="h-4 w-4 rounded border-gray-300 cursor-pointer"
                         />
                         <span>{option}</span>
